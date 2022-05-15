@@ -1,3 +1,6 @@
+import os
+import subprocess
+
 from docx import Document
 from docx import enum
 from docx.shared import Pt
@@ -32,4 +35,31 @@ def package(filename: str, meta: dict):
         bib_label.paragraph_format.page_break_before = True
         bib_label.runs[0].underline = True
 
+    doc.core_properties.author = meta["data"]["author"]
+    doc.core_properties.title = meta["data"]["title"]
+
     doc.save(filename)
+
+def make_pdf(filename: str):
+    filepath = os.path.abspath(filename)
+    base = os.path.splitext(filepath)[0]
+    pdf_filename = base + ".pdf"
+
+    applescript = f"""
+    tell application "System Events" to set wordIsRunning to exists (processes where name is "Microsoft Word")
+
+    tell application id "com.microsoft.Word"
+        activate
+        open "{filepath}"
+        repeat while not (active document is not missing value)
+            delay 0.5
+        end repeat
+        set activeDoc to active document
+        save as activeDoc file name "{pdf_filename}" file format format PDF
+        close activeDoc saving no
+        if not wordIsRunning then
+            quit
+        end if
+    end tell
+    """
+    subprocess.run(["osascript", "-"], input=applescript.encode("utf-8"))

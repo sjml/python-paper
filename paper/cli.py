@@ -11,7 +11,7 @@ import yaml
 
 from . import LIB_NAME, LIB_VERSION
 from .util import merge_dictionary
-from .doc_handling import package
+from .doc_handling import package, make_pdf
 
 VERSION_STRING = f"{LIB_NAME} v{LIB_VERSION}"
 
@@ -128,7 +128,7 @@ def build():
                 raise RuntimeError()
             source_text = resp.read()
             with open(bib_path, "w") as output:
-                output.write(source_text)
+                output.write(source_text.decode("utf-8"))
         except ConnectionError:
             typer.echo("No library export and Zotero is not running.")
     if os.path.exists(bib_path):
@@ -145,6 +145,8 @@ def build():
     subprocess.call(cmd)
 
     package(docx_filename, meta)
+    make_pdf(docx_filename)
+
 
 @_app.command()
 def wc():
