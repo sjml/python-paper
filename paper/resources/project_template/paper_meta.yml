@@ -1,0 +1,10 @@
+---
+data:
+  date: "[DATE]"
+  author: "[AUTHOR]"
+  title: "[TITLE]"
+
+class_mnemonic: "[MNEMONIC]"
+class_name: "[CLASS_NAME]"
+professor: "[PROFESSOR]"
+---

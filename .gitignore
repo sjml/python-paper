@@ -1,0 +1,5 @@
+/env
+/playground
+
+__pycache__
+*.egg-info
