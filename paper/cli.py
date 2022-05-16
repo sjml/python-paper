@@ -4,7 +4,6 @@ from pathlib import Path
 import subprocess
 import datetime
 import re
-import http.client
 
 import typer
 import yaml
@@ -38,7 +37,7 @@ def init():
         typer.echo(f"Directory needs to be empty to initialize project.")
         raise typer.Exit(1)
     template_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources", "project_template")
-    proj_path = Path(".").absolute()
+    proj_path = Path(".").resolve()
     dir_util.copy_tree(template_path, proj_path.as_posix())
 
     meta = {}
@@ -52,10 +51,10 @@ def init():
             if len(metas) > 1:
                 typer.echo(f"Found more than one meta document at '{meta_path}'.")
                 typer.Exit(1)
+            meta_chain.append(metas[0])
         curr_path = curr_path.parent
         if curr_path.as_posix() == curr_path.root:
             break
-        meta_chain.append(metas[0])
     meta_chain.reverse()
 
     for m in meta_chain:
@@ -114,29 +113,17 @@ def build():
         "--metadata-file", "./paper_meta.yml",
     ]
 
-    bib_path = "./sources.biblatex"
-    if not os.path.exists(bib_path):
-        # try to snag it?
-        hc = http.client.HTTPConnection("127.0.0.1", port=23119)
-        url = "/better-bibtex/export/library?/1/library.biblatex"
+    bib_path_strings = meta.get("sources", [])
+    bib_paths = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
+    bib_paths = [p for p in bib_paths if p.exists()]
 
-        try:
-            hc.request("GET", url)
-            resp = hc.getresponse()
-            code = resp.getcode()
-            if code != 200:
-                raise RuntimeError()
-            source_text = resp.read()
-            with open(bib_path, "w") as output:
-                output.write(source_text.decode("utf-8"))
-        except ConnectionError:
-            typer.echo("No library export and Zotero is not running.")
-    if os.path.exists(bib_path):
+    if len(bib_paths) > 0:
         cmd.extend([
             "--citeproc",
-            "--bibliography", bib_path,
             "--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl",
         ])
+        for bp in bib_paths:
+            cmd.extend(["--bibliography", bp])
     else:
         typer.echo("No citation processing.")
 
@@ -145,7 +132,7 @@ def build():
     subprocess.call(cmd)
 
     package(docx_filename, meta)
-    make_pdf(docx_filename)
+    # make_pdf(docx_filename)
 
 
 @_app.command()
