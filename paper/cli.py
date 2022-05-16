@@ -238,9 +238,9 @@ def get_progress_image_str() -> str:
         ys.append(goal_wc)
     plt.ylim(0, max(ys) + 100)
     if due_date:
-        plt.xlim(min(dates), max(max(dates), due_date) + 1)
+        plt.xlim(min(dates) - 1, max(max(dates), due_date) + 1)
     else:
-        plt.xlim(min(dates), max(dates) + 1)
+        plt.xlim(min(dates) - 1, max(dates) + 1)
 
     plt.title("Progress")
     ax.set_ylabel("Word Count")
