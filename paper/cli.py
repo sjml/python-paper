@@ -24,6 +24,17 @@ _app = typer.Typer()
 def main():
     _app()
 
+def get_metadata() -> dict:
+    data = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    if "data" not in data:
+        data["data"] = {}
+    if "date" not in data["data"] or data["data"]["date"] == "[DATE]":
+        data["data"]["date"] = None
+    else:
+        date = datetime.datetime.fromisoformat(data["data"]["date"])
+        data["data"]["date"] = date
+    return data
+
 @_app.command()
 def new(project_name: str):
     print(f"Starting new project called '{project_name}'...")
@@ -95,7 +106,7 @@ def ensure_paper_dir():
         bail()
 
 def get_assignment() -> str:
-    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    meta = get_metadata()
     if "assignment" in meta:
         return meta["assignment"]
     else:
@@ -108,7 +119,7 @@ def build():
     if not os.path.exists("./out"):
         os.mkdir("./out")
 
-    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    meta = get_metadata()
 
     if "filename" not in meta:
         author = meta["data"]["author"].split(",")[0].split(" ")[-1]
@@ -212,7 +223,10 @@ def get_progress_image_str() -> str:
     wcs = [c if isinstance(c, int) else 0 for c in wcs]
     wcs.append(sum(wc_data().values()))
 
-    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    meta = get_metadata()
+    due_date = meta["data"]["date"]
+    if due_date:
+        due_date = md.date2num(due_date)
     goal_wc = meta.get("target_word_count", None)
 
     plt.rcParams['font.family'] = 'sans-serif'
@@ -223,11 +237,18 @@ def get_progress_image_str() -> str:
     if goal_wc:
         ys.append(goal_wc)
     plt.ylim(0, max(ys) + 100)
+    if due_date:
+        plt.xlim(min(dates), max(max(dates), due_date) + 1)
+    else:
+        plt.xlim(min(dates), max(dates) + 1)
+
     plt.title("Progress")
     ax.set_ylabel("Word Count")
     ax.plot(dates, wcs)
     if goal_wc:
         ax.axhline(goal_wc, color="green")
+    if due_date:
+        ax.axvline(due_date, color="red")
     fig.tight_layout()
 
     plt.rcParams['svg.fonttype'] = 'none'
@@ -244,7 +265,7 @@ def get_progress_image_str() -> str:
 def save():
     ensure_paper_dir()
 
-    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    meta = get_metadata()
 
     if not os.path.exists("./README.md"):
         with open("./README.md", "w") as readme:
@@ -269,9 +290,9 @@ def save():
     wc = wc_data();
     total = sum(wc.values())
     message += f"\n\n[WC: {total}]"
-    # with open(os.devnull, 'wb') as dev_null:
-    #     subprocess.call(["git", "add", "."], stdout=dev_null)
-    #     subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
+    with open(os.devnull, 'wb') as dev_null:
+        subprocess.call(["git", "add", "."], stdout=dev_null)
+        subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
 
 
 # doesn't handle branching and stuff
@@ -282,7 +303,7 @@ def push():
     remote = subprocess.check_output(["git", "remote", "-v"])
 
     if len(remote) == 0:
-        meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+        meta = get_metadata()
         default_repo = f"{meta['class_mnemonic']}_{get_assignment()}"
 
         repo_name = typer.prompt("What should be the repository name?", default_repo)

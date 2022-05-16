@@ -3,5 +3,3 @@
         - https://groups.google.com/g/pandoc-discuss/c/aj9Ov_4eEU4
 
 default vs code tasks? 
-word count
-    - then append to git commits, diffing from the last

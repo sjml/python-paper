@@ -19,10 +19,19 @@ def package(filename: str, meta: dict):
     starting_graph = doc.paragraphs[0]
     starting_graph.paragraph_format.page_break_before = True
 
+    raw_date = meta['data']['date']
+    if raw_date == None:
+        target_date = datetime.now()
+    else:
+        target_date = raw_date
+    # I think this is the Chicago style?
+    date_string = target_date.strftime("%B %-d, %Y")
+    # MLA: "%-d %B %Y"
+
     starting_graph.insert_paragraph_before(meta["data"]["title"], style="Title")
     starting_graph.insert_paragraph_before("by", style="Author")
     starting_graph.insert_paragraph_before(meta["data"]["author"], style="Author")
-    starting_graph.insert_paragraph_before(f"{meta['professor']}\n{meta['class_mnemonic']} — {meta['class_name']}\n{meta['data']['date']}", style="Author")
+    starting_graph.insert_paragraph_before(f"{meta['professor']}\n{meta['class_mnemonic']} — {meta['class_name']}\n{date_string}", style="Author")
 
     last_graph_idx = -1
     while True:
