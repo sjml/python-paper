@@ -5,9 +5,9 @@ from datetime import datetime
 from docx import Document
 from docx import enum
 from docx.shared import Pt
+from PyPDF2 import PdfFileReader, PdfFileWriter
 
 from . import LIB_NAME, LIB_VERSION
-from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
 def package(filename: str, meta: dict):

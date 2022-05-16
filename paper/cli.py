@@ -4,15 +4,21 @@ from pathlib import Path
 import subprocess
 import datetime
 import re
+import io
 
 import typer
 import yaml
+import matplotlib.dates as md
+import matplotlib.pyplot as plt
 
 from . import LIB_NAME, LIB_VERSION
 from .util import merge_dictionary
 from .doc_handling import package, make_pdf
 
 VERSION_STRING = f"{LIB_NAME} v{LIB_VERSION}"
+
+METADATA_START_SENTINEL = "<!-- begin paper metadata -->"
+METADATA_END_SENTINEL   = "<!-- end paper metadata -->"
 
 _app = typer.Typer()
 def main():
@@ -69,10 +75,10 @@ def init():
         yaml.safe_dump(meta, output, sort_keys=False)
         output.write("---\n")
 
-    dev_null = open(os.devnull, 'wb')
-    subprocess.call(["git", "init"], stdout=dev_null)
-    subprocess.call(["git", "add", "."], stdout=dev_null)
-    subprocess.call(["git", "commit", "-m", f"Project creation at {datetime.datetime.now()}"], stdout=dev_null)
+    with open(os.devnull, 'wb') as dev_null:
+        subprocess.call(["git", "init"], stdout=dev_null)
+        subprocess.call(["git", "add", "."], stdout=dev_null)
+        subprocess.call(["git", "commit", "-m", f"Initial project creation"], stdout=dev_null)
 
 def ensure_paper_dir():
     def bail():
@@ -142,21 +148,130 @@ def build():
     package(docx_filename, meta)
     make_pdf(docx_filename, meta)
 
+def wc_data() -> dict[str,int]:
+    wc_map = {}
+    content_files = os.listdir("./content")
+    for cf in content_files:
+        cf_path = os.path.join("./content", cf)
+        contents = open(cf_path, "r").read().strip()
+        if contents.startswith("---\n"):
+            contents = contents.split("---\n")[2]
+        wc_map[cf] = len(contents.split())
+    return wc_map
+
+def wc_string() -> str:
+    wc_map = wc_data()
+    filename_max_len = max(*[len(fn)+2 for fn in wc_map.keys()], len("Files"), len("**TOTAL**"))
+    wc_max_len = max(*[len(str(wc)) for wc in wc_map.values()], len("Word Count"))
+
+    output = "## Current word count:\n"
+    output += f"| {'File':<{filename_max_len}} | {'Word Count':<{wc_max_len}} |\n"
+    output += f"| {'':-<{filename_max_len}} | {'':-<{wc_max_len}} |\n"
+    for f, wc in wc_map.items():
+        output += f"| {f'`{f}`':<{filename_max_len}} | {wc:<{wc_max_len}} |\n"
+    output += f"| {'**TOTAL**':<{filename_max_len}} | {sum(wc_map.values()):<{wc_max_len}} |"
+    return output
 
 @_app.command()
 def wc():
     ensure_paper_dir()
 
+    print(wc_string())
+    print()
+
+def get_commit_data() -> list[dict[str,str|int|None]]:
+    log = subprocess.check_output(["git",
+        "log",
+        '--format=%P|||%ct|||%B||-30-||',
+    ]).decode("utf-8").strip()
+    commits_raw = [c.strip() for c in log.split("||-30-||") if len(c) > 0]
+    commits = []
+    for c in commits_raw:
+        git_hash, timestamp, message = c.split("|||")
+        wc = None
+        wcs = re.findall(r"\[WC: (\d+)]", message)
+        if len(wcs) == 1:
+            wc = int(wcs[0])
+        if len(git_hash) == 0:
+            git_hash = None
+        commits.append({
+            "hash": git_hash,
+            "timestamp": int(timestamp),
+            "message": message,
+            "word_count": wc
+        })
+    return commits
+
+def get_progress_image_str() -> str:
+    commits = get_commit_data()
+    commits.reverse()
+    dates = [datetime.datetime.fromtimestamp(c["timestamp"]) for c in commits]
+    dates.append(datetime.datetime.now())
+    dates = md.date2num(dates)
+    wcs = [c["word_count"] for c in commits]
+    wcs = [c if isinstance(c, int) else 0 for c in wcs]
+    wcs.append(sum(wc_data().values()))
+
+    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    goal_wc = meta.get("target_word_count", None)
+
+    plt.rcParams['font.family'] = 'sans-serif'
+    fig, ax = plt.subplots()
+    xfmt = md.DateFormatter("%h\n%d\n%Y")
+    ax.xaxis.set_major_formatter(xfmt)
+    ys = wcs.copy()
+    if goal_wc:
+        ys.append(goal_wc)
+    plt.ylim(0, max(ys) + 100)
+    plt.title("Progress")
+    ax.set_ylabel("Word Count")
+    ax.plot(dates, wcs)
+    if goal_wc:
+        ax.axhline(goal_wc, color="green")
+    fig.tight_layout()
+
+    plt.rcParams['svg.fonttype'] = 'none'
+    svg = io.BytesIO()
+    fig.savefig(svg, format="svg")
+    svg_str = svg.getvalue().decode("utf-8")
+
+    proper_font_str = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'"
+    svg_str = svg_str.replace("'sans-serif'", proper_font_str)
+
+    return svg_str
 
 @_app.command()
 def save():
+    ensure_paper_dir()
+
+    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+
+    if not os.path.exists("./README.md"):
+        with open("./README.md", "w") as readme:
+            readme.write(f"# {meta['class_mnemonic']}: {get_assignment()}\n\n")
+            readme.write(f"{METADATA_START_SENTINEL}\n")
+            readme.write(f"{METADATA_END_SENTINEL}\n")
+
+    readme_text = open("./README.md", "r").read()
+    readme_before = readme_text[:readme_text.index(METADATA_START_SENTINEL)]
+    readme_before = f"{readme_before}{METADATA_START_SENTINEL}\n"
+    readme_after = readme_text[readme_text.index(METADATA_END_SENTINEL)+len(METADATA_END_SENTINEL):]
+    readme_after = f"\n{METADATA_END_SENTINEL}{readme_after}"
+
+    with open("./progress.svg", "w") as progress:
+        progress.write(get_progress_image_str())
+
+    readme_text = f"{readme_before}{wc_string()}\n\n![WordCountProgress](./progress.svg){readme_after}"
+    with open("./README.md", "w") as readme:
+        readme.write(readme_text)
+
     message = typer.prompt("Commit message?")
-
-    dev_null = open(os.devnull, 'wb')
-    subprocess.call(["git", "add", "."], stdout=dev_null)
-    subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
-
-    dev_null.close()
+    wc = wc_data();
+    total = sum(wc.values())
+    message += f"\n\n[WC: {total}]"
+    # with open(os.devnull, 'wb') as dev_null:
+    #     subprocess.call(["git", "add", "."], stdout=dev_null)
+    #     subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
 
 
 # doesn't handle branching and stuff

@@ -7,7 +7,7 @@
       "request": "launch",
       "module": "paper",
       "args": [
-        "build"
+        "save"
       ],
       "cwd": "${workspaceFolder}/playground/class1/paper1"
     }

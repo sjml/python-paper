@@ -7,4 +7,5 @@ data:
 class_mnemonic: "[MNEMONIC]"
 class_name: "[CLASS_NAME]"
 professor: "[PROFESSOR]"
+target_word_count: null
 ---
