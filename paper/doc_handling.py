@@ -1,9 +1,13 @@
 import os
 import subprocess
+from datetime import datetime
 
 from docx import Document
 from docx import enum
 from docx.shared import Pt
+
+from . import LIB_NAME, LIB_VERSION
+from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
 def package(filename: str, meta: dict):
@@ -40,7 +44,7 @@ def package(filename: str, meta: dict):
 
     doc.save(filename)
 
-def make_pdf(filename: str):
+def make_pdf(filename: str, meta: dict):
     filepath = os.path.abspath(filename)
     base = os.path.splitext(filepath)[0]
     pdf_filename = base + ".pdf"
@@ -63,3 +67,17 @@ def make_pdf(filename: str):
     end tell
     """
     subprocess.run(["osascript", "-"], input=applescript.encode("utf-8"))
+
+    reader = PdfFileReader(pdf_filename)
+    writer = PdfFileWriter()
+    writer.appendPagesFromReader(reader)
+    pdf_date = datetime.utcnow().strftime("%Y%m%d%H%MZ00'00'")
+    writer.addMetadata({
+        "/Author": meta["data"]["author"],
+        "/Title": meta["data"]["title"],
+        "/Producer": f"{LIB_NAME} {LIB_VERSION}",
+        "/CreationDate": f"D:{pdf_date}",
+    })
+
+    with open(pdf_filename, "wb") as pdfout:
+        writer.write(pdfout)

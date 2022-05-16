@@ -38,6 +38,7 @@ setup(
         'pyyaml',
         'python-docx',
         'typer',
+        'PyPDF2',
     ],
     entry_points={
         'console_scripts': [

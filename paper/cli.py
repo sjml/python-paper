@@ -15,6 +15,8 @@ from .doc_handling import package, make_pdf
 VERSION_STRING = f"{LIB_NAME} v{LIB_VERSION}"
 
 _app = typer.Typer()
+def main():
+    _app()
 
 @_app.command()
 def new(project_name: str):
@@ -86,6 +88,13 @@ def ensure_paper_dir():
     if len(file_list) == 0:
         bail()
 
+def get_assignment() -> str:
+    meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+    if "assignment" in meta:
+        return meta["assignment"]
+    else:
+        return os.path.basename(os.getcwd())
+
 @_app.command()
 def build():
     ensure_paper_dir()
@@ -99,13 +108,12 @@ def build():
         author = meta["data"]["author"].split(",")[0].split(" ")[-1]
         mnemonic = re.sub(r"\s", "", meta["class_mnemonic"])
         meta["filename"] = f"{author}_{mnemonic}"
-        if "assignment" in meta:
-            assignment = re.sub(r"\s+", "_", meta["assignment"])
-            meta["filename"] += f"_{assignment}"
+        assignment_underscored = re.sub(r"\s+", "_", get_assignment())
+        meta["filename"] += f"_{assignment_underscored}"
 
     docx_filename = f"./out/{meta['filename']}.docx"
 
-    cmd = [ "pandoc",
+    cmd = ["pandoc",
         "--from=markdown+bracketed_spans",
         "--to=docx",
         "--reference-doc", "./resources/ChicagoStyleTemplate.docx",
@@ -132,16 +140,43 @@ def build():
     subprocess.call(cmd)
 
     package(docx_filename, meta)
-    # make_pdf(docx_filename)
+    make_pdf(docx_filename, meta)
 
 
 @_app.command()
 def wc():
     ensure_paper_dir()
 
+
+@_app.command()
+def save():
+    message = typer.prompt("Commit message?")
+
+    dev_null = open(os.devnull, 'wb')
+    subprocess.call(["git", "add", "."], stdout=dev_null)
+    subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
+
+    dev_null.close()
+
+
+# doesn't handle branching and stuff
 @_app.command()
 def push():
     ensure_paper_dir()
 
-def main():
-    _app()
+    remote = subprocess.check_output(["git", "remote", "-v"])
+
+    if len(remote) == 0:
+        meta = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+        default_repo = f"{meta['class_mnemonic']}_{get_assignment()}"
+
+        repo_name = typer.prompt("What should be the repository name?", default_repo)
+        is_private = typer.confirm("Private repository?", True)
+
+        cmd = ["gh", "repo", "create", f"{repo_name}", "--source=.", "--push"]
+        if is_private:
+            cmd.append("--private")
+        subprocess.call(cmd)
+    else:
+        cmd = ["git", "push"]
+        subprocess.call(cmd)
