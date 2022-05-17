@@ -1,6 +1,6 @@
 # Paper
 
-A little tool for generating and managing academic papers. Focused on Chicago Style citations and the paper submission standards of the [BC STM](https://www.bc.edu/bc-web/schools/stm.html).
+A little tool for generating and managing academic papers. Focused on Chicago Manual of Style citations and the paper submission standards of the [BC STM](https://www.bc.edu/bc-web/schools/stm.html).
 
 ## Installation
 ```shell
@@ -27,7 +27,7 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 
 * `data`: 
     * (These items are moved under this `data` heading because otherwise pandoc will try to print a title block. Could this all be better organized? Probably.)
-    * `date`: due date in ISO-8601 format OR null OR placeholder "[DATE]" (if set, will be graphed as a red line on the progress image)
+    * `date`: due date in ISO-8601 format OR `null` OR placeholder `"[DATE]"` (if set, will be graphed as a red line on the progress image)
     * `author`: author's name
     * `title`: title of paper
 * `class_mnemonic`: like "PHIL 101" or whatever.
