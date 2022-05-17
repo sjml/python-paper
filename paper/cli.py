@@ -152,7 +152,7 @@ def build():
     else:
         typer.echo("No citation processing.")
 
-    cmd.extend([os.path.join("./content", f) for f in os.listdir("./content")])
+    cmd.extend([os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")])
 
     subprocess.call(cmd)
 

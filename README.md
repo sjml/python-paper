@@ -34,12 +34,16 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 * `class_name`: like "Introduction to Philosophy" or whatever
 * `professor`: the person to whom the paper is being given
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
+* `sources`: An array of paths to BibTeX (`.bib`) files that contain citation data exported from Zotero, for example. If present and non-empty, `pandoc` will be given these files in an effort to process citations.
 
+## `./content` folder
+Any file in this folder that ends with `.md` will be given to pandoc for assembly into the final paper. Note that they're given in alphabetical order, and should be Markdown files. At the moment, no metadata in them is processed. 
 
-On top of doing the document generation, it also generates progress reports like the below, based on git commits. (This example shows good solid progress towards a ~50,000 word thesis. The green line is target word count; the red line is the due date.)
+## Metrics
+On top of doing the document generation, assuming you use `paper save` to commit your work, it also generates progress reports like the below, based on git commits. (This example shows good solid progress towards a ~50,000 word thesis. The green line is target word count; the red line is the due date.)
 
 <!-- begin paper metadata -->
-## Example progress metrics
+### Example progress metrics
 | File                    | Word Count |
 | ----------------------- | ---------- |
 | 00_intro.md             | 2838       |
