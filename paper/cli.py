@@ -133,7 +133,7 @@ def build():
     cmd = ["pandoc",
         "--from=markdown+bracketed_spans",
         "--to=docx",
-        "--reference-doc", "./resources/ChicagoStyleTemplate.docx",
+        "--reference-doc", "./resources/ChicagoStyle-TimesNewRoman_Template.docx",
         "--output", docx_filename,
         "--metadata-file", "./paper_meta.yml",
     ]
