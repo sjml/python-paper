@@ -1,8 +1,8 @@
 # Paper
 
-A little tool for generating and managing academic papers. Focused on Chicago Style citations and the paper standards of the [BC STM](https://www.bc.edu/bc-web/schools/stm.html).
+A little tool for generating and managing academic papers. Focused on Chicago Style citations and the paper submission standards of the [BC STM](https://www.bc.edu/bc-web/schools/stm.html).
 
-## installation
+## Installation
 ```shell
 pip install git+https://github.com/sjml/paper.git
 ```
@@ -14,7 +14,15 @@ cd paper
 pip install -e .
 ```
 
-## paper_meta.yml
+## Commands
+* `paper new`: generates a new scaffold directory
+* `paper init`: sets up the directory you're in as the scaffold, so long as it's empty
+* `paper build`: builds a Word document and PDF version of the paper
+* `paper wc`: outputs word count information, broken down by file
+* `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
+* `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
+
+## `paper_meta.yml`
 The metadata file that assists in the generation. YAML format. `paper` will walk up the directory tree until the root looking for similarly named files, so you can have a root `paper_meta.yml` with the author name, one in a directory for each class with the professor and mnemonic, etc. (Note this is only traversed when the project is set up; it doesn't automatically pick up changes, but writes it to the lowest file in the hierarchy.)
 
 * `data`: 
@@ -28,14 +36,23 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
 
 
-## Commands
-* `paper new`: generates a new scaffold directory
-* `paper init`: sets up the directory you're in as the scaffold, so long as it's empty
-* `paper build`: builds a Word document and PDF version of the paper
-* `paper wc`: outputs word count information, broken down by file
-* `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
-* `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
+On top of doing the document generation, it also generates progress reports like the below, based on git commits. (This example shows good solid progress towards a ~50,000 word thesis. The green line is target word count; the red line is the due date.)
 
+<!-- begin paper metadata -->
+## Example progress metrics
+| File                    | Word Count |
+| ----------------------- | ---------- |
+| 00_intro.md             | 2838       |
+| 01_initial_problem.md   | 9782       |
+| 02_literature_review.md | 6465       |
+| 03_experiment_design.md | 18254      |
+| 04_analysis.md          | 10075      |
+| 05_next_steps.md        | 2483       |
+| 06_conclusion.md        | 2162       |
+| **TOTAL**               | 52059      |
+
+![WordCountProgress](./docs/fake_progress.svg)
+<!-- end paper metadata -->
 
 ## Notes
 Assumes: 

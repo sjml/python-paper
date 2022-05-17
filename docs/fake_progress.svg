@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="460.8pt" height="345.6pt" viewBox="0 0 460.8 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2022-05-17T15:34:22.837386</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.5.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6 
+L 460.8 345.6 
+L 460.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 63.83 294.392 
+L 450 294.392 
+L 450 26.16 
+L 63.83 26.16 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m7630517bc7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m7630517bc7" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(55.184688 308.990437)">Oct</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(57.4675 320.18825)">15</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(51.105 331.386062)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m7630517bc7" x="108.11555" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(98.356175 308.990437)">Nov</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(101.75305 320.18825)">09</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(95.39055 331.386062)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m7630517bc7" x="152.401101" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(142.72532 308.990437)">Dec</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(146.038601 320.18825)">04</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(139.676101 331.386062)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m7630517bc7" x="196.686651" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(187.01087 308.990437)">Dec</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(190.324151 320.18825)">29</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(183.961651 331.386062)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m7630517bc7" x="240.972202" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(233.264389 308.990437)">Jan</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(234.609702 320.18825)">23</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(228.247202 331.386062)">2021</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m7630517bc7" x="285.257752" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(276.40619 308.990437)">Feb</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(278.895252 320.18825)">17</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(272.532752 331.386062)">2021</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m7630517bc7" x="329.543303" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(320.109709 308.990437)">Mar</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(323.180803 320.18825)">14</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(316.818303 331.386062)">2021</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m7630517bc7" x="373.828853" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(365.178853 308.990437)">Apr</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(367.466353 320.18825)">08</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(361.103853 331.386062)">2021</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m7630517bc7" x="418.114404" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(407.776904 308.990437)">May</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(411.751904 320.18825)">03</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(405.389404 331.386062)">2021</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_10">
+      <defs>
+       <path id="mc4bb9941d8" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="298.191219" transform="rotate(-0, 56.83, 298.191219)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="242.966167" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="246.765386" transform="rotate(-0, 56.83, 246.765386)">10000</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="191.540335" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="195.339554" transform="rotate(-0, 56.83, 195.339554)">20000</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="140.114502" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="143.913721" transform="rotate(-0, 56.83, 143.913721)">30000</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="88.68867" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="92.487889" transform="rotate(-0, 56.83, 92.487889)">40000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mc4bb9941d8" x="63.83" y="37.262837" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="41.062056" transform="rotate(-0, 56.83, 41.062056)">50000</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="18.937813" y="160.276" transform="rotate(-90, 18.937813, 160.276)">Word Count</text>
+    </g>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.601422 293.101212 
+L 69.144266 290.781907 
+L 70.915688 289.131137 
+L 72.68711 287.794066 
+L 79.772798 283.839419 
+L 81.54422 278.748262 
+L 83.315642 276.804365 
+L 90.40133 274.335925 
+L 92.172752 272.937143 
+L 95.715596 271.224662 
+L 102.801284 269.028779 
+L 106.344128 264.066187 
+L 109.886972 259.31444 
+L 111.658394 256.815144 
+L 113.429817 259.088166 
+L 116.972661 251.209728 
+L 124.058349 248.689863 
+L 125.829771 252.073682 
+L 129.372615 249.723522 
+L 131.144037 241.253687 
+L 136.458303 243.44957 
+L 145.315413 240.970845 
+L 148.858257 239.88576 
+L 150.629679 238.81096 
+L 154.172523 236.249954 
+L 155.943945 233.935791 
+L 161.258211 232.752997 
+L 168.343899 231.359357 
+L 170.115321 229.857723 
+L 173.658165 220.025104 
+L 177.201009 218.261197 
+L 178.972431 216.307016 
+L 207.315183 214.183129 
+L 209.086606 211.91525 
+L 212.62945 207.538911 
+L 219.715138 203.91339 
+L 221.48656 195.649259 
+L 223.257982 193.905923 
+L 225.029404 192.836266 
+L 233.886514 190.3164 
+L 237.429358 188.207941 
+L 242.743624 185.832067 
+L 246.286468 176.508564 
+L 248.05789 174.060694 
+L 249.829312 164.166364 
+L 253.372156 162.417886 
+L 255.143578 158.247251 
+L 256.915 161.487078 
+L 258.686422 159.26034 
+L 265.77211 162.819007 
+L 271.086376 166.243968 
+L 274.62922 157.969551 
+L 281.714908 150.127112 
+L 283.48633 141.081308 
+L 285.257752 143.740024 
+L 288.800596 141.580139 
+L 294.114862 139.091128 
+L 295.886284 137.198658 
+L 297.657706 128.677397 
+L 299.429128 127.196333 
+L 301.20055 125.211296 
+L 304.743394 123.154263 
+L 310.057661 118.469369 
+L 331.314725 116.355768 
+L 334.857569 114.021035 
+L 338.400413 112.277699 
+L 340.171835 110.822348 
+L 341.943257 100.604035 
+L 343.714679 95.821433 
+L 345.486101 93.841538 
+L 349.028945 92.201054 
+L 352.571789 88.380115 
+L 357.886055 87.145895 
+L 359.657477 85.46427 
+L 363.200321 88.194982 
+L 366.743165 86.425933 
+L 368.514587 84.590031 
+L 372.057431 82.373578 
+L 373.828853 73.389485 
+L 375.600275 75.703647 
+L 379.143119 73.934598 
+L 389.771651 71.661577 
+L 391.543073 69.403983 
+L 396.857339 59.905631 
+L 400.400183 57.540043 
+L 405.71445 55.765852 
+L 407.485872 54.08937 
+L 409.257294 49.101064 
+L 411.028716 47.270304 
+L 412.800138 37.838807 
+L 418.114404 35.601783 
+L 419.885826 33.74531 
+L 421.657248 31.199732 
+L 423.42867 33.925301 
+L 428.742936 31.605996 
+L 430.514358 29.235265 
+L 432.28578 26.674258 
+" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 63.83 37.262837 
+L 450 37.262837 
+" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #008000; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 431.769115 294.392 
+L 431.769115 26.16 
+" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #ff0000; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 63.83 294.392 
+L 63.83 26.16 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 450 294.392 
+L 450 26.16 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 63.83 294.392 
+L 450 294.392 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 63.83 26.16 
+L 450 26.16 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font: 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="256.915" y="20.16" transform="rotate(-0, 256.915, 20.16)">Progress</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9784e6bd82">
+   <rect x="63.83" y="26.16" width="386.17" height="268.232"/>
+  </clipPath>
+ </defs>
+</svg>
