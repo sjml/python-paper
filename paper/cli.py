@@ -136,6 +136,7 @@ def build():
         "--reference-doc", "./resources/ChicagoStyle-TimesNewRoman_Template.docx",
         "--output", docx_filename,
         "--metadata-file", "./paper_meta.yml",
+        "--resource-path", "./content",
     ]
 
     bib_path_strings = meta.get("sources", [])
