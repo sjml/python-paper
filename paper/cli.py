@@ -1,5 +1,6 @@
 import os
 from distutils import dir_util
+import shutil
 from pathlib import Path
 import subprocess
 import datetime
@@ -91,6 +92,46 @@ def init():
         subprocess.call(["git", "add", "."], stdout=dev_null)
         subprocess.call(["git", "commit", "-m", f"Initial project creation"], stdout=dev_null)
 
+@_app.command()
+def reinit():
+    ensure_paper_dir()
+
+    template_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources", "project_template")
+    proj_path = Path(".").resolve()
+    res_path = proj_path.joinpath("./resources").as_posix()
+
+    shutil.rmtree(res_path)
+    shutil.copytree(os.path.join(template_path, "resources"), res_path)
+
+    os.unlink("paper_meta.yml")
+    shutil.copy(os.path.join(template_path, "paper_meta.yml"), "paper_meta.yml")
+    meta = {}
+    curr_path = proj_path
+    meta_chain = []
+    while True:
+        meta_path = curr_path.joinpath("paper_meta.yml")
+        if os.path.exists(meta_path):
+            metas = list(yaml.safe_load_all(open(meta_path.as_posix())))
+            metas = [m for m in metas if m != None]
+            if len(metas) > 1:
+                typer.echo(f"Found more than one meta document at '{meta_path}'.")
+                typer.Exit(1)
+            meta_chain.append(metas[0])
+        curr_path = curr_path.parent
+        if curr_path.as_posix() == curr_path.root:
+            break
+    meta_chain.reverse()
+
+    for m in meta_chain:
+        if not m:
+            continue
+        merge_dictionary(meta, m)
+
+    with open("paper_meta.yml", "w") as output:
+        output.write("---\n")
+        yaml.safe_dump(meta, output, sort_keys=False)
+        output.write("---\n")
+
 def ensure_paper_dir():
     def bail():
         typer.echo("Not in a paper directory.")
@@ -140,8 +181,8 @@ def build():
     ]
 
     bib_path_strings = meta.get("sources", [])
-    bib_paths = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
-    bib_paths = [p for p in bib_paths if p.exists()]
+    bib_paths: list[Path] = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
+    bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
 
     if len(bib_paths) > 0:
         cmd.extend([
@@ -155,7 +196,7 @@ def build():
 
     cmd.extend([os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")])
 
-    subprocess.call(cmd)
+    subprocess.check_call(cmd)
 
     package(docx_filename, meta)
     make_pdf(docx_filename, meta)

@@ -5,6 +5,7 @@ from datetime import datetime
 from docx import Document
 from docx import enum
 from docx.shared import Pt
+from docx.oxml.ns import qn
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 from . import LIB_NAME, LIB_VERSION
@@ -32,15 +33,25 @@ def package(filename: str, meta: dict):
     if len(doc.paragraphs) == 0:
         doc.add_paragraph("", style="First Paragraph")
 
+    # set metadata
+    doc.core_properties.author = meta["data"]["author"]
+    doc.core_properties.title = meta["data"]["title"]
+
+    # add title
     _add_chicago_title(doc, meta)
 
+    # check "Total Row" box on tables
+    for t in doc.tables:
+        tblLook = t._tblPr.first_child_found_in("w:tblLook")
+        tblLook.set(qn("w:lastRow"), "1")
+
+    # add "Works Cited" label to bibliography
     last_graph_idx = -1
     while True:
         last_graph = doc.paragraphs[last_graph_idx]
         if "Bibliography" not in last_graph.style.style_id:
             break
         last_graph_idx -= 1
-
     bib_start = doc.paragraphs[last_graph_idx+1]
     if "Bibliography" in bib_start.style.style_id:
         bib_label = bib_start.insert_paragraph_before("Works Cited")
@@ -48,9 +59,6 @@ def package(filename: str, meta: dict):
         bib_label.paragraph_format.space_after = Pt(24)
         bib_label.paragraph_format.page_break_before = True
         bib_label.runs[0].underline = True
-
-    doc.core_properties.author = meta["data"]["author"]
-    doc.core_properties.title = meta["data"]["title"]
 
     doc.save(filename)
 
