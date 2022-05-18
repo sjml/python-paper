@@ -34,8 +34,10 @@ def package(filename: str, meta: dict):
         doc.add_paragraph("", style="First Paragraph")
 
     # set metadata
-    doc.core_properties.author = meta["data"]["author"]
     doc.core_properties.title = meta["data"]["title"]
+    doc.core_properties.author = meta["data"]["author"]
+    doc.core_properties.last_modified_by = meta["data"]["author"]
+    doc.core_properties.revision = max(1, int(subprocess.check_output(["git", "rev-list", "--all", "--count"])) - 1)
 
     # add title
     _add_chicago_title(doc, meta)

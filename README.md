@@ -64,11 +64,13 @@ Assumes:
 * you have git set up
 * you have [gh](https://cli.github.com/) installed
 * you have [pandoc](https://pandoc.org/) installed
-* your are logged in to a GitHub account
-* you have MS Word installed
+* you are logged in to a GitHub account
+* you have Microsoft Word installed
+    - note that Word will probably ask you to grant permissions to access the output file and directory the first time you build the paper. This seems to be a long-standing problem that nobody has a solution for. 😕
+    - [here is a set of possible solutions, but none of them worked for me](https://appuals.com/office-2016-grant-access-error-on-macos/)
 * you are running on a Mac (uses AppleScript to turn docx to pdf)
 * you are not doing any zany branching stuff with your repo
-    - maybe would still work, but who knows?
+    - -probably would still work, but who knows?
 
 "Why generate a docx first instead of going direct to PDF, since pandoc could do that?" 
 Because some professors insist you submit Word documents, so I'd have to be ready to 
