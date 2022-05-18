@@ -66,8 +66,6 @@ Assumes:
 * you have [pandoc](https://pandoc.org/) installed
 * you are logged in to a GitHub account
 * you have Microsoft Word installed
-    - note that Word will probably ask you to grant permissions to access the output file and directory the first time you build the paper. This seems to be a long-standing problem that nobody has a solution for. 😕
-    - [here is a set of possible solutions, but none of them worked for me](https://appuals.com/office-2016-grant-access-error-on-macos/)
 * you are running on a Mac (uses AppleScript to turn docx to pdf)
 * you are not doing any zany branching stuff with your repo
     - -probably would still work, but who knows?

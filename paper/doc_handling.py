@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 from datetime import datetime
 
@@ -67,19 +68,24 @@ def package(filename: str, meta: dict):
 def make_pdf(filename: str, meta: dict):
     filepath = os.path.abspath(filename)
     base = os.path.splitext(filepath)[0]
-    pdf_filename = base + ".pdf"
+    pdf_filepath = base + ".pdf"
+    if os.path.exists(pdf_filepath):
+        os.unlink(pdf_filepath)
+
+    outpath = os.path.expanduser(f"~/Library/Containers/com.microsoft.Word/Data/Documents/{os.path.basename(pdf_filepath)}")
 
     applescript = f"""
     tell application "System Events" to set wordIsRunning to exists (processes where name is "Microsoft Word")
 
+    set outpath to "{outpath[1:].replace('/', ':')}"
     tell application id "com.microsoft.Word"
         activate
-        open "{filepath}"
+        open file "{filepath[1:].replace('/', ':')}"
         repeat while not (active document is not missing value)
             delay 0.5
         end repeat
         set activeDoc to active document
-        save as activeDoc file name "{pdf_filename}" file format format PDF
+        save as activeDoc file name outpath file format format PDF
         close activeDoc saving no
         if not wordIsRunning then
             quit
@@ -88,7 +94,9 @@ def make_pdf(filename: str, meta: dict):
     """
     subprocess.run(["osascript", "-"], input=applescript.encode("utf-8"))
 
-    reader = PdfFileReader(pdf_filename)
+    shutil.move(outpath, pdf_filepath)
+
+    reader = PdfFileReader(pdf_filepath)
     writer = PdfFileWriter()
     writer.appendPagesFromReader(reader)
     pdf_date = datetime.utcnow().strftime("%Y%m%d%H%MZ00'00'")
@@ -99,5 +107,5 @@ def make_pdf(filename: str, meta: dict):
         "/CreationDate": f"D:{pdf_date}",
     })
 
-    with open(pdf_filename, "wb") as pdfout:
+    with open(pdf_filepath, "wb") as pdfout:
         writer.write(pdfout)
