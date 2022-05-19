@@ -203,10 +203,9 @@ def build():
 
 def wc_data() -> dict[str,int]:
     wc_map = {}
-    content_files = os.listdir("./content")
+    content_files = [os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")]
     for cf in content_files:
-        cf_path = os.path.join("./content", cf)
-        contents = open(cf_path, "r").read().strip()
+        contents = open(cf, "r").read().strip()
         if contents.startswith("---\n"):
             contents = contents.split("---\n")[2]
         wc_map[cf] = len(contents.split())
@@ -304,7 +303,7 @@ def get_progress_image_str() -> str:
     return svg_str
 
 @_app.command()
-def save():
+def save(message: str = typer.Option(..., prompt="Commit message?")):
     ensure_paper_dir()
 
     meta = get_metadata()
@@ -328,7 +327,6 @@ def save():
     with open("./README.md", "w") as readme:
         readme.write(readme_text)
 
-    message = typer.prompt("Commit message?")
     wc = wc_data();
     total = sum(wc.values())
     message += f"\n\n[WC: {total}]"
