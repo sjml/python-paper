@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2022-05-17T15:34:22.837386</dc:date>
+    <dc:date>2022-05-19T15:27:27.431966</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -41,12 +41,12 @@ z
     <g id="xtick_1">
      <g id="line2d_1">
       <defs>
-       <path id="m7630517bc7" d="M 0 0 
+       <path id="m15ca3f780b" d="M 0 0 
 L 0 3.5 
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#m7630517bc7" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_1">
@@ -58,97 +58,97 @@ L 0 3.5
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use xlink:href="#m7630517bc7" x="108.11555" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="108.034441" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(98.356175 308.990437)">Nov</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(101.75305 320.18825)">09</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(95.39055 331.386062)">2020</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(98.275066 308.990437)">Nov</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(101.671941 320.18825)">09</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(95.309441 331.386062)">2020</text>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use xlink:href="#m7630517bc7" x="152.401101" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="152.238883" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_3">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(142.72532 308.990437)">Dec</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(146.038601 320.18825)">04</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(139.676101 331.386062)">2020</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(142.563102 308.990437)">Dec</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(145.876383 320.18825)">04</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(139.513883 331.386062)">2020</text>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use xlink:href="#m7630517bc7" x="196.686651" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="196.443324" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_4">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(187.01087 308.990437)">Dec</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(190.324151 320.18825)">29</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(183.961651 331.386062)">2020</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(186.767543 308.990437)">Dec</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(190.080824 320.18825)">29</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(183.718324 331.386062)">2020</text>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use xlink:href="#m7630517bc7" x="240.972202" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="240.647766" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_5">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(233.264389 308.990437)">Jan</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(234.609702 320.18825)">23</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(228.247202 331.386062)">2021</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(232.939953 308.990437)">Jan</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(234.285266 320.18825)">23</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(227.922766 331.386062)">2021</text>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use xlink:href="#m7630517bc7" x="285.257752" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="284.852207" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_6">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(276.40619 308.990437)">Feb</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(278.895252 320.18825)">17</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(272.532752 331.386062)">2021</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(276.000644 308.990437)">Feb</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(278.489707 320.18825)">17</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(272.127207 331.386062)">2021</text>
      </g>
     </g>
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use xlink:href="#m7630517bc7" x="329.543303" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="329.056648" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_7">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(320.109709 308.990437)">Mar</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(323.180803 320.18825)">14</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(316.818303 331.386062)">2021</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(319.623055 308.990437)">Mar</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(322.694148 320.18825)">14</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(316.331648 331.386062)">2021</text>
      </g>
     </g>
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use xlink:href="#m7630517bc7" x="373.828853" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="373.26109" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_8">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(365.178853 308.990437)">Apr</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(367.466353 320.18825)">08</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(361.103853 331.386062)">2021</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(364.61109 308.990437)">Apr</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(366.89859 320.18825)">08</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(360.53609 331.386062)">2021</text>
      </g>
     </g>
     <g id="xtick_9">
      <g id="line2d_9">
       <g>
-       <use xlink:href="#m7630517bc7" x="418.114404" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m15ca3f780b" x="417.465531" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_9">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(407.776904 308.990437)">May</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(411.751904 320.18825)">03</text>
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(405.389404 331.386062)">2021</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(407.128031 308.990437)">May</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(411.103031 320.18825)">03</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'" transform="translate(404.740531 331.386062)">2021</text>
      </g>
     </g>
    </g>
@@ -156,12 +156,12 @@ L 0 3.5
     <g id="ytick_1">
      <g id="line2d_10">
       <defs>
-       <path id="mc4bb9941d8" d="M 0 0 
+       <path id="m95988a0591" d="M 0 0 
 L -3.5 0 
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="294.392" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_10">
@@ -171,51 +171,51 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_11">
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="242.966167" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="245.228342" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_11">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="246.765386" transform="rotate(-0, 56.83, 246.765386)">10000</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="249.027561" transform="rotate(-0, 56.83, 249.027561)">10000</text>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_12">
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="191.540335" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="196.064685" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_12">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="195.339554" transform="rotate(-0, 56.83, 195.339554)">20000</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="199.863903" transform="rotate(-0, 56.83, 199.863903)">20000</text>
      </g>
     </g>
     <g id="ytick_4">
      <g id="line2d_13">
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="140.114502" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="146.901027" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_13">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="143.913721" transform="rotate(-0, 56.83, 143.913721)">30000</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="150.700246" transform="rotate(-0, 56.83, 150.700246)">30000</text>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_14">
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="88.68867" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="97.737369" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_14">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="92.487889" transform="rotate(-0, 56.83, 92.487889)">40000</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="101.536588" transform="rotate(-0, 56.83, 101.536588)">40000</text>
      </g>
     </g>
     <g id="ytick_6">
      <g id="line2d_15">
       <g>
-       <use xlink:href="#mc4bb9941d8" x="63.83" y="37.262837" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m95988a0591" x="63.83" y="48.573712" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_15">
-      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="41.062056" transform="rotate(-0, 56.83, 41.062056)">50000</text>
+      <text style="font: 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="56.83" y="52.37293" transform="rotate(-0, 56.83, 52.37293)">50000</text>
      </g>
     </g>
     <g id="text_16">
@@ -223,114 +223,114 @@ L -3.5 0
     </g>
    </g>
    <g id="line2d_16">
-    <path d="M 65.601422 293.101212 
-L 69.144266 290.781907 
-L 70.915688 289.131137 
-L 72.68711 287.794066 
-L 79.772798 283.839419 
-L 81.54422 278.748262 
-L 83.315642 276.804365 
-L 90.40133 274.335925 
-L 92.172752 272.937143 
-L 95.715596 271.224662 
-L 102.801284 269.028779 
-L 106.344128 264.066187 
-L 109.886972 259.31444 
-L 111.658394 256.815144 
-L 113.429817 259.088166 
-L 116.972661 251.209728 
-L 124.058349 248.689863 
-L 125.829771 252.073682 
-L 129.372615 249.723522 
-L 131.144037 241.253687 
-L 136.458303 243.44957 
-L 145.315413 240.970845 
-L 148.858257 239.88576 
-L 150.629679 238.81096 
-L 154.172523 236.249954 
-L 155.943945 233.935791 
-L 161.258211 232.752997 
-L 168.343899 231.359357 
-L 170.115321 229.857723 
-L 173.658165 220.025104 
-L 177.201009 218.261197 
-L 178.972431 216.307016 
-L 207.315183 214.183129 
-L 209.086606 211.91525 
-L 212.62945 207.538911 
-L 219.715138 203.91339 
-L 221.48656 195.649259 
-L 223.257982 193.905923 
-L 225.029404 192.836266 
-L 233.886514 190.3164 
-L 237.429358 188.207941 
-L 242.743624 185.832067 
-L 246.286468 176.508564 
-L 248.05789 174.060694 
-L 249.829312 164.166364 
-L 253.372156 162.417886 
-L 255.143578 158.247251 
-L 256.915 161.487078 
-L 258.686422 159.26034 
-L 265.77211 162.819007 
-L 271.086376 166.243968 
-L 274.62922 157.969551 
-L 281.714908 150.127112 
-L 283.48633 141.081308 
-L 285.257752 143.740024 
-L 288.800596 141.580139 
-L 294.114862 139.091128 
-L 295.886284 137.198658 
-L 297.657706 128.677397 
-L 299.429128 127.196333 
-L 301.20055 125.211296 
-L 304.743394 123.154263 
-L 310.057661 118.469369 
-L 331.314725 116.355768 
-L 334.857569 114.021035 
-L 338.400413 112.277699 
-L 340.171835 110.822348 
-L 341.943257 100.604035 
-L 343.714679 95.821433 
-L 345.486101 93.841538 
-L 349.028945 92.201054 
-L 352.571789 88.380115 
-L 357.886055 87.145895 
-L 359.657477 85.46427 
-L 363.200321 88.194982 
-L 366.743165 86.425933 
-L 368.514587 84.590031 
-L 372.057431 82.373578 
-L 373.828853 73.389485 
-L 375.600275 75.703647 
-L 379.143119 73.934598 
-L 389.771651 71.661577 
-L 391.543073 69.403983 
-L 396.857339 59.905631 
-L 400.400183 57.540043 
-L 405.71445 55.765852 
-L 407.485872 54.08937 
-L 409.257294 49.101064 
-L 411.028716 47.270304 
-L 412.800138 37.838807 
-L 418.114404 35.601783 
-L 419.885826 33.74531 
-L 421.657248 31.199732 
-L 423.42867 33.925301 
-L 428.742936 31.605996 
-L 430.514358 29.235265 
-L 432.28578 26.674258 
-" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
+    <path d="M 65.598178 293.157992 
+L 69.134533 290.940711 
+L 70.902711 289.362558 
+L 72.670888 288.084303 
+L 79.743599 284.303617 
+L 81.511777 279.436415 
+L 83.279954 277.578029 
+L 90.352665 275.218174 
+L 92.120842 273.880922 
+L 95.657198 272.243772 
+L 102.729908 270.144484 
+L 106.266264 265.400191 
+L 109.802619 260.857469 
+L 111.570797 258.468115 
+L 113.338974 260.641149 
+L 116.87533 253.109277 
+L 123.94804 250.700257 
+L 125.716218 253.935226 
+L 129.252573 251.688447 
+L 131.020751 243.591193 
+L 136.325284 245.690481 
+L 145.166172 243.320792 
+L 148.702527 242.283439 
+L 150.470705 241.255919 
+L 154.00706 238.807569 
+L 155.775238 236.595204 
+L 161.079771 235.46444 
+L 168.152482 234.132105 
+L 169.920659 232.696526 
+L 173.457015 223.296435 
+L 176.99337 221.610121 
+L 178.761548 219.741902 
+L 207.05239 217.711443 
+L 208.820568 215.543326 
+L 212.356923 211.359499 
+L 219.429634 207.893461 
+L 221.197811 199.992861 
+L 222.965989 198.326213 
+L 224.734167 197.303609 
+L 233.575055 194.89459 
+L 237.11141 192.87888 
+L 242.415943 190.607519 
+L 245.952299 181.694147 
+L 247.720476 179.353957 
+L 249.488654 169.89487 
+L 253.025009 168.223305 
+L 254.793187 164.236133 
+L 256.561364 167.333443 
+L 258.329542 165.204657 
+L 265.402253 168.606782 
+L 270.706786 171.881081 
+L 274.243141 163.970649 
+L 281.315852 156.473191 
+L 283.084029 147.825304 
+L 284.852207 150.367065 
+L 288.388562 148.302191 
+L 293.693095 145.92267 
+L 295.461273 144.113448 
+L 297.229451 135.967029 
+L 298.997628 134.551116 
+L 300.765806 132.653399 
+L 304.302161 130.686853 
+L 309.606694 126.208043 
+L 330.824826 124.187417 
+L 334.361181 121.955387 
+L 337.897537 120.288739 
+L 339.665714 118.897408 
+L 341.433892 109.128589 
+L 343.20207 104.556369 
+L 344.970247 102.663568 
+L 348.506603 101.095247 
+L 352.042958 97.442387 
+L 357.347491 96.26246 
+L 359.115668 94.654808 
+L 362.652024 97.265398 
+L 366.188379 95.574168 
+L 367.956557 93.819026 
+L 371.492912 91.700072 
+L 373.26109 83.111181 
+L 375.029267 85.323546 
+L 378.565623 83.632316 
+L 389.174689 81.459282 
+L 390.942866 79.300998 
+L 396.247399 70.22047 
+L 399.783755 67.958942 
+L 405.088288 66.262796 
+L 406.856465 64.66006 
+L 408.624643 59.891186 
+L 410.392821 58.140959 
+L 412.160998 49.124345 
+L 417.465531 46.985725 
+L 419.233709 45.210917 
+L 421.001886 42.777316 
+L 422.770064 45.38299 
+L 428.074597 43.165709 
+L 429.842775 40.899265 
+L 431.610952 38.450914 
+" clip-path="url(#p6c388c1cf1)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
    </g>
    <g id="line2d_17">
-    <path d="M 63.83 37.262837 
-L 450 37.262837 
-" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #008000; stroke-width: 1.5; stroke-linecap: square"/>
+    <path d="M 63.83 48.573712 
+L 450 48.573712 
+" clip-path="url(#p6c388c1cf1)" style="fill: none; stroke: #008000; stroke-width: 1.5; stroke-linecap: square"/>
    </g>
    <g id="line2d_18">
-    <path d="M 431.769115 294.392 
-L 431.769115 26.16 
-" clip-path="url(#p9784e6bd82)" style="fill: none; stroke: #ff0000; stroke-width: 1.5; stroke-linecap: square"/>
+    <path d="M 431.095234 294.392 
+L 431.095234 26.16 
+" clip-path="url(#p6c388c1cf1)" style="fill: none; stroke: #ff0000; stroke-width: 1.5; stroke-linecap: square"/>
    </g>
    <g id="patch_3">
     <path d="M 63.83 294.392 
@@ -358,7 +358,7 @@ L 450 26.16
   </g>
  </g>
  <defs>
-  <clipPath id="p9784e6bd82">
+  <clipPath id="p6c388c1cf1">
    <rect x="63.83" y="26.16" width="386.17" height="268.232"/>
   </clipPath>
  </defs>

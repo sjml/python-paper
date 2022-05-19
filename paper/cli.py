@@ -203,9 +203,11 @@ def build():
 
 def wc_data() -> dict[str,int]:
     wc_map = {}
-    content_files = [os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")]
+    content_files = [f for f in os.listdir("./content") if f.endswith(".md")]
+    content_files.sort()
     for cf in content_files:
-        contents = open(cf, "r").read().strip()
+        cf_path = os.path.join("./content", cf)
+        contents = open(cf_path, "r").read().strip()
         if contents.startswith("---\n"):
             contents = contents.split("---\n")[2]
         wc_map[cf] = len(contents.split())
@@ -277,11 +279,31 @@ def get_progress_image_str() -> str:
     ys = wcs.copy()
     if goal_wc:
         ys.append(goal_wc)
-    plt.ylim(0, max(ys) + 100)
+        wc_max_buffer = max(goal_wc * 0.05, 100)
+        plt.ylim(0, max(ys) + wc_max_buffer)
+        yticks = plt.yticks()
+        if goal_wc not in yticks[0]:
+            plt.yticks(list(yticks[0]) + [goal_wc])
+
+    xmin = min(dates) - 1
     if due_date:
-        plt.xlim(min(dates) - 1, max(max(dates), due_date) + 1)
+        xmax = max(max(dates), due_date)
     else:
-        plt.xlim(min(dates) - 1, max(dates) + 1)
+        xmax = max(dates)
+    date_range = xmax - xmin
+    date_max_buffer = max(date_range * 0.05, 2)
+    plt.xlim(xmin, xmax + date_max_buffer)
+    xticks = plt.xticks()
+    if due_date and due_date not in xticks[0]:
+        plt.xticks(list(xticks[0]) + [due_date])
+        xticks = list(plt.xticks()[0])
+        xticks.sort()
+        idx = xticks.index(due_date)
+        if idx < len(xticks)-1:
+            xticks.pop(idx+1)
+        if idx > 0:
+            xticks.pop(idx-1)
+        plt.xticks(xticks)
 
     plt.title("Progress")
     ax.set_ylabel("Word Count")
