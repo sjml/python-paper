@@ -180,6 +180,11 @@ def build():
         "--resource-path", "./content",
     ]
 
+    filter_dir = os.path.join(".", "resources", "filters")
+    filters = [f for f in os.listdir(filter_dir) if f.startswith("filter-")]
+    filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in filters for toggle in range(2)]
+    cmd.extend(filter_cmds)
+
     bib_path_strings = meta.get("sources", [])
     bib_paths: list[Path] = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
     bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
@@ -189,13 +194,13 @@ def build():
             "--citeproc",
             "--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl",
         ])
-        for bp in bib_paths:
-            cmd.extend(["--bibliography", bp])
+        cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
     else:
         typer.echo("No citation processing.")
 
     cmd.extend([os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")])
 
+    # print(" ".join(cmd))
     subprocess.check_call(cmd)
 
     package(docx_filename, meta)
