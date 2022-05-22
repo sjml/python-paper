@@ -13,11 +13,12 @@
         - USCCB -- use abbreviation on subsequent cites
         - Aquinas -- drop author on subsequent, keep translator notes
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
-        - overall: use § instead of "sec."
-            - probably easiest as a post-hoc filter
+            - also set encyclicals to handle multiple cites
     - latin sources:
         - seems mostly the same, but Vulgate is special-cased bible
     
+    - Book titles not getting capitalized now?!
+
     * note that pandoc.utils.references is pulled from the csl?
 
 

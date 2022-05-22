@@ -31,6 +31,9 @@ return {
   {
     Cite = function (elem)
       local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
+      if ref_data == nil then
+        return nil
+      end
       if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
         return nil
       end
@@ -48,6 +51,9 @@ return {
     Div = function (elem)
       if starts_with(elem.attr.identifier, "ref-") then
         local ref_data = findItemInListByAttribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
+        if ref_data == nil then
+          return nil
+        end
         if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
           return nil
         end

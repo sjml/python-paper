@@ -12,7 +12,10 @@ return {
 
   {
     Cite = function (elem)
-      ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
+      local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
+      if ref_data == nil then
+        return nil
+      end
       if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
         return nil
       end
