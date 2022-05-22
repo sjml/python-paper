@@ -39,7 +39,8 @@ setup(
         'python-docx',
         'typer',
         'PyPDF2',
-        'matplotlib'
+        'matplotlib',
+        'jsbeautifier',
     ],
     entry_points={
         'console_scripts': [

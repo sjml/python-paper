@@ -12,8 +12,7 @@
         - CCC -- no author, use CCC on subsequent cites
         - USCCB -- use abbreviation on subsequent cites
         - Aquinas -- drop author on subsequent, keep translator notes
-        - Conciliar documents: lose quotes on actual name? (and short)
-        - Encyclicals: lose quotes on actual name? (and short)
+        - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
         - overall: use § instead of "sec."
             - probably easiest as a post-hoc filter
     - latin sources:

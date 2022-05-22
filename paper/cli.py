@@ -6,11 +6,13 @@ import subprocess
 import datetime
 import re
 import io
+import enum
 
 import typer
 import yaml
 import matplotlib.dates as md
 import matplotlib.pyplot as plt
+import jsbeautifier
 
 from . import LIB_NAME, LIB_VERSION
 from .util import merge_dictionary
@@ -153,8 +155,13 @@ def get_assignment() -> str:
     else:
         return os.path.basename(os.getcwd())
 
+class Format(str, enum.Enum):
+    docx = "docx"
+    docx_pdf = "docx+pdf"
+    json = "json"
+
 @_app.command()
-def build():
+def build(output_format: Format = Format.docx):
     ensure_paper_dir()
 
     if not os.path.exists("./out"):
@@ -169,16 +176,24 @@ def build():
         assignment_underscored = re.sub(r"\s+", "_", get_assignment())
         meta["filename"] += f"_{assignment_underscored}"
 
-    docx_filename = f"./out/{meta['filename']}.docx"
-
     cmd = ["pandoc",
         "--from=markdown+bracketed_spans",
-        "--to=docx",
-        "--reference-doc", "./resources/ChicagoStyle-TimesNewRoman_Template.docx",
-        "--output", docx_filename,
         "--metadata-file", "./paper_meta.yml",
         "--resource-path", "./content",
     ]
+
+    if output_format in [Format.docx, Format.docx_pdf]:
+        output_suffix = "docx"
+        cmd.extend([
+            "--to=docx",
+            "--reference-doc", "./resources/ChicagoStyle-TimesNewRoman_Template.docx",
+        ])
+    elif output_format == Format.json:
+        output_suffix = "json"
+        cmd.extend(["--to", "json"])
+
+    output_filename = f"./out/{meta['filename']}.{output_suffix}"
+    cmd.extend(["--output", output_filename])
 
     filter_dir = os.path.join(".", "resources", "filters")
     filters = [f for f in os.listdir(filter_dir) if f.startswith("filter-")]
@@ -195,6 +210,10 @@ def build():
             "--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl",
         ])
         cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
+
+        post_filters = [f for f in os.listdir(filter_dir) if f.startswith("post-filter-")]
+        post_filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in post_filters for toggle in range(2)]
+        cmd.extend(post_filter_cmds)
     else:
         typer.echo("No citation processing.")
 
@@ -203,8 +222,18 @@ def build():
     # print(" ".join(cmd))
     subprocess.check_call(cmd)
 
-    package(docx_filename, meta)
-    make_pdf(docx_filename, meta)
+    if output_format in [Format.docx, Format.docx_pdf]:
+        package(output_filename, meta)
+        if output_format == Format.docx_pdf:
+            make_pdf(output_filename, meta)
+    elif output_format == Format.json:
+        opts = jsbeautifier.default_options()
+        opts.indent_size = 2
+        with open(output_filename, "r") as jsonin:
+            output_json = jsonin.read()
+        pretty_json = jsbeautifier.beautify(output_json, opts)
+        with open(output_filename, "w") as jsonout:
+            jsonout.write(pretty_json)
 
 def wc_data() -> dict[str,int]:
     wc_map = {}
