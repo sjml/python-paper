@@ -72,7 +72,7 @@ def init():
             metas = [m for m in metas if m != None]
             if len(metas) > 1:
                 typer.echo(f"Found more than one meta document at '{meta_path}'.")
-                typer.Exit(1)
+                raise typer.Exit(1)
             meta_chain.append(metas[0])
         curr_path = curr_path.parent
         if curr_path.as_posix() == curr_path.root:
@@ -117,7 +117,7 @@ def reinit():
             metas = [m for m in metas if m != None]
             if len(metas) > 1:
                 typer.echo(f"Found more than one meta document at '{meta_path}'.")
-                typer.Exit(1)
+                raise typer.Exit(1)
             meta_chain.append(metas[0])
         curr_path = curr_path.parent
         if curr_path.as_posix() == curr_path.root:
@@ -134,10 +134,31 @@ def reinit():
         yaml.safe_dump(meta, output, sort_keys=False)
         output.write("---\n")
 
+@_app.command()
+def dev():
+    ensure_paper_dir()
+
+    template_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources", "project_template")
+    src_res_path = os.path.join(template_path, "resources")
+    proj_path = Path(".").resolve()
+    dst_res_path = proj_path.joinpath("./resources").as_posix()
+
+    if os.path.islink(dst_res_path):
+        if Path(dst_res_path).resolve() == Path(src_res_path).resolve():
+            typer.echo("Looks like this project is already set up for dev!")
+            raise typer.Exit(1)
+
+    typer.echo("This symlinks the package resource directory to this local one, deleting the local version.")
+    typer.echo("It's meant for development on paper itself.")
+    do_it = typer.confirm("Is that what you're up to?")
+    if do_it:
+        shutil.rmtree(dst_res_path)
+        os.symlink(src_res_path, dst_res_path)
+
 def ensure_paper_dir():
     def bail():
         typer.echo("Not in a paper directory.")
-        typer.Exit(1)
+        raise typer.Exit(1)
     if not os.path.exists("./paper_meta.yml") or not os.path.isfile("./paper_meta.yml"):
         bail
     if not os.path.exists("./content") or not os.path.isdir("./content"):

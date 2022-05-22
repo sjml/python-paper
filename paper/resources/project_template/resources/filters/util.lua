@@ -17,7 +17,6 @@ function is_str_truthy(str)
   if str == nil then
     return false
   end
-  if lua_is
   numval = tonumber(str)
   if numval ~= nil then
     return numval ~= 0
@@ -58,4 +57,18 @@ function findItemInListByAttribute(list, attr, value)
     end
   end
   return nil
+end
+
+function has_keyword(ref_data, keyword)
+  if ref_data == nil then
+    return false
+  end
+  if ref_data.keyword == nil then
+    return false
+  end
+  entry_kw = pandoc.utils.stringify(ref_data.keyword)
+  if entry_kw:find(keyword, 1, true) ~= nil then
+    return true
+  end
+  return false
 end

@@ -31,12 +31,7 @@ return {
   {
     Cite = function (elem)
       local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
-      if ref_data == nil then
-        return nil
-      end
-      if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
-        return nil
-      end
+      if not has_keyword(ref_data, "Papal Encyclical") then return nil end
       local proper = ref_data["title-short"][1]
       return elem:walk {
         Block = function(e)
@@ -51,12 +46,7 @@ return {
     Div = function (elem)
       if starts_with(elem.attr.identifier, "ref-") then
         local ref_data = findItemInListByAttribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
-        if ref_data == nil then
-          return nil
-        end
-        if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
-          return nil
-        end
+        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
         local proper = ref_data["title-short"][1]
         return elem:walk {
           Block = function(e)

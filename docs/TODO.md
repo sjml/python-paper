@@ -1,7 +1,6 @@
 * maybe some code cleanup? (cli.py is a smidge overpacked)
+    - lua naming conventions all over the place, global v local variables
 * `paper_meta.yml` could also be re-orged (maybe all paper data goes under one section and system data loose or under another?)
-* could imagine passing it a param for what kind of output file to generate, maybe something in the metadata file? 
-    - `docx` vs `pdf` vs `docx+pdf` (a PDF from Word instead of via LaTeX), for example
 * project template:
     - should "resources" become ".paper_resources"? hidden from the user, maybe
     - make other folders for notes/filters/resources/research/etc? -- basically a little project scaffold for academic work
@@ -10,15 +9,14 @@
 * custom CSL or more filters? 
     - catholic primary sources:
         - CCC -- no author, use CCC on subsequent cites
+            - think it "just works" but test it
         - USCCB -- use abbreviation on subsequent cites
         - Aquinas -- drop author on subsequent, keep translator notes
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
-            - also set encyclicals to handle multiple cites
+            - also set encyclical filters to handle multiple cites
     - latin sources:
         - seems mostly the same, but Vulgate is special-cased bible
     
-    - Book titles not getting capitalized now?!
-
     * note that pandoc.utils.references is pulled from the csl?
 
 

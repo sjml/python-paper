@@ -13,12 +13,7 @@ return {
   {
     Cite = function (elem)
       local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
-      if ref_data == nil then
-        return nil
-      end
-      if ref_data.type ~= "report" or pandoc.utils.stringify(ref_data.genre) ~= "Encyclical" then
-        return nil
-      end
+      if not has_keyword(ref_data, "Papal Encyclical") then return nil end
       local is_subsequent = encyclical_keys[elem.citations[1].id] == true
       encyclical_keys[elem.citations[1].id] = true
 
