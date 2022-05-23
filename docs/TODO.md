@@ -1,5 +1,5 @@
 * maybe some code cleanup? (cli.py is a smidge overpacked)
-    - lua naming conventions all over the place, global v local variables
+    - lua naming conventions all over the place, global v local variables, require to variable?
 * `paper_meta.yml` could also be re-orged (maybe all paper data goes under one section and system data loose or under another?)
 * project template:
     - should "resources" become ".paper_resources"? hidden from the user, maybe
@@ -10,7 +10,6 @@
     - catholic primary sources:
         - CCC -- no author, use CCC on subsequent cites
             - think it "just works" but test it
-        - USCCB -- use abbreviation on subsequent cites
         - Aquinas -- drop author on subsequent, keep translator notes
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
             - also set encyclical filters to handle multiple cites
@@ -22,4 +21,4 @@
 
 make encyclical collection
 make vatican 2 collection (as elements of the published book)
-make aquinas entry
+make aquinas summa entry
