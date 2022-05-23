@@ -10,7 +10,6 @@
     - catholic primary sources:
         - CCC -- no author, use CCC on subsequent cites
             - think it "just works" but test it
-        - Aquinas -- drop author on subsequent, keep translator notes
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
             - also set encyclical filters to handle multiple cites
     - latin sources:
