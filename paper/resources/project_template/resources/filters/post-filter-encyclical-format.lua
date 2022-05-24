@@ -41,6 +41,13 @@ return {
           Inline = function(e)
             return fixCase(proper, e)
           end,
+          Span = function(s)
+            if s.content[1].text == "“" and s.content[#s.content].text == "”" then
+              s.content:remove(1)
+              s.content:remove(#s.content)
+              return s
+            end
+          end,
         }
       end
     end,

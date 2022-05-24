@@ -8,13 +8,6 @@
 * make "use ibid" into a variable, along with font selection so only needing one template doc
 * list rendering is a bit off -- I don't use it much/at all, but let's figure out for the sake of completion
 
-* custom CSL or more filters? 
-    - catholic primary sources:
-        - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
-    
-    - maybe can attach extra info direct to element so don't need to re-read on post?
-
-
 
 make encyclical collection
 make vatican 2 collection (as elements of the published book)
