@@ -8,6 +8,8 @@
 
 require(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util'})
 
+local meta = {}
+
 -- first two in each table are "canonical" names,
 --   with the third being the standard SBL abbreviation
 local bible_books = {
@@ -92,7 +94,7 @@ local bible_books = {
 
 function normalizeBookName(book, idx)
   if idx > 3 then
-    error("Cannot normalize a Bible book to an index greater than 2.")
+    error("Cannot normalize a Bible book to an index greater than 3.")
   end
 
   for _, list in pairs(bible_books) do
@@ -110,7 +112,7 @@ function normalizeBookName(book, idx)
   error("Could not normalize book name: \""..book.."\"")
 end
 
-function processBibleCitation(suffix, translation)
+function processBibleCitation(suffix)
   local suffix = strip(suffix)
   if suffix:sub(1,1) == "," then
     suffix = suffix:sub(2)
@@ -132,7 +134,11 @@ function processBibleCitation(suffix, translation)
       end
     end
   end
-  book = normalizeBookName(strip(book), 3)
+  book = strip(book)
+  if #book == 0 then
+    error("No reference given for bible citation.")
+  end
+  book = normalizeBookName(book, 3)
   range = strip(range)
 
   return book.." "..range
@@ -144,12 +150,14 @@ function filterCiteElementForBiblicalRefs(elem)
   local translations = {}
   local bible_cites = {}
   local other_count = 0
+  local note_num = nil
   for _, citation in pairs(elem.citations) do
     if starts_with(citation.id, "Bible-") then
       local translation = citation.id:sub(#"Bible-"+1)
       translations[translation] = 1
-      local bcite = processBibleCitation(pandoc.utils.stringify(citation.suffix), translation)
+      local bcite = processBibleCitation(pandoc.utils.stringify(citation.suffix))
       table.insert(bible_cites, bcite)
+      note_num = citation.note_num
     else
       other_count = other_count + 1
     end
@@ -169,21 +177,31 @@ function filterCiteElementForBiblicalRefs(elem)
   end
 
   local translation = translation_list[1]
-  local cite = {}
-  table.insert(cite, pandoc.Str("("))
+  local pseudo_cite = {}
+  table.insert(pseudo_cite, pandoc.Str("("))
   for i,c in pairs(bible_cites) do
-    table.insert(cite, pandoc.Str(c))
+    table.insert(pseudo_cite, pandoc.Str(c))
     if i < #bible_cites then
-      table.insert(cite, pandoc.Str(";"))
-      table.insert(cite, pandoc.Space())
+      table.insert(pseudo_cite, pandoc.Str(";"))
+      table.insert(pseudo_cite, pandoc.Space())
     end
   end
-  table.insert(cite, pandoc.Span({pandoc.Space(), pandoc.Emph(pandoc.Str(translation))}, {class="bible-translation-cite"}))
-  table.insert(cite, pandoc.Str(")"))
+  table.insert(pseudo_cite, pandoc.Span({pandoc.Space(), pandoc.Emph(pandoc.Str(translation))}, {class="bible-translation-cite"}))
+  table.insert(pseudo_cite, pandoc.Str(")"))
+
+  if translation == "Vulgatam" and bible_translations[translation] ~= true then
+    if meta.vulgate_cite_key == nil then
+      error("Vulgatam citation made, but no vulgate_cite_key given in metadata.")
+    end
+    local vcitation = pandoc.Citation(meta.vulgate_cite_key, "NormalCitation")
+    vcitation.note_num = note_num
+    local vcite = pandoc.Cite({}, {vcitation})
+    table.insert(pseudo_cite, vcite)
+  end
 
   bible_translations[translation] = true
 
-  return cite
+  return pseudo_cite
 end
 
 function filterSpanElementsForTranslationReference(elem)
@@ -192,8 +210,17 @@ function filterSpanElementsForTranslationReference(elem)
     if count_table_entries(bible_translations) > 1 then
       return nil
     end
-    -- otherwise, only name it the first time
     local tkey = strip(pandoc.utils.stringify(elem))
+    -- if it's the Vulgate, only name on subsequents
+    if tkey == "Vulgatam" then
+      if bible_translations[tkey] == true then
+        bible_translations[tkey] = false
+        return {}
+      else
+        return nil
+      end
+    end
+    -- otherwise, only name it the first time
     if bible_translations[tkey] == true then
       bible_translations[tkey] = false
       return nil
@@ -203,8 +230,17 @@ function filterSpanElementsForTranslationReference(elem)
   end
 end
 
--- Two passes: one to make the citations, the other to clean up excess translation mentions.
+-- Three passes:
+--   - grab the metadata
+--   - make the citations
+--   - the last to clean up translation mentions
 return {
+  {
+    Meta = function (m)
+      fix_table_strings(m)
+      meta = m
+    end
+  },
   { Cite = filterCiteElementForBiblicalRefs },
   { Span = filterSpanElementsForTranslationReference },
 }

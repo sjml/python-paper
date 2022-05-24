@@ -1,5 +1,6 @@
 * maybe some code cleanup? (cli.py is a smidge overpacked)
     - lua naming conventions all over the place, global v local variables, require to variable?
+    - see if we can move errors to warnings
 * `paper_meta.yml` could also be re-orged (maybe all paper data goes under one section and system data loose or under another?)
 * project template:
     - should "resources" become ".paper_resources"? hidden from the user, maybe
@@ -11,8 +12,7 @@
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
             - also set encyclical filters to handle multiple cites
                 - all of 'em, tho (look for citations[1])
-    - latin sources:
-        - seems mostly the same, but Vulgate is special-cased bible
+    - ecumenical councils?
     
     - maybe can attach extra info direct to element so don't need to re-read on post?
 

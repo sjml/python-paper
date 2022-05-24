@@ -1,6 +1,15 @@
 function dump(t, prefix)
+  if t == nil then
+    print("nil")
+    return
+  end
   if prefix == nil then prefix = "" end
+  if type(t) ~= "table" then print(prefix..t) end
   for k,v in pairs(t) do
+    if type(v) == "table" then
+      print(prefix..k)
+      dump(v, prefix.."    ")
+    end
     print(prefix..k,v)
   end
 end
@@ -71,4 +80,17 @@ function has_keyword(ref_data, keyword)
     return true
   end
   return false
+end
+
+function fix_table_strings(t)
+  for k, v in pairs(t) do
+    if type(v) == "table" then
+      local metatable = getmetatable(v)
+      if metatable ~= nil and metatable.__name == "Inlines" then
+        t[k] = pandoc.utils.stringify(v)
+      else
+        fix_table_strings(t[k])
+      end
+    end
+  end
 end
