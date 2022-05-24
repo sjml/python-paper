@@ -1,0 +1,2 @@
+
+PAPER_STATE = {}

@@ -1,10 +1,18 @@
 import typer
 
 from .formats import Format
+from .shared import PAPER_STATE
 
 _app = typer.Typer()
 def main():
     _app()
+
+@_app.callback()
+def paper(verbose: bool = False):
+    """
+    Shane's little paper-writing utility.
+    """
+    PAPER_STATE["verbose"] = verbose
 
 @_app.command()
 def new(project_name: str):

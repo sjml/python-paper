@@ -5,7 +5,7 @@ from paper import LIB_VERSION, LIB_NAME
 
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding="utf-8", mode="r") as f:
     LONGDESC = f.read()
-    SHORTDESC = "Shane's paper-writing utility"
+    SHORTDESC = "Shane's little paper-writing utility"
 
 setup(
     name=LIB_NAME.lower(),

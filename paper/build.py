@@ -9,9 +9,13 @@ import jsbeautifier
 from .util import ensure_paper_dir, get_metadata, get_assignment
 from .formats import Format
 from .doc_handling import make_pdf, package
+from .shared import PAPER_STATE
 
 def build(output_format: Format = Format.docx):
     ensure_paper_dir()
+
+    if PAPER_STATE["verbose"]:
+        typer.echo(f"Building for format {output_format}")
 
     if not os.path.exists("./out"):
         os.mkdir("./out")
@@ -24,6 +28,8 @@ def build(output_format: Format = Format.docx):
         meta["filename"] = f"{author}_{mnemonic}"
         assignment_underscored = re.sub(r"\s+", "_", get_assignment())
         meta["filename"] += f"_{assignment_underscored}"
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"No filename given; using generated \"{meta['filename']}\"")
 
     cmd = ["pandoc",
         "--from=markdown+bracketed_spans",
@@ -54,6 +60,8 @@ def build(output_format: Format = Format.docx):
     bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
 
     if len(bib_paths) > 0:
+        if PAPER_STATE["verbose"]:
+            typer.echo("Processing citations...")
         cmd.append("--citeproc")
         if not "use_ibid" in meta or meta["use_ibid"] == False:
             cmd.extend(["--csl", "./resources/chicago-fullnote-bibliography-short-title-subsequent.csl"])
@@ -65,11 +73,14 @@ def build(output_format: Format = Format.docx):
         post_filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in post_filters for toggle in range(2)]
         cmd.extend(post_filter_cmds)
     else:
-        typer.echo("No citation processing.")
+        if PAPER_STATE["verbose"]:
+            typer.echo("No citation processing.")
 
     cmd.extend([os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")])
 
-    # typer.echo(" ".join(cmd))
+    if PAPER_STATE["verbose"]:
+        typer.echo("Invoking pandoc:")
+        typer.echo(f"\t{' '.join(cmd)}")
     subprocess.check_call(cmd)
 
     if output_format in [Format.docx, Format.docx_pdf]:
@@ -77,10 +88,14 @@ def build(output_format: Format = Format.docx):
         if output_format == Format.docx_pdf:
             make_pdf(output_filename, meta)
     elif output_format == Format.json:
+        if PAPER_STATE["verbose"]:
+            typer.echo("Prettifying JSON output...")
         opts = jsbeautifier.default_options()
         opts.indent_size = 2
         with open(output_filename, "r") as jsonin:
             output_json = jsonin.read()
         pretty_json = jsbeautifier.beautify(output_json, opts)
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Writing final JSON to {output_filename}...")
         with open(output_filename, "w") as jsonout:
             jsonout.write(pretty_json)

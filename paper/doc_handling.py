@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from datetime import datetime
 
+import typer
 from docx import Document
 from docx import enum
 from docx.shared import Pt
@@ -10,6 +11,7 @@ from docx.oxml.ns import qn
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 from . import LIB_NAME, LIB_VERSION
+from .shared import PAPER_STATE
 
 def _add_chicago_title(doc: Document, meta: dict):
     starting_graph = doc.paragraphs[0]
@@ -29,26 +31,39 @@ def _add_chicago_title(doc: Document, meta: dict):
 
 
 def package(filename: str, meta: dict):
+    if PAPER_STATE["verbose"]:
+        typer.echo("Packaging docx...")
     doc = Document(filename)
 
     if len(doc.paragraphs) == 0:
+        if PAPER_STATE["verbose"]:
+            typer.echo("No first paragraph; adding blank...")
         doc.add_paragraph("", style="First Paragraph")
 
     # set metadata
+    if PAPER_STATE["verbose"]:
+        typer.echo("Fixing docx metadata...")
     doc.core_properties.title = meta["data"]["title"]
     doc.core_properties.author = meta["data"]["author"]
     doc.core_properties.last_modified_by = meta["data"]["author"]
     doc.core_properties.revision = max(1, int(subprocess.check_output(["git", "rev-list", "--all", "--count"])) - 1)
 
     # add title
+    if PAPER_STATE["verbose"]:
+        typer.echo("Adding title page...")
     _add_chicago_title(doc, meta)
 
     # check "Total Row" box on tables
+    if len(doc.tables) > 0:
+        if PAPER_STATE["verbose"]:
+            typer.echo("Fixing table formatting...")
     for t in doc.tables:
         tblLook = t._tblPr.first_child_found_in("w:tblLook")
         tblLook.set(qn("w:lastRow"), "1")
 
     # add "Works Cited" label to bibliography
+    if PAPER_STATE["verbose"]:
+        typer.echo("Adding bibliography label...")
     last_graph_idx = -1
     while True:
         last_graph = doc.paragraphs[last_graph_idx]
@@ -63,9 +78,13 @@ def package(filename: str, meta: dict):
         bib_label.paragraph_format.page_break_before = True
         bib_label.runs[0].underline = True
 
+    if PAPER_STATE["verbose"]:
+        typer.echo(f"Writing final docx to {filename}...")
     doc.save(filename)
 
 def make_pdf(filename: str, meta: dict):
+    if PAPER_STATE["verbose"]:
+        typer.echo("Generating PDF...")
     filepath = os.path.abspath(filename)
     base = os.path.splitext(filepath)[0]
     pdf_filepath = base + ".pdf"
@@ -96,6 +115,8 @@ def make_pdf(filename: str, meta: dict):
 
     shutil.move(outpath, pdf_filepath)
 
+    if PAPER_STATE["verbose"]:
+        typer.echo("Fixing PDF metadata...")
     reader = PdfFileReader(pdf_filepath)
     writer = PdfFileWriter()
     writer.appendPagesFromReader(reader)
@@ -107,5 +128,7 @@ def make_pdf(filename: str, meta: dict):
         "/CreationDate": f"D:{pdf_date}",
     })
 
+    if PAPER_STATE["verbose"]:
+        typer.echo(f"Writing final PDF to {pdf_filepath}...")
     with open(pdf_filepath, "wb") as pdfout:
         writer.write(pdfout)
