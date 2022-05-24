@@ -94,7 +94,8 @@ local bible_books = {
 
 function normalize_book_name(book, idx)
   if idx > 3 then
-    error("Cannot normalize a Bible book to an index greater than 3.")
+    print("[LUA FILTER WARNING] Cannot normalize a Bible book to an index greater than 3.")
+    return nil
   end
 
   for _, list in pairs(bible_books) do
@@ -109,7 +110,8 @@ function normalize_book_name(book, idx)
     end
   end
 
-  error("Could not normalize book name: \""..book.."\"")
+  print("[LUA FILTER WARNING] Could not normalize book name: \""..book.."\"")
+  return nil
 end
 
 function process_bible_citation(suffix)
@@ -136,9 +138,13 @@ function process_bible_citation(suffix)
   end
   book = utils.strip(book)
   if #book == 0 then
-    error("No reference given for bible citation.")
+    print("[LUA FILTER WARNING] No reference given for bible citation.")
+    return nil
   end
   book = normalize_book_name(book, 3)
+  if book == nil then
+    return nil
+  end
   range = utils.strip(range)
 
   return book.." "..range
@@ -165,11 +171,13 @@ function filter_cite_element_for_biblical_refs(elem)
   local translation_list = {}
   for t, _ in pairs(translations) do table.insert(translation_list, t) end
   if #translation_list > 1 then
-    error("Cannot mix translations in a single citation. ("..table.concat(translation_list, " + ")..")")
+    print("[LUA FILTER WARNING] Cannot mix translations in a single citation. ("..table.concat(translation_list, " + ")..")")
+    return nil
   end
 
   if #bible_cites > 0 and other_count > 0 then
-    error("Cannot mix Bible citations with other types.")
+    print("[LUA FILTER WARNING] Cannot mix Bible citations with other types.")
+    return nil
   end
 
   if other_count > 0 then
@@ -191,7 +199,8 @@ function filter_cite_element_for_biblical_refs(elem)
 
   if translation == "Vulgatam" and bible_translations[translation] ~= true then
     if meta.vulgate_cite_key == nil then
-      error("Vulgatam citation made, but no vulgate_cite_key given in metadata.")
+      print("[LUA FILTER WARNING] Vulgatam citation made, but no vulgate_cite_key given in metadata.")
+      return nil
     end
     local vcitation = pandoc.Citation(meta.vulgate_cite_key, "NormalCitation")
     vcitation.note_num = note_num

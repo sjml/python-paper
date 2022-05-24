@@ -14,7 +14,7 @@ return {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
         local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
-        if ref_data.author == nil then return nil end
+        if ref_data == nil or ref_data.author == nil then return nil end
         local auth = pandoc.utils.stringify(ref_data.author)
         if seen_authors[auth] == true and institutional_abbreviations[auth] ~= nil then
           citation.mode = "SuppressAuthor"
