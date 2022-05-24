@@ -12,7 +12,9 @@
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
             - also set encyclical filters to handle multiple cites
                 - all of 'em, tho (look for citations[1])
-    - ecumenical councils?
+    - ecumenical councils (only in Latin?)
+        - identify: council, session, date of public session, decree, and if applicable, specific chapter or canon being cited
+    - Acta Apostolica Sedis: section follows date of promulgation 
     
     - maybe can attach extra info direct to element so don't need to re-read on post?
 
@@ -20,4 +22,3 @@
 
 make encyclical collection
 make vatican 2 collection (as elements of the published book)
-make aquinas summa entry

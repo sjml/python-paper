@@ -2,6 +2,15 @@
 
 A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers).
 
+In general, it just does a simple pandoc assembly of whatever Markdown files are in the `content` directory, but it has some custom filters for my/STM needs.
+* citation keys like `@Bible-NABRE` do appropriate in-text biblical citations with the given translation (only referencing it on the first usage unless there are multiple translations used within a single paper)
+    * exception being the Vulgate, which gets a normal footnote citation on first usage and then mentioned on each subsequent
+* if the author is listed as the USCCB, abbreviation is used on subsequent references
+    * (I'm told that [CSL](https://citationstyles.org/) 1.1 will have author short names, but that's been "coming very soon" since early 2020...)
+* Papal Encyclicals have strange citation standards, but in concert with a very carefully prepared citation library, this will ensure that the capitalization of the Latin names is consistent
+* section symbols (§) are used instead of "sec.", unless the the cited item is a newspaper article.
+* Works by Thomas Aquinas drop the author on subsequent citations
+
 ## Installation
 ```shell
 pip install git+https://github.com/sjml/paper.git
