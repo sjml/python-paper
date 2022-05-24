@@ -32,16 +32,20 @@ def ensure_paper_dir():
     if len(file_list) == 0:
         bail()
 
+_meta = None
 def get_metadata() -> dict:
-    data = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
-    if "data" not in data:
-        data["data"] = {}
-    if "date" not in data["data"] or data["data"]["date"] == "[DATE]":
-        data["data"]["date"] = None
-    else:
-        date = datetime.fromisoformat(data["data"]["date"])
-        data["data"]["date"] = date
-    return data
+    global _meta
+    if _meta == None:
+        data = list(yaml.safe_load_all(open("./paper_meta.yml")))[0]
+        if "data" not in data:
+            data["data"] = {}
+        if "date" not in data["data"] or data["data"]["date"] == "[DATE]":
+            data["data"]["date"] = None
+        else:
+            date = datetime.fromisoformat(data["data"]["date"])
+            data["data"]["date"] = date
+        _meta = data
+    return _meta
 
 def get_assignment() -> str:
     meta = get_metadata()
