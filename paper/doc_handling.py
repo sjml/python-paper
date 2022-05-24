@@ -40,6 +40,12 @@ def package(filename: str, meta: dict):
             typer.echo("No first paragraph; adding blank...")
         doc.add_paragraph("", style="First Paragraph")
 
+    # change font if we were asked to
+    if "font_override" in meta and meta["font_override"] != None:
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Changing base font to {meta['font_override']}...")
+        doc.styles["Normal"].font.name = meta['font_override']
+
     # set metadata
     if PAPER_STATE["verbose"]:
         typer.echo("Fixing docx metadata...")

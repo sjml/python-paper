@@ -35,7 +35,7 @@ pip install -e .
 The metadata file that assists in the generation. YAML format. `paper` will walk up the directory tree until the root looking for similarly named files, so you can have a root `paper_meta.yml` with the author name, one in a directory for each class with the professor and mnemonic, etc. (Note this is only traversed when the project is set up; it doesn't automatically pick up changes live, but writes the full coalesced data to the lowest file in the hierarchy at init time.)
 
 * `data`: 
-    * (These items are moved under this `data` heading because otherwise pandoc will try to print a title block. Could this all be better organized? Probably.)
+    * (These are variables that will be put into the actual text of the paper itself, usually on the title page. It also gets used by `paper` for default filenames and things. )
     * `date`: due date in ISO-8601 format OR `null` OR placeholder `"[DATE]"` (if set, will be graphed as a red line on the progress image)
     * `author`: author's name
     * `title`: title of paper
@@ -45,6 +45,7 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
 * `sources`: An array of paths to BibTeX (`.bib`) files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
 * `vulgate_cite_key`: if citing a Bible with the translation listed as `"Vulgatam"`, you need to specify a citation key for the initial footnote. If you're not dealing with the Vulgate, you don't need to worry about this! 
+* `font_override`: change away from the default Times New Roman. Doesn't do any checking to make sure it's a valid font name, or that it doesn't destroy your layout, crash Word, erase your hard drive, etc. You're on your own if you go playing here...
 
 ## `./content` folder
 Any file in this folder that ends with `.md` will be given to pandoc for assembly into the final paper. Note that they're given in alphabetical order, and should be Markdown files. At the moment, no metadata in them is processed. 

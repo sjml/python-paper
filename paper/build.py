@@ -43,7 +43,7 @@ def build(output_format: Format = Format.docx):
         output_suffix = "docx"
         cmd.extend([
             "--to=docx",
-            "--reference-doc", "./.paper_resources/ChicagoStyle-TimesNewRoman_Template.docx",
+            "--reference-doc", "./.paper_resources/ChicagoStyle_Template.docx",
         ])
     elif output_format == Format.json:
         output_suffix = "json"
