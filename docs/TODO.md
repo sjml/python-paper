@@ -1,7 +1,5 @@
 * metadata files:
-    - make font overrie selection a variable so only needing one template doc
-* python:
-    - code cleanup? (cli.py is a smidge overpacked)
+    - make font override selection a variable so only needing one template doc
 * project template:
     - should "resources" become ".paper_resources"? hidden from the user, maybe
     - make other folders for notes/filters/resources/research/etc? -- basically a little project scaffold for academic work
