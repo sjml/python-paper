@@ -13,6 +13,7 @@ return {
   {
     Cite = function (elem)
       local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
+      if ref_data.author == nil then return nil end
       local auth = pandoc.utils.stringify(ref_data.author)
       if institutional_abbreviations[auth] ~= nil and elem.citations[1].mode == "SuppressAuthor"then
         return elem:walk {

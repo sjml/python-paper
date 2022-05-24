@@ -13,6 +13,7 @@ return {
   {
     Cite = function (elem)
       local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
+      if ref_data.author == nil then return nil end
       if not ref_data.author[1].family == "Aquinas" and ref_data[1].given == "Thomas" then
         return nil
       end

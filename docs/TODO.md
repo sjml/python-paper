@@ -8,14 +8,14 @@
 
 * custom CSL or more filters? 
     - catholic primary sources:
-        - CCC -- no author, use CCC on subsequent cites
-            - think it "just works" but test it
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
             - also set encyclical filters to handle multiple cites
+                - all of 'em, tho (look for citations[1])
     - latin sources:
         - seems mostly the same, but Vulgate is special-cased bible
     
-    * note that pandoc.utils.references is pulled from the csl?
+    - maybe can attach extra info direct to element so don't need to re-read on post?
+
 
 
 make encyclical collection
