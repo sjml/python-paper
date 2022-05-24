@@ -25,7 +25,7 @@ def _add_chicago_title(doc: Document, meta: dict):
     starting_graph.insert_paragraph_before(meta["data"]["title"], style="Title")
     starting_graph.insert_paragraph_before("by", style="Author")
     starting_graph.insert_paragraph_before(meta["data"]["author"], style="Author")
-    starting_graph.insert_paragraph_before(f"{meta['professor']}\n{meta['class_mnemonic']} — {meta['class_name']}\n{date_string}", style="Author")
+    starting_graph.insert_paragraph_before(f"{meta['data']['professor']}\n{meta['data']['class_mnemonic']} — {meta['data']['class_name']}\n{date_string}", style="Author")
 
 
 def package(filename: str, meta: dict):

@@ -40,11 +40,12 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
     * `date`: due date in ISO-8601 format OR `null` OR placeholder `"[DATE]"` (if set, will be graphed as a red line on the progress image)
     * `author`: author's name
     * `title`: title of paper
-* `class_mnemonic`: like "PHIL 101" or whatever
-* `class_name`: like "Introduction to Philosophy" or whatever
-* `professor`: the person what teaches the class
+    * `class_mnemonic`: like "PHIL 101" or whatever
+    * `class_name`: like "Introduction to Philosophy" or whatever
+    * `professor`: the person what teaches the class
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
 * `sources`: An array of paths to BibTeX (`.bib`) files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
+* `vulgate_cite_key`: if citing a Bible with the translation listed as `"Vulgatam"`, you need to specify a citation key for the initial footnote. If you're not dealing with the Vulgate, you don't need to worry about this! 
 
 ## `./content` folder
 Any file in this folder that ends with `.md` will be given to pandoc for assembly into the final paper. Note that they're given in alphabetical order, and should be Markdown files. At the moment, no metadata in them is processed. 

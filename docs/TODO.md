@@ -1,6 +1,5 @@
 * metadata files:
-    - could also be re-orged (maybe all paper data goes under one section and system data loose or under another?)
-    - make "use ibid" into a variable, along with font selection so only needing one template doc
+    - make font overrie selection a variable so only needing one template doc
 * python:
     - code cleanup? (cli.py is a smidge overpacked)
 * project template:

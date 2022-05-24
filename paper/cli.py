@@ -192,7 +192,7 @@ def build(output_format: Format = Format.docx):
 
     if "filename" not in meta:
         author = meta["data"]["author"].split(",")[0].split(" ")[-1]
-        mnemonic = re.sub(r"\s", "", meta["class_mnemonic"])
+        mnemonic = re.sub(r"\s", "", meta["data"]["class_mnemonic"])
         meta["filename"] = f"{author}_{mnemonic}"
         assignment_underscored = re.sub(r"\s+", "_", get_assignment())
         meta["filename"] += f"_{assignment_underscored}"
@@ -226,10 +226,11 @@ def build(output_format: Format = Format.docx):
     bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
 
     if len(bib_paths) > 0:
-        cmd.extend([
-            "--citeproc",
-            "--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl",
-        ])
+        cmd.append("--citeproc")
+        if not "use_ibid" in meta or meta["use_ibid"] == False:
+            cmd.extend(["--csl", "./resources/chicago-fullnote-bibliography-short-title-subsequent.csl"])
+        else:
+            cmd.extend(["--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl"])
         cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
 
         post_filters = [f for f in os.listdir(filter_dir) if f.startswith("post-filter-")]
@@ -387,7 +388,7 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
 
     if not os.path.exists("./README.md"):
         with open("./README.md", "w") as readme:
-            readme.write(f"# {meta['class_mnemonic']}: {get_assignment()}\n\n")
+            readme.write(f"# {meta['data']['class_mnemonic']}: {get_assignment()}\n\n")
             readme.write(f"{METADATA_START_SENTINEL}\n")
             readme.write(f"{METADATA_END_SENTINEL}\n")
 
@@ -421,7 +422,7 @@ def push():
 
     if len(remote) == 0:
         meta = get_metadata()
-        default_repo = f"{meta['class_mnemonic']}_{get_assignment()}"
+        default_repo = f"{meta['data']['class_mnemonic']}_{get_assignment()}"
 
         repo_name = typer.prompt("What should be the repository name?", default_repo)
         is_private = typer.confirm("Private repository?", True)
