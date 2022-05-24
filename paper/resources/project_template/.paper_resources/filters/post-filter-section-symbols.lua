@@ -11,7 +11,7 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if ref_data == nil then return nil end
         if ref_data.type == "article-newspaper" then return nil end
         return elem:walk {

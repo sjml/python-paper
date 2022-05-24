@@ -12,7 +12,7 @@ return {
   {
     Cite = function (elem)
       for citation_idx, citation in pairs(elem.citations) do
-        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if ref_data.author == nil then return nil end
         local auth = pandoc.utils.stringify(ref_data.author)
         if institutional_abbreviations[auth] ~= nil and citation.mode == "SuppressAuthor"then

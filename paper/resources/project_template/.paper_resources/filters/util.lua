@@ -1,3 +1,4 @@
+-- recursive functions can't be anonymous; have to live outside the returned table
 local function dump(t, prefix)
   if t == nil then
     print("nil")
@@ -73,7 +74,7 @@ return {
     return count
   end,
 
-  findItemInListByAttribute = function(list, attr, value)
+  find_item_in_list_by_attribute = function(list, attr, value)
     if #list == 0 then return nil end
     if attr == nil or value == nil then return nil end
 

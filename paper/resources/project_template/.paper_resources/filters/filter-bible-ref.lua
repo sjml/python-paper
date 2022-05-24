@@ -92,7 +92,7 @@ local bible_books = {
   {"Wisdom", "Book of Wisdom", "Wis", nil, "Ws"}
 }
 
-function normalizeBookName(book, idx)
+function normalize_book_name(book, idx)
   if idx > 3 then
     error("Cannot normalize a Bible book to an index greater than 3.")
   end
@@ -112,7 +112,7 @@ function normalizeBookName(book, idx)
   error("Could not normalize book name: \""..book.."\"")
 end
 
-function processBibleCitation(suffix)
+function process_bible_citation(suffix)
   local suffix = utils.strip(suffix)
   if suffix:sub(1,1) == "," then
     suffix = suffix:sub(2)
@@ -138,7 +138,7 @@ function processBibleCitation(suffix)
   if #book == 0 then
     error("No reference given for bible citation.")
   end
-  book = normalizeBookName(book, 3)
+  book = normalize_book_name(book, 3)
   range = utils.strip(range)
 
   return book.." "..range
@@ -146,7 +146,7 @@ end
 
 local bible_translations = {}
 
-function filterCiteElementForBiblicalRefs(elem)
+function filter_cite_element_for_biblical_refs(elem)
   local translations = {}
   local bible_cites = {}
   local other_count = 0
@@ -155,7 +155,7 @@ function filterCiteElementForBiblicalRefs(elem)
     if utils.starts_with(citation.id, "Bible-") then
       local translation = citation.id:sub(#"Bible-"+1)
       translations[translation] = 1
-      local bcite = processBibleCitation(pandoc.utils.stringify(citation.suffix))
+      local bcite = process_bible_citation(pandoc.utils.stringify(citation.suffix))
       table.insert(bible_cites, bcite)
       note_num = citation.note_num
     else
@@ -204,7 +204,7 @@ function filterCiteElementForBiblicalRefs(elem)
   return pseudo_cite
 end
 
-function filterSpanElementsForTranslationReference(elem)
+function filter_span_elements_for_translation_reference(elem)
   if utils.is_string_in_list("bible-translation-cite", elem.classes) then
     -- if using more than one translation, name it every time
     if utils.count_table_entries(bible_translations) > 1 then
@@ -241,6 +241,6 @@ return {
       meta = m
     end
   },
-  { Cite = filterCiteElementForBiblicalRefs },
-  { Span = filterSpanElementsForTranslationReference },
+  { Cite = filter_cite_element_for_biblical_refs },
+  { Span = filter_span_elements_for_translation_reference },
 }

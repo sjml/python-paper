@@ -2,7 +2,7 @@ local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE),
 dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'institutional-abbreviations.lua'})
 
 local refs = {}
-local seenAuthors = {}
+local seen_authors = {}
 
 return {
   {
@@ -13,14 +13,14 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if ref_data.author == nil then return nil end
         local auth = pandoc.utils.stringify(ref_data.author)
-        if seenAuthors[auth] == true and institutional_abbreviations[auth] ~= nil then
+        if seen_authors[auth] == true and institutional_abbreviations[auth] ~= nil then
           citation.mode = "SuppressAuthor"
         end
 
-        seenAuthors[auth] = true
+        seen_authors[auth] = true
       end
       return elem
     end

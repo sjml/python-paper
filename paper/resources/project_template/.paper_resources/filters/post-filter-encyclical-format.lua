@@ -13,8 +13,8 @@ end
 function fixCase(target, searchElem)
   local lowered = lowerWalk(target)
   if searchElem.tag == lowered.tag then
-    local loweredSearch = lowerWalk(searchElem)
-    if loweredSearch == lowered then
+    local lowered_search = lowerWalk(searchElem)
+    if lowered_search == lowered then
       return target
     end
   end
@@ -31,7 +31,7 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local proper = ref_data["title-short"][1]
         return elem:walk {
@@ -54,7 +54,7 @@ return {
 
     Div = function (elem)
       if utils.starts_with(elem.attr.identifier, "ref-") then
-        local ref_data = utils.findItemInListByAttribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
         if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local proper = ref_data["title-short"][1]
         return elem:walk {

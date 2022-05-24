@@ -13,7 +13,7 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local is_subsequent = encyclical_keys[citation.id] == true
         encyclical_keys[citation.id] = true
