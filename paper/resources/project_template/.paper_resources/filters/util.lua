@@ -1,4 +1,4 @@
-function dump(t, prefix)
+local function dump(t, prefix)
   if t == nil then
     print("nil")
     return
@@ -14,75 +14,7 @@ function dump(t, prefix)
   end
 end
 
-function starts_with(str, start)
-  return str:sub(1, #start) == start
-end
-
-function strip(str)
-  return (str:gsub("^%s*(.-)%s*$", "%1"))
-end
-
-function is_str_truthy(str)
-  if str == nil then
-    return false
-  end
-  numval = tonumber(str)
-  if numval ~= nil then
-    return numval ~= 0
-  end
-  str = string.lower(str)
-  if str == "true" or str == "t" then
-    return true
-  elseif str == "yes" or str == "y" then
-    return true
-  end
-  return false
-end
-
-function is_string_in_list(str, list)
-  for _,s in pairs(list) do
-    if s == str then
-      return true
-    end
-  end
-  return false
-end
-
-function count_table_entries(tbl)
-  count = 0
-  for _ in pairs(tbl) do
-    count = count + 1
-  end
-  return count
-end
-
-function findItemInListByAttribute(list, attr, value)
-  if #list == 0 then return nil end
-  if attr == nil or value == nil then return nil end
-
-  for _, item in pairs(list) do
-    if item[attr] == value then
-      return item
-    end
-  end
-  return nil
-end
-
-function has_keyword(ref_data, keyword)
-  if ref_data == nil then
-    return false
-  end
-  if ref_data.keyword == nil then
-    return false
-  end
-  entry_kw = pandoc.utils.stringify(ref_data.keyword)
-  if entry_kw:find(keyword, 1, true) ~= nil then
-    return true
-  end
-  return false
-end
-
-function fix_table_strings(t)
+local function fix_table_strings(t)
   for k, v in pairs(t) do
     if type(v) == "table" then
       if pandoc.utils.type(v) == "Inlines" then
@@ -93,3 +25,77 @@ function fix_table_strings(t)
     end
   end
 end
+
+
+return {
+  dump = dump,
+  fix_table_strings = fix_table_strings,
+
+  starts_with = function(str, start)
+    return str:sub(1, #start) == start
+  end,
+
+  strip = function(str)
+    return (str:gsub("^%s*(.-)%s*$", "%1"))
+  end,
+
+  is_str_truthy = function(str)
+    if str == nil then
+      return false
+    end
+    numval = tonumber(str)
+    if numval ~= nil then
+      return numval ~= 0
+    end
+    str = string.lower(str)
+    if str == "true" or str == "t" then
+      return true
+    elseif str == "yes" or str == "y" then
+      return true
+    end
+    return false
+  end,
+
+  is_string_in_list = function(str, list)
+    for _,s in pairs(list) do
+      if s == str then
+        return true
+      end
+    end
+    return false
+  end,
+
+  count_table_entries = function(tbl)
+    count = 0
+    for _ in pairs(tbl) do
+      count = count + 1
+    end
+    return count
+  end,
+
+  findItemInListByAttribute = function(list, attr, value)
+    if #list == 0 then return nil end
+    if attr == nil or value == nil then return nil end
+
+    for _, item in pairs(list) do
+      if item[attr] == value then
+        return item
+      end
+    end
+    return nil
+  end,
+
+  has_keyword = function(ref_data, keyword)
+    if ref_data == nil then
+      return false
+    end
+    if ref_data.keyword == nil then
+      return false
+    end
+    entry_kw = pandoc.utils.stringify(ref_data.keyword)
+    if entry_kw:find(keyword, 1, true) ~= nil then
+      return true
+    end
+    return false
+  end,
+}

@@ -1,4 +1,4 @@
-dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local refs = {}
 
@@ -11,7 +11,7 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
         if ref_data == nil then return nil end
         if ref_data.type == "article-newspaper" then return nil end
         return elem:walk {

@@ -1,4 +1,4 @@
-dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local aquinas_keys = {}
 local refs = {}
@@ -13,7 +13,7 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
+        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
         if ref_data == nil or ref_data.author == nil then return nil end
         if not ref_data.author[1].family == "Aquinas" and ref_data[1].given == "Thomas" then
           return nil

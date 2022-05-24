@@ -1,4 +1,4 @@
-dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local refs = {}
 
@@ -31,8 +31,8 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
-        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
+        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local proper = ref_data["title-short"][1]
         return elem:walk {
           Block = function(e)
@@ -53,9 +53,9 @@ return {
     end,
 
     Div = function (elem)
-      if starts_with(elem.attr.identifier, "ref-") then
-        local ref_data = findItemInListByAttribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
-        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
+      if utils.starts_with(elem.attr.identifier, "ref-") then
+        local ref_data = utils.findItemInListByAttribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
+        if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local proper = ref_data["title-short"][1]
         return elem:walk {
           Block = function(e)

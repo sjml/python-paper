@@ -1,4 +1,4 @@
-dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local encyclical_keys = {}
 local refs = {}
@@ -13,8 +13,8 @@ return {
   {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
-        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
-        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
+        local ref_data = utils.findItemInListByAttribute(refs, "id", citation.id)
+        if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
         local is_subsequent = encyclical_keys[citation.id] == true
         encyclical_keys[citation.id] = true
 

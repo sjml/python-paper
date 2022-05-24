@@ -6,7 +6,7 @@
 -- This filter will also normalize biblical book names to the preferred SBL abbreviation.
 --
 
-dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local meta = {}
 
@@ -113,10 +113,10 @@ function normalizeBookName(book, idx)
 end
 
 function processBibleCitation(suffix)
-  local suffix = strip(suffix)
+  local suffix = utils.strip(suffix)
   if suffix:sub(1,1) == "," then
     suffix = suffix:sub(2)
-    suffix = strip(suffix)
+    suffix = utils.strip(suffix)
   end
   local book = ""
   local range = ""
@@ -134,12 +134,12 @@ function processBibleCitation(suffix)
       end
     end
   end
-  book = strip(book)
+  book = utils.strip(book)
   if #book == 0 then
     error("No reference given for bible citation.")
   end
   book = normalizeBookName(book, 3)
-  range = strip(range)
+  range = utils.strip(range)
 
   return book.." "..range
 end
@@ -152,7 +152,7 @@ function filterCiteElementForBiblicalRefs(elem)
   local other_count = 0
   local note_num = nil
   for _, citation in pairs(elem.citations) do
-    if starts_with(citation.id, "Bible-") then
+    if utils.starts_with(citation.id, "Bible-") then
       local translation = citation.id:sub(#"Bible-"+1)
       translations[translation] = 1
       local bcite = processBibleCitation(pandoc.utils.stringify(citation.suffix))
@@ -205,12 +205,12 @@ function filterCiteElementForBiblicalRefs(elem)
 end
 
 function filterSpanElementsForTranslationReference(elem)
-  if is_string_in_list("bible-translation-cite", elem.classes) then
+  if utils.is_string_in_list("bible-translation-cite", elem.classes) then
     -- if using more than one translation, name it every time
-    if count_table_entries(bible_translations) > 1 then
+    if utils.count_table_entries(bible_translations) > 1 then
       return nil
     end
-    local tkey = strip(pandoc.utils.stringify(elem))
+    local tkey = utils.strip(pandoc.utils.stringify(elem))
     -- if it's the Vulgate, only name on subsequents
     if tkey == "Vulgatam" then
       if bible_translations[tkey] == true then
@@ -237,7 +237,7 @@ end
 return {
   {
     Meta = function (m)
-      fix_table_strings(m)
+      utils.fix_table_strings(m)
       meta = m
     end
   },
