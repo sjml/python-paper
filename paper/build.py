@@ -11,14 +11,16 @@ from .formats import Format
 from .doc_handling import make_pdf, package
 from .shared import PAPER_STATE
 
+OUTPUT_DIRECTORY_NAME = "output"
+
 def build(output_format: Format = Format.docx):
     ensure_paper_dir()
 
     if PAPER_STATE["verbose"]:
         typer.echo(f"Building for format {output_format}")
 
-    if not os.path.exists("./out"):
-        os.mkdir("./out")
+    if not os.path.exists(os.path.join(".", OUTPUT_DIRECTORY_NAME)):
+        os.mkdir(os.path.join(".", OUTPUT_DIRECTORY_NAME))
 
     meta = get_metadata()
 
@@ -41,16 +43,16 @@ def build(output_format: Format = Format.docx):
         output_suffix = "docx"
         cmd.extend([
             "--to=docx",
-            "--reference-doc", "./resources/ChicagoStyle-TimesNewRoman_Template.docx",
+            "--reference-doc", "./.paper_resources/ChicagoStyle-TimesNewRoman_Template.docx",
         ])
     elif output_format == Format.json:
         output_suffix = "json"
         cmd.extend(["--to", "json"])
 
-    output_filename = f"./out/{meta['filename']}.{output_suffix}"
+    output_filename = os.path.join(".", OUTPUT_DIRECTORY_NAME, f"{meta['filename']}.{output_suffix}")
     cmd.extend(["--output", output_filename])
 
-    filter_dir = os.path.join(".", "resources", "filters")
+    filter_dir = os.path.join(".", ".paper_resources", "filters")
     filters = [f for f in os.listdir(filter_dir) if f.startswith("filter-")]
     filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in filters for toggle in range(2)]
     cmd.extend(filter_cmds)
@@ -64,9 +66,9 @@ def build(output_format: Format = Format.docx):
             typer.echo("Processing citations...")
         cmd.append("--citeproc")
         if not "use_ibid" in meta or meta["use_ibid"] == False:
-            cmd.extend(["--csl", "./resources/chicago-fullnote-bibliography-short-title-subsequent.csl"])
+            cmd.extend(["--csl", "./.paper_resources/chicago-fullnote-bibliography-short-title-subsequent.csl"])
         else:
-            cmd.extend(["--csl", "./resources/chicago-fullnote-bibliography-with-ibid.csl"])
+            cmd.extend(["--csl", "./.paper_resources/chicago-fullnote-bibliography-with-ibid.csl"])
         cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
 
         post_filters = [f for f in os.listdir(filter_dir) if f.startswith("post-filter-")]

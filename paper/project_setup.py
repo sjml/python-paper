@@ -58,57 +58,20 @@ def init():
         yaml.safe_dump(meta, output, sort_keys=False)
         output.write("---\n")
 
+    os.mkdir("research")
+
     with open(os.devnull, 'wb') as dev_null:
         subprocess.call(["git", "init"], stdout=dev_null)
         subprocess.call(["git", "add", "."], stdout=dev_null)
         subprocess.call(["git", "commit", "-m", f"Initial project creation"], stdout=dev_null)
 
-def reinit():
-    ensure_paper_dir()
-
-    template_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources", "project_template")
-    proj_path = Path(".").resolve()
-    res_path = proj_path.joinpath("./resources").as_posix()
-
-    shutil.rmtree(res_path)
-    shutil.copytree(os.path.join(template_path, "resources"), res_path)
-
-    os.unlink("paper_meta.yml")
-    shutil.copy(os.path.join(template_path, "paper_meta.yml"), "paper_meta.yml")
-    meta = {}
-    curr_path = proj_path
-    meta_chain = []
-    while True:
-        meta_path = curr_path.joinpath("paper_meta.yml")
-        if os.path.exists(meta_path):
-            metas = list(yaml.safe_load_all(open(meta_path.as_posix())))
-            metas = [m for m in metas if m != None]
-            if len(metas) > 1:
-                typer.echo(f"Found more than one meta document at '{meta_path}'.")
-                raise typer.Exit(1)
-            meta_chain.append(metas[0])
-        curr_path = curr_path.parent
-        if curr_path.as_posix() == curr_path.root:
-            break
-    meta_chain.reverse()
-
-    for m in meta_chain:
-        if not m:
-            continue
-        merge_dictionary(meta, m)
-
-    with open("paper_meta.yml", "w") as output:
-        output.write("---\n")
-        yaml.safe_dump(meta, output, sort_keys=False)
-        output.write("---\n")
-
 def dev():
     ensure_paper_dir()
 
     template_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "resources", "project_template")
-    src_res_path = os.path.join(template_path, "resources")
+    src_res_path = os.path.join(template_path, ".paper_resources")
     proj_path = Path(".").resolve()
-    dst_res_path = proj_path.joinpath("./resources").as_posix()
+    dst_res_path = proj_path.joinpath("./.paper_resources").as_posix()
 
     if os.path.islink(dst_res_path):
         if Path(dst_res_path).resolve() == Path(src_res_path).resolve():

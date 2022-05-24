@@ -6,7 +6,7 @@
 -- This filter will also normalize biblical book names to the preferred SBL abbreviation.
 --
 
-require(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util'})
+dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local meta = {}
 
@@ -100,7 +100,7 @@ function normalizeBookName(book, idx)
   for _, list in pairs(bible_books) do
     for _, bk in pairs(list) do
       if bk == book then
-        suff = ""
+        local suff = ""
         if list[1] ~= list[2] then
           suff = "."
         end

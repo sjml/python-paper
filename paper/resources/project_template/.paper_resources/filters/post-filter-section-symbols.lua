@@ -1,4 +1,4 @@
-require(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util'})
+dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local refs = {}
 

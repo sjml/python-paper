@@ -24,9 +24,9 @@ def ensure_paper_dir():
         raise typer.Exit(1)
     if not os.path.exists("./paper_meta.yml") or not os.path.isfile("./paper_meta.yml"):
         bail
-    if not os.path.exists("./content") or not os.path.isdir("./content"):
+    if not os.path.exists("./.paper_resources") or not os.path.isdir("./.paper_resources"):
         bail()
-    if not os.path.exists("./resources") or not os.path.isdir("./resources"):
+    if not os.path.exists("./content") or not os.path.isdir("./content"):
         bail()
     file_list = os.listdir("./content")
     if len(file_list) == 0:

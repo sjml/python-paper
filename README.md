@@ -26,7 +26,6 @@ pip install -e .
 ## Commands
 * `paper new`: generates a new scaffold directory
 * `paper init`: sets up the directory you're in as the scaffold, so long as it's empty
-* `paper reinit`: recalculates the metadata and replaces the `./resources` directory, but does not touch the content or any other files
 * `paper build`: builds a Word document and PDF version of the paper
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it

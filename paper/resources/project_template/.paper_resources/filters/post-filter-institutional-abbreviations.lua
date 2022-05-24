@@ -1,6 +1,5 @@
-require(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util'})
-require(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'institutional-abbreviations'})
-
+dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'institutional-abbreviations.lua'})
 
 local refs = {}
 
