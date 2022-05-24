@@ -85,8 +85,7 @@ end
 function fix_table_strings(t)
   for k, v in pairs(t) do
     if type(v) == "table" then
-      local metatable = getmetatable(v)
-      if metatable ~= nil and metatable.__name == "Inlines" then
+      if pandoc.utils.type(v) == "Inlines" then
         t[k] = pandoc.utils.stringify(v)
       else
         fix_table_strings(t[k])
