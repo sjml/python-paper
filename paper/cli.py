@@ -35,7 +35,7 @@ def dev():
     dev()
 
 @_app.command()
-def build(output_format: Format = Format.docx):
+def build(output_format: Format = "docx"):
     from .build import build
     build(output_format)
 

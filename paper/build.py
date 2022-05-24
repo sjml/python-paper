@@ -4,16 +4,14 @@ import subprocess
 import re
 
 import typer
-import jsbeautifier
 
 from .util import ensure_paper_dir, get_metadata, get_assignment
-from .formats import Format
-from .doc_handling import make_pdf, package
+from .formats import Format, prepare_command, finish_file
 from .shared import PAPER_STATE
 
 OUTPUT_DIRECTORY_NAME = "output"
 
-def build(output_format: Format = Format.docx):
+def build(output_format: Format):
     ensure_paper_dir()
 
     if PAPER_STATE["verbose"]:
@@ -39,15 +37,7 @@ def build(output_format: Format = Format.docx):
         "--resource-path", "./content",
     ]
 
-    if output_format in [Format.docx, Format.docx_pdf]:
-        output_suffix = "docx"
-        cmd.extend([
-            "--to=docx",
-            "--reference-doc", "./.paper_resources/ChicagoStyle_Template.docx",
-        ])
-    elif output_format == Format.json:
-        output_suffix = "json"
-        cmd.extend(["--to", "json"])
+    output_suffix = prepare_command(cmd, output_format)
 
     output_filename = os.path.join(".", OUTPUT_DIRECTORY_NAME, f"{meta['filename']}.{output_suffix}")
     cmd.extend(["--output", output_filename])
@@ -85,19 +75,4 @@ def build(output_format: Format = Format.docx):
         typer.echo(f"\t{' '.join(cmd)}")
     subprocess.check_call(cmd)
 
-    if output_format in [Format.docx, Format.docx_pdf]:
-        package(output_filename, meta)
-        if output_format == Format.docx_pdf:
-            make_pdf(output_filename, meta)
-    elif output_format == Format.json:
-        if PAPER_STATE["verbose"]:
-            typer.echo("Prettifying JSON output...")
-        opts = jsbeautifier.default_options()
-        opts.indent_size = 2
-        with open(output_filename, "r") as jsonin:
-            output_json = jsonin.read()
-        pretty_json = jsbeautifier.beautify(output_json, opts)
-        if PAPER_STATE["verbose"]:
-            typer.echo(f"Writing final JSON to {output_filename}...")
-        with open(output_filename, "w") as jsonout:
-            jsonout.write(pretty_json)
+    finish_file(output_filename, output_format)
