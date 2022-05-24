@@ -12,13 +12,15 @@ return {
 
   {
     Cite = function (elem)
-      local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
-      if not has_keyword(ref_data, "Papal Encyclical") then return nil end
-      local is_subsequent = encyclical_keys[elem.citations[1].id] == true
-      encyclical_keys[elem.citations[1].id] = true
+      for _, citation in pairs(elem.citations) do
+        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
+        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
+        local is_subsequent = encyclical_keys[citation.id] == true
+        encyclical_keys[citation.id] = true
 
-      if is_subsequent then
-        elem.citations[1].mode = "SuppressAuthor"
+        if is_subsequent then
+          citation.mode = "SuppressAuthor"
+        end
       end
       return elem
     end

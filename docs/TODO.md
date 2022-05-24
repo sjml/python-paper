@@ -5,16 +5,12 @@
 * project template:
     - should "resources" become ".paper_resources"? hidden from the user, maybe
     - make other folders for notes/filters/resources/research/etc? -- basically a little project scaffold for academic work
+* make "use ibid" into a variable, along with font selection so only needing one template doc
 * list rendering is a bit off -- I don't use it much/at all, but let's figure out for the sake of completion
 
 * custom CSL or more filters? 
     - catholic primary sources:
         - Encyclicals and conciliar documents: lose quotes on actual name (probably a type/CSL thing?)
-            - also set encyclical filters to handle multiple cites
-                - all of 'em, tho (look for citations[1])
-    - ecumenical councils (only in Latin?)
-        - identify: council, session, date of public session, decree, and if applicable, specific chapter or canon being cited
-    - Acta Apostolica Sedis: section follows date of promulgation 
     
     - maybe can attach extra info direct to element so don't need to re-read on post?
 

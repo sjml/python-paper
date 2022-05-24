@@ -12,16 +12,18 @@ return {
   },
   {
     Cite = function (elem)
-      local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
-      if ref_data == nil or ref_data.author == nil then return nil end
-      if not ref_data.author[1].family == "Aquinas" and ref_data[1].given == "Thomas" then
-        return nil
-      end
-      local is_subsequent = aquinas_keys[elem.citations[1].id] == true
-      aquinas_keys[elem.citations[1].id] = true
+      for _, citation in pairs(elem.citations) do
+        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
+        if ref_data == nil or ref_data.author == nil then return nil end
+        if not ref_data.author[1].family == "Aquinas" and ref_data[1].given == "Thomas" then
+          return nil
+        end
+        local is_subsequent = aquinas_keys[citation.id] == true
+        aquinas_keys[citation.id] = true
 
-      if is_subsequent then
-        elem.citations[1].mode = "SuppressAuthor"
+        if is_subsequent then
+          citation.mode = "SuppressAuthor"
+        end
       end
       return elem
     end

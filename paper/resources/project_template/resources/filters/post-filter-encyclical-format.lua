@@ -30,17 +30,19 @@ return {
 
   {
     Cite = function (elem)
-      local ref_data = findItemInListByAttribute(refs, "id", elem.citations[1].id)
-      if not has_keyword(ref_data, "Papal Encyclical") then return nil end
-      local proper = ref_data["title-short"][1]
-      return elem:walk {
-        Block = function(e)
-          return fixCase(proper, e)
-        end,
-        Inline = function(e)
-          return fixCase(proper, e)
-        end,
-      }
+      for _, citation in pairs(elem.citations) do
+        local ref_data = findItemInListByAttribute(refs, "id", citation.id)
+        if not has_keyword(ref_data, "Papal Encyclical") then return nil end
+        local proper = ref_data["title-short"][1]
+        return elem:walk {
+          Block = function(e)
+            return fixCase(proper, e)
+          end,
+          Inline = function(e)
+            return fixCase(proper, e)
+          end,
+        }
+      end
     end,
 
     Div = function (elem)
