@@ -92,7 +92,7 @@ Assumes:
     * you are running on a Mac (uses AppleScript to turn docx to pdf)
 * If using the LaTeX builder:
     * you have a TeX distribution installed and can install packages for it as errors crop up
-    * the builder needs at least: `turabian-formatting`, `footmisc`, `newtx`, `xstring`, `enumitem`, `etoolbox`, `setspace`, `nowidow`, `endnotes`
+    * the builder needs at least: `turabian-formatting`, `footmisc`, `newtx`, `xstring`, `enumitem`, `etoolbox`, `setspace`, `nowidow`, `endnotes`, `xurl`
         - probably some others, too ¯\\\_(ツ)\_/¯	
 * you are not doing any zany branching stuff with your repo
     - should still work, but who knows? I tend to not branch on non-collaborative projects, so not a use case I've looked at a ton

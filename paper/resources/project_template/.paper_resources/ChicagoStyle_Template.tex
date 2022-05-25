@@ -16,7 +16,7 @@ $if(subtitle)$
 $endif$
 \author{$author$}
 
-\usepackage[hyperfootnotes=false,hidelinks,unicode,draft]{hyperref}
+\usepackage[hyperfootnotes=false,hidelinks,unicode]{hyperref}
 \hypersetup{
     $if(title)$pdftitle={$title$$if(subtitle)$: $subtitle$ $endif$},$endif$
     pdfauthor={$author$},
@@ -24,6 +24,8 @@ $endif$
     pdfcreator={},
     pdfproducer={$library_name$ v$library_version$},
 }
+% for nicer linebreak placements in URLs
+\usepackage{xurl}
 
 % page numbers centered in footer
 \pagestyle{plain}
@@ -37,6 +39,10 @@ $endif$
 % tables
 \usepackage{longtable}
 \usepackage{booktabs}
+
+% default tables are opulently tall
+\let\oldlongtable\longtable
+\def\longtable{\onehalfspacing \oldlongtable}
 
 % captions should be centered and italicized
 %% TODO: figure out how to work **with** the turabian-formatting

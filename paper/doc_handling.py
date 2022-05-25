@@ -18,12 +18,29 @@ def _add_chicago_title(doc: Document, meta: dict):
     starting_graph = doc.paragraphs[0]
     starting_graph.paragraph_format.page_break_before = True
 
-    date_string = get_date_string()
+    title_string = ""
+    if "title" in meta["data"]:
+        title_string += meta["data"]["title"]
+    if "subtitle" in meta["data"]:
+        title_string += f":\n{meta['data']['subtitle']}"
 
-    starting_graph.insert_paragraph_before(meta["data"]["title"], style="Title")
+    starting_graph.insert_paragraph_before(title_string, style="Title")
     starting_graph.insert_paragraph_before("by", style="Author")
     starting_graph.insert_paragraph_before(meta["data"]["author"], style="Author")
-    starting_graph.insert_paragraph_before(f"{meta['data']['professor']}\n{meta['data']['class_mnemonic']} — {meta['data']['class_name']}\n{date_string}", style="Author")
+
+    info_string = ""
+    if "professor" in meta["data"]:
+        info_string += f"{meta['data']['professor']}\n"
+    if "class_mnemonic" in meta["data"]:
+        info_string += meta["data"]["class_mnemonic"]
+    if "class_mnemonic" in meta["data"] and "class_name" in meta["data"]:
+        info_string += " — "
+    if "class_name" in meta["data"]:
+        info_string += meta["data"]["class_name"]
+
+    info_string += f"\n{get_date_string()}"
+
+    starting_graph.insert_paragraph_before(info_string, style="Author")
 
 
 def package(filename: str, meta: dict):
