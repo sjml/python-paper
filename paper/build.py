@@ -71,7 +71,9 @@ def build(output_format: Format):
         if PAPER_STATE["verbose"]:
             typer.echo("No citation processing.")
 
-    content_files = [os.path.join("./content", f) for f in os.listdir("./content") if f.endswith(".md")]
+    content_files = []
+    for dirpath, _, files in os.walk("./content"):
+        content_files.extend([os.path.join(dirpath, f) for f in files if f.endswith(".md")])
     content_files.sort()
     cmd.extend(content_files)
 

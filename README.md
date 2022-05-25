@@ -96,7 +96,6 @@ Assumes:
         - probably some others, too ¯\\\_(ツ)\_/¯	
 * you are not doing any zany branching stuff with your repo
     - should still work, but who knows? I tend to not branch on non-collaborative projects, so not a use case I've looked at a ton
-* your content folder is flat; not set up to handle nested structures
 * you are not malicious; input is not sanitized or anything
 * you are not afraid of error messages; it happily crashes on exceptions
 
