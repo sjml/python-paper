@@ -1,52 +1,64 @@
 \documentclass[
     12pt,
     letterpaper,
-    oneside,
-    noraggedright
+    oneside$if(ragged)$$else$,
+    noraggedright$endif$
 ]{turabian-researchpaper}
 
+% Times Roman fonts
 \usepackage{newtxtext}
 
-\usepackage{graphicx}
-\graphicspath{{../content/}}
-
-\usepackage{longtable}
-\usepackage{booktabs}
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+\author{$author$}
 
 \usepackage[hyperfootnotes=false,hidelinks,unicode,draft]{hyperref}
 \hypersetup{
-  pdftitle={The Meaning of Ends: Presence or Lack of Telos as Fundamental Concepts of Justice in Medieval and Contemporary Political Philosophy},
-  pdfauthor={Shane Liesegang, SJ},
-  pdflang={en-US},
-  pdfcreator={},
-  pdfproducer={SJML Paper v0.0.1},
+    $if(title)$pdftitle={$title$$if(subtitle)$: $subtitle$ $endif$},$endif$
+    pdfauthor={$author$},
+    pdflang={en-US},
+    pdfcreator={},
+    pdfproducer={$library_name$ v$library_version$},
 }
 
-\setlength{\footnotesep}{16.65pt}
+% page numbers centered in footer
+\pagestyle{plain}
 
+% images
+\usepackage{graphicx}
+\graphicspath{{../content/}} % image paths relative to content directory
+% image aspect ratios stay correct, able to use [caption](./image.png){width=2in}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
+% tables
+\usepackage{longtable}
+\usepackage{booktabs}
 
-\title{The Meaning of Ends}
-\subtitle{Presence or Lack of Telos as Fundamental Concepts of Justice in Medieval and Contemporary Political Philosophy}
-\author{Shane Liesegang, SJ}
-\date{May 2019}
-\submissioninfo{Capstone paper submitted in partial fulfillment of requirements for the degree of Master of Arts in Philosophical Resources from Fordham University}
-\course{PHIL 0693}
-
-
+% captions should be centered and italicized
+%% TODO: figure out how to work **with** the turabian-formatting
+%%       package's caption stuf instead of fighting it.
 \usepackage{caption}
 \captionsetup{justification=centering,aboveskip=12pt,font={it}}
 
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% tight lists
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+% tighter footnote spacing
+\setlength{\footnotesep}{16.65pt}
+
+% lists should be single-spaced
+%% TODO: nested lists are still wonky
 \let\oldenumerate\enumerate
 \def\enumerate{\oldenumerate \singlespacing}
 \let\olditemize\itemize
 \def\itemize{\olditemize \singlespacing}
 
+% section headers are left-aligned and slightly larger font
 \let\oldsection=\section
 \renewcommand\section[1]{\oldsection{\large\raggedright{#1}}}
 \let\oldsubsection=\subsection
@@ -54,16 +66,18 @@
 \let\oldsubsubsection=\subsubsection
 \renewcommand\subsubsection[1]{\oldsubsubsection{\raggedright\emph{#1}}}
 
+% standard bibliography environment taken from default pando template
+%   except where noted
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
+\newlength{\cslentryspacingunit}
 \setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+\newenvironment{CSLReferences}[2]
  {
-\newpage
-\centerline{\underline{Works Cited}}
+\newpage % start on new page
+\centerline{\underline{Works Cited}} % label it
  \setlength{\parindent}{0pt}
  \singlespacing
   \let\oldpar\par
@@ -78,37 +92,37 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\pagestyle{plain}
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-
-
+% where the magic happens
 \begin{document}
     \begin{center}
 
     \thispagestyle{empty}
     \vspace*{1in}
     \begin{singlespace}
-    Title \\
-    Subtitle
+    $if(title)$
+    $title$$if(subtitle)$:\\
+    $subtitle$$endif$
+    $endif$
     \end{singlespace}
     \vspace{2in - \baselineskip}
 
     by
     \vspace{2in - \baselineskip}
 
-    Shane Liesegang, SJ
+    $author$
 
     \vspace{2in - \baselineskip}
 
     \begin{singlespace}
-        Professor Socrates, PhD \\
-        PHIL 101 --- Ethics and Stuff \\
-        January 2, 2024
+        $if(professor)$$professor$ \\$endif$
+        $if(class_mnemonic)$$class_mnemonic$$endif$$if(class_mnemonic)$$if(class_name)$ --- $endif$$endif$$if(class_name)$$class_name$$endif$ \\
+        $if(date)$$date$$endif$
     \end{singlespace}
     \end{center}
     \newpage
     \setcounter{page}{1}
-    \input{Liesegang_PHIL101_paper1}
+
+$body$
+
 \end{document}

@@ -53,3 +53,12 @@ def get_assignment() -> str:
         return meta["assignment"]
     else:
         return os.path.basename(os.getcwd())
+
+def get_date_string() -> str:
+    meta = get_metadata()
+    raw_date = meta['data']['date']
+    if raw_date == None:
+        target_date = datetime.now()
+    else:
+        target_date = raw_date
+    return target_date.strftime("%B %-d, %Y")

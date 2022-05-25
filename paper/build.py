@@ -24,15 +24,18 @@ def build(output_format: Format):
 
     if "filename" not in meta:
         author = meta["data"]["author"].split(",")[0].split(" ")[-1]
-        mnemonic = re.sub(r"\s", "", meta["data"]["class_mnemonic"])
-        meta["filename"] = f"{author}_{mnemonic}"
+        if "class_mnemonic" in meta["data"]:
+            mnemonic = re.sub(r"\s", "", meta["data"]["class_mnemonic"])
+            meta["filename"] = f"{author}_{mnemonic}"
+        else:
+            meta["filename"] = author
         assignment_underscored = re.sub(r"\s+", "_", get_assignment())
         meta["filename"] += f"_{assignment_underscored}"
         if PAPER_STATE["verbose"]:
             typer.echo(f"No filename given; using generated \"{meta['filename']}\"")
 
     cmd = ["pandoc",
-        "--from=markdown+bracketed_spans",
+        "--from=markdown+bracketed_spans-auto_identifiers",
         "--metadata-file", "./paper_meta.yml",
         "--resource-path", "./content",
     ]

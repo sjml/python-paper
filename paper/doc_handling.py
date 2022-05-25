@@ -12,17 +12,13 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 
 from . import LIB_NAME, LIB_VERSION
 from .shared import PAPER_STATE
+from .util import get_date_string
 
 def _add_chicago_title(doc: Document, meta: dict):
     starting_graph = doc.paragraphs[0]
     starting_graph.paragraph_format.page_break_before = True
 
-    raw_date = meta['data']['date']
-    if raw_date == None:
-        target_date = datetime.now()
-    else:
-        target_date = raw_date
-    date_string = target_date.strftime("%B %-d, %Y")
+    date_string = get_date_string()
 
     starting_graph.insert_paragraph_before(meta["data"]["title"], style="Title")
     starting_graph.insert_paragraph_before("by", style="Author")
@@ -41,7 +37,7 @@ def package(filename: str, meta: dict):
         doc.add_paragraph("", style="First Paragraph")
 
     # change font if we were asked to
-    if "font_override" in meta and meta["font_override"] != None:
+    if "docx" in meta and type(meta["docx"]) == dict and "font_override" in meta["docx"] and meta["docx"]["font_override"] != None:
         if PAPER_STATE["verbose"]:
             typer.echo(f"Changing base font to {meta['font_override']}...")
         doc.styles["Normal"].font.name = meta['font_override']

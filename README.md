@@ -26,7 +26,12 @@ pip install -e .
 ## Commands
 * `paper new`: generates a new scaffold directory
 * `paper init`: sets up the directory you're in as the scaffold, so long as it's empty
-* `paper build`: builds a Word document and PDF version of the paper
+* `paper build`: builds an output version of the paper for submission
+    - you can pass `--output-format` with any of the following values. The PDF versions will overwrite each other.
+        - `docx` _(default)_: a Word document
+        - `docx+pdf`: a Word document and a PDF generated from it
+        - `latex`: a LaTeX file
+        - `latex+pdf`: a LaTeX file and a PDF generated from it
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
 * `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
@@ -45,7 +50,14 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
 * `sources`: An array of paths to BibTeX (`.bib`) files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
 * `vulgate_cite_key`: if citing a Bible with the translation listed as `"Vulgatam"`, you need to specify a citation key for the initial footnote. If you're not dealing with the Vulgate, you don't need to worry about this! 
-* `font_override`: change away from the default Times New Roman. Doesn't do any checking to make sure it's a valid font name, or that it doesn't destroy your layout, crash Word, erase your hard drive, etc. You're on your own if you go playing here...
+
+### output-specific variables
+These variables are only relevant to their given output formats. 
+* `docx`:
+    * `font_override`: change away from the default Times New Roman. Doesn't do any checking to make sure it's a valid font name, or that it doesn't destroy your layout, crash Word, erase your hard drive, etc. You're on your own if you go playing here...
+* `latex`:
+    * `fragment`: if set to `true`, only produce the content file, if you have another template ready to use. 
+    * `ragged`: if set to `true`, don't justify the text, but leave it with a ragged-right edge
 
 ## `./content` folder
 Any file in this folder that ends with `.md` will be given to pandoc for assembly into the final paper. Note that they're given in alphabetical order, and should be Markdown files. At the moment, no metadata in them is processed. 
@@ -75,14 +87,16 @@ Assumes:
 * you have [gh](https://cli.github.com/) installed
 * you have [pandoc](https://pandoc.org/) installed
 * you are logged in to a GitHub account
-* you have Microsoft Word installed
-* you are running on a Mac (uses AppleScript to turn docx to pdf)
+* If using the docx builder:
+    * you have Microsoft Word installed
+    * you are running on a Mac (uses AppleScript to turn docx to pdf)
+* If using the LaTeX builder:
+    * you have a TeX distribution installed and can install packages for it as errors crop up
+    * the builder needs at least: `turabian-formatting`, `footmisc`, `newtx`, `xstring`, `enumitem`, `etoolbox`, `setspace`, `nowidow`, `endnotes`
+        - probably some others, too ¯\\\_(ツ)\_/¯	
 * you are not doing any zany branching stuff with your repo
     - should still work, but who knows? I tend to not branch on non-collaborative projects, so not a use case I've looked at a ton
 * your content folder is flat; not set up to handle nested structures
 * you are not malicious; input is not sanitized or anything
 * you are not afraid of error messages; it happily crashes on exceptions
 
-"Why generate a docx file first instead of going direct to PDF, since pandoc could do that?" 
-Because some professors insist you submit Word documents, so I'd have to be ready to 
-generate them anyway, and no need to write the logic twice. 
