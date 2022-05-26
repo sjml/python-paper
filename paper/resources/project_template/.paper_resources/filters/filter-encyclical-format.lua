@@ -1,3 +1,6 @@
+-- First part of filter for Papal Encyclicals, done before the citations are processed.
+-- Detects whether it's a second citation of the given document and suppresses the author if so.
+
 local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local encyclical_keys = {}

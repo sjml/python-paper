@@ -1,3 +1,7 @@
+-- miscellaneous utility functions that get used by other filters.
+
+
+
 -- recursive functions can't be anonymous; have to live outside the returned table
 local function dump(t, prefix)
   if t == nil then
@@ -27,7 +31,7 @@ local function fix_table_strings(t)
   end
 end
 
-
+-- so they can be "dofile"-ed into a variable and not pollute the global namespace
 return {
   dump = dump,
   fix_table_strings = fix_table_strings,

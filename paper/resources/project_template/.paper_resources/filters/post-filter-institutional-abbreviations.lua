@@ -1,3 +1,7 @@
+-- Second part of the institutional abbreviations filter, run after the citations are processed.
+--   Now that the author has been suppressed, we add the abbreviated form back in.
+--   TODO: this doesn't 100% handle "Ibid." situations.
+
 local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'institutional-abbreviations.lua'})
 

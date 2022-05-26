@@ -32,6 +32,7 @@ pip install -e .
         - `docx+pdf`: a Word document and a PDF generated from it
         - `latex`: a LaTeX file
         - `latex+pdf`: a LaTeX file and a PDF generated from it
+        - `json`: really just for debugging Lua filters, but hey, go for it
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
 * `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
@@ -48,7 +49,7 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
     * `class_name`: like "Introduction to Philosophy" or whatever
     * `professor`: the person what teaches the class
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
-* `sources`: An array of paths to BibTeX (`.bib`) files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
+* `sources`: An array of paths to BibTeX (`.bib`) or CSL JSON files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
 * `vulgate_cite_key`: if citing a Bible with the translation listed as `"Vulgatam"`, you need to specify a citation key for the initial footnote. If you're not dealing with the Vulgate, you don't need to worry about this! 
 
 ### output-specific variables
@@ -83,10 +84,10 @@ On top of doing the document generation, assuming you use `paper save` to commit
 
 ## Notes
 Assumes: 
-* you have git set up
-* you have [gh](https://cli.github.com/) installed
 * you have [pandoc](https://pandoc.org/) installed
-* you are logged in to a GitHub account
+* you have git set up
+* you have [gh](https://cli.github.com/) installed and are logged in to a GitHub account
+    - only needed for initial push if you haven't set up a remote; if you don't like GitHub you can manually push and then everything will just work normally from there.
 * If using the docx builder:
     * you have Microsoft Word installed
     * you are running on a Mac (uses AppleScript to turn docx to pdf)

@@ -1,3 +1,6 @@
+-- Detects a `\noindent` LaTeX command at the start of a paragraph and applies an
+--   appropriate Word style to match.
+
 local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 if FORMAT:match 'docx' then

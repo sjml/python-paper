@@ -1,3 +1,8 @@
+-- First part of filter for abbreviating institutional names, done before the citations are processed.
+--   In this pass, it just suppresses the author entirely. The abbreviated version will
+--   be added back in the post-citation pass.
+
+
 local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'institutional-abbreviations.lua'})
 

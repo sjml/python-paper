@@ -1,3 +1,9 @@
+-- Second part of the Papal Encyclical filter, done after citations are processed.
+--   This looks at the proper short name (e.g. "Fratelli tutti"), and looks for spans
+--   in the current citation that match it without caring about case. Then it replaces
+--   those spans with the proper short name to ensure that capitalization is preserved
+--   and hasn't been affected by CiteProc.
+
 local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
 
 local refs = {}
