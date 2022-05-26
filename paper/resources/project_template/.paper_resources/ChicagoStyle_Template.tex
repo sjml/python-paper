@@ -50,19 +50,23 @@ $endif$
 \usepackage{caption}
 \captionsetup{justification=centering,aboveskip=12pt,font={it}}
 
-% tight lists
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-% tighter footnote spacing
-\setlength{\footnotesep}{16.65pt}
-
 % lists should be single-spaced
-%% TODO: nested lists are still wonky
 \let\oldenumerate\enumerate
 \def\enumerate{\oldenumerate \singlespacing}
 \let\olditemize\itemize
 \def\itemize{\olditemize \singlespacing}
+
+% tight lists
+\makeatletter
+\providecommand{\tightlist}{%
+    \ifthenelse{\equal{\the\@listdepth}{1}}
+    {}
+    {\vspace{-\baselineskip}}
+}
+\makeatother
+
+% tighter footnote spacing
+\setlength{\footnotesep}{16.65pt}
 
 % section headers are left-aligned and slightly larger font
 \let\oldsection=\section

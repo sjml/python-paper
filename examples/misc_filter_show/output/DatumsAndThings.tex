@@ -8,13 +8,13 @@
 % Times Roman fonts
 \usepackage{newtxtext}
 
-\title{Iesus Nazarenus, Rex Iudaeorum}
-\author{Imperator Caesar Divi filius Augustus}
+\title{{Iesus Nazarenus, Rex Iudaeorum}}
+\author{{Imperator Caesar Divi filius Augustus}}
 
 \usepackage[hyperfootnotes=false,hidelinks,unicode]{hyperref}
 \hypersetup{
-    pdftitle={Iesus Nazarenus, Rex Iudaeorum},
-    pdfauthor={Imperator Caesar Divi filius Augustus},
+    pdftitle={{Iesus Nazarenus, Rex Iudaeorum}},
+    pdfauthor={{Imperator Caesar Divi filius Augustus}},
     pdflang={en-US},
     pdfcreator={},
     pdfproducer={SJML Paper v0.0.1},
@@ -45,19 +45,23 @@
 \usepackage{caption}
 \captionsetup{justification=centering,aboveskip=12pt,font={it}}
 
-% tight lists
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-% tighter footnote spacing
-\setlength{\footnotesep}{16.65pt}
-
 % lists should be single-spaced
-%% TODO: nested lists are still wonky
 \let\oldenumerate\enumerate
 \def\enumerate{\oldenumerate \singlespacing}
 \let\olditemize\itemize
 \def\itemize{\olditemize \singlespacing}
+
+% tight lists
+\makeatletter
+\providecommand{\tightlist}{%
+    \ifthenelse{\equal{\the\@listdepth}{1}}
+    {}
+    {\vspace{-\baselineskip}}
+}
+\makeatother
+
+% tighter footnote spacing
+\setlength{\footnotesep}{16.65pt}
 
 % section headers are left-aligned and slightly larger font
 \let\oldsection=\section
@@ -101,22 +105,22 @@
     \thispagestyle{empty}
     \vspace*{1in}
     \begin{singlespace}
-        Iesus Nazarenus, Rex Iudaeorum
+        {Iesus Nazarenus, Rex Iudaeorum}
         \end{singlespace}
     \vspace{2in - \baselineskip}
 
     by
     \vspace{2in - \baselineskip}
 
-    Imperator Caesar Divi filius Augustus
+    {Imperator Caesar Divi filius Augustus}
 
     \vspace{2in - \baselineskip}
 
-    \begin{singlespace}
-        Πόντιος Πιλᾶτος \\
-        SPQR CI --- Lex Iniusta \\
-        April 3, 0033
-    \end{singlespace}
+    \singlespace{
+        {Πόντιος Πιλᾶτος} \\
+        {SPQR CI} --- {Lex Iniusta} \\
+        {April 3, 0033}
+    }
     \end{center}
     \newpage
     \setcounter{page}{1}
