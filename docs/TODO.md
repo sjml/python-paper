@@ -1,6 +1,4 @@
 * nitpick
-    - vulgate citations have to be spaced from their quote end, but other bible citations don't? WEIRD
-        - maybe because they have a real cite on them?
     - document lua filters
 * bonus
     - https://www.python-graph-gallery.com/stacked-area-plot/

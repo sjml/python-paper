@@ -210,7 +210,8 @@ function filter_cite_element_for_biblical_refs(elem)
 
   bible_translations[translation] = true
 
-  return pseudo_cite
+  local citespan = pandoc.Span(pseudo_cite, {class="bible-cite"})
+  return citespan
 end
 
 function filter_span_elements_for_translation_reference(elem)
@@ -239,10 +240,22 @@ function filter_span_elements_for_translation_reference(elem)
   end
 end
 
--- Three passes:
+function add_spaces_before_cites(elem)
+  for i = 1, #elem-1 do
+    if elem[i+1].tag == "Span" and utils.is_string_in_list("bible-cite", elem[i+1].classes) then
+      if elem[i].tag ~= "Space" then
+        table.insert(elem, i+1, pandoc.Space())
+        return elem
+      end
+    end
+  end
+end
+
+-- Four passes:
 --   - grab the metadata
 --   - make the citations
---   - the last to clean up translation mentions
+--   - clean up translation mentions
+--   - add a space if needed
 return {
   {
     Meta = function (m)
@@ -252,4 +265,5 @@ return {
   },
   { Cite = filter_cite_element_for_biblical_refs },
   { Span = filter_span_elements_for_translation_reference },
+  { Inlines = add_spaces_before_cites }
 }

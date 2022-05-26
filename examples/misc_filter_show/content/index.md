@@ -1,4 +1,4 @@
-Citing the Vulgate the first time produces a footnote, as in "In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum." [@Bible-Vulgatam John 1:1] 
+Citing the Vulgate the first time produces a footnote, as in "In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum."[@Bible-Vulgatam John 1:1] 
 
 But a second citation becomes parenthetical with an italicized attribution as in "Qui non diligit, non novit Deum: quoniam Deus caritas est." [@Bible-Vulgatam 1 John 4:8]
 
