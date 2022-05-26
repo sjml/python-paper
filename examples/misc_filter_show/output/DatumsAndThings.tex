@@ -37,13 +37,13 @@
 
 % default tables are opulently tall
 \let\oldlongtable\longtable
-\def\longtable{\onehalfspacing \oldlongtable}
+\def\longtable{\onehalfspacing\vspace{\baselineskip} \oldlongtable}
 
 % captions should be centered and italicized
 %% TODO: figure out how to work **with** the turabian-formatting
 %%       package's caption stuf instead of fighting it.
 \usepackage{caption}
-\captionsetup{justification=centering,aboveskip=12pt,font={it}}
+\captionsetup{justification=centering,aboveskip={.5\baselineskip},belowskip={-0.5\baselineskip},font={it}}
 
 % lists should be single-spaced
 \let\oldenumerate\enumerate

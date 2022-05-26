@@ -37,13 +37,13 @@
 
 % default tables are opulently tall
 \let\oldlongtable\longtable
-\def\longtable{\onehalfspacing \oldlongtable}
+\def\longtable{\onehalfspacing\vspace{\baselineskip} \oldlongtable}
 
 % captions should be centered and italicized
 %% TODO: figure out how to work **with** the turabian-formatting
 %%       package's caption stuf instead of fighting it.
 \usepackage{caption}
-\captionsetup{justification=centering,aboveskip=12pt,font={it}}
+\captionsetup{justification=centering,aboveskip={.5\baselineskip},belowskip={-0.5\baselineskip},font={it}}
 
 % lists should be single-spaced
 \let\oldenumerate\enumerate
@@ -166,6 +166,11 @@ ultricies nisi. Nam eget dui. Lorem ipsum dolor sit ame.
 Tables make everything more believable, don't you agree?
 
 \begin{longtable}[]{@{}ll@{}}
+\caption{Word Counts}\tabularnewline
+\toprule()
+File & Word Count \\
+\midrule()
+\endfirsthead
 \toprule()
 File & Word Count \\
 \midrule()
@@ -206,14 +211,15 @@ dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
 tellus. Aenean leo.
 
 But if you really want to make a point, it's hard to beat a picture.
-They say it could be work a thousand words, or a kiloword, if you will.
+They say it could be worth a thousand words, or a kiloword, if you will.
 That reminds me of another story, but I'll tell it some other time. For
 now, enjoy this photograph of the Church of the Holy Sepulchre in
-Jerusalem. It is formatted to be three inches in height.
+Jerusalem. It is formatted to be two and three quarters inches in
+height.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth,height=3in]{./images/robert-bye-W4V4vtq36NU-unsplash.jpg}
+\includegraphics[width=\textwidth,height=2.75in]{./images/robert-bye-W4V4vtq36NU-unsplash.jpg}
 \caption{Photo by
 \href{https://unsplash.com/@robertbye?utm_source=unsplash\&utm_medium=referral\&utm_content=creditCopyText}{Robert
 Bye} on
@@ -258,7 +264,7 @@ adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 
 Here's a blockquote, for when someone else is much smarter than I am
 (which, let's be honest, is most of the time), and we need to know what
-their whole deal is.
+their whole deal is:
 
 \begin{quote}
 Mollit anim culpa ea mollit mollit anim ad tempor amet qui sit ut. Duis
