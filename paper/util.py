@@ -62,3 +62,10 @@ def get_date_string() -> str:
     else:
         target_date = raw_date
     return target_date.strftime("%B %-d, %Y")
+
+def get_content_file_list() -> list[str]:
+    content_files = []
+    for dirpath, _, files in os.walk("./content"):
+        content_files.extend([os.path.join(dirpath, f) for f in files if f.endswith(".md")])
+    content_files.sort()
+    return content_files

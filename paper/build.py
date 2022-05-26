@@ -5,7 +5,7 @@ import re
 
 import typer
 
-from .util import ensure_paper_dir, get_metadata, get_assignment
+from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list
 from .formats import Format, prepare_command, finish_file
 from .shared import PAPER_STATE
 
@@ -71,11 +71,7 @@ def build(output_format: Format):
         if PAPER_STATE["verbose"]:
             typer.echo("No citation processing.")
 
-    content_files = []
-    for dirpath, _, files in os.walk("./content"):
-        content_files.extend([os.path.join(dirpath, f) for f in files if f.endswith(".md")])
-    content_files.sort()
-    cmd.extend(content_files)
+    cmd.extend(get_content_file_list())
 
     if PAPER_STATE["verbose"]:
         typer.echo("Invoking pandoc:")
