@@ -1,0 +1,183 @@
+\documentclass[
+    12pt,
+    letterpaper,
+    oneside,
+    noraggedright
+]{turabian-researchpaper}
+
+% Times Roman fonts
+\usepackage{newtxtext}
+
+\title{Iesus Nazarenus, Rex Iudaeorum}
+\author{Imperator Caesar Divi filius Augustus}
+
+\usepackage[hyperfootnotes=false,hidelinks,unicode]{hyperref}
+\hypersetup{
+    pdftitle={Iesus Nazarenus, Rex Iudaeorum},
+    pdfauthor={Imperator Caesar Divi filius Augustus},
+    pdflang={en-US},
+    pdfcreator={},
+    pdfproducer={SJML Paper v0.0.1},
+}
+% for nicer linebreak placements in URLs
+\usepackage{xurl}
+
+% page numbers centered in footer
+\pagestyle{plain}
+
+% images
+\usepackage{graphicx}
+\graphicspath{{../content/}} % image paths relative to content directory
+% image aspect ratios stay correct, able to use [caption](./image.png){width=2in}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% tables
+\usepackage{longtable}
+\usepackage{booktabs}
+
+% default tables are opulently tall
+\let\oldlongtable\longtable
+\def\longtable{\onehalfspacing \oldlongtable}
+
+% captions should be centered and italicized
+%% TODO: figure out how to work **with** the turabian-formatting
+%%       package's caption stuf instead of fighting it.
+\usepackage{caption}
+\captionsetup{justification=centering,aboveskip=12pt,font={it}}
+
+% tight lists
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% tighter footnote spacing
+\setlength{\footnotesep}{16.65pt}
+
+% lists should be single-spaced
+%% TODO: nested lists are still wonky
+\let\oldenumerate\enumerate
+\def\enumerate{\oldenumerate \singlespacing}
+\let\olditemize\itemize
+\def\itemize{\olditemize \singlespacing}
+
+% section headers are left-aligned and slightly larger font
+\let\oldsection=\section
+\renewcommand\section[1]{\oldsection{\large\raggedright{#1}}}
+\let\oldsubsection=\subsection
+\renewcommand\subsection[1]{\oldsubsection{\large\raggedright\emph{#1}}}
+\let\oldsubsubsection=\subsubsection
+\renewcommand\subsubsection[1]{\oldsubsubsection{\raggedright\emph{#1}}}
+
+% standard bibliography environment taken from default pando template
+%   except where noted
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit}
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2]
+ {
+\newpage % start on new page
+\centerline{\underline{Works Cited}} % label it
+ \setlength{\parindent}{0pt}
+ \singlespacing
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \setlength{\parskip}{1em}
+ }
+{
+}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+% where the magic happens
+\begin{document}
+    \begin{center}
+
+    \thispagestyle{empty}
+    \vspace*{1in}
+    \begin{singlespace}
+        Iesus Nazarenus, Rex Iudaeorum
+        \end{singlespace}
+    \vspace{2in - \baselineskip}
+
+    by
+    \vspace{2in - \baselineskip}
+
+    Imperator Caesar Divi filius Augustus
+
+    \vspace{2in - \baselineskip}
+
+    \begin{singlespace}
+        Πόντιος Πιλᾶτος \\
+        SPQR CI --- Lex Iniusta \\
+        April 3, 0033
+    \end{singlespace}
+    \end{center}
+    \newpage
+    \setcounter{page}{1}
+
+Citing the Vulgate the first time produces a footnote, as in ``In
+principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum.''
+(John. 1:1)\footnote{Bonifatius Fischer and Robert Weber, eds.,
+  \emph{Biblia Sacra: Iuxta Vulgatam Versionem}, Ed. quartam emendatam
+  (Stuttgart: Deutsche Bibelgesellschaft, 1994).}
+
+But a second citation becomes parenthetical with an italicized
+attribution as in ``Qui non diligit, non novit Deum: quoniam Deus
+caritas est.'' (1 John. 4:8{ \emph{Vulgatam}})
+
+The first time the Catechism gets cited, it's the full deal.\footnote{\emph{Catechism
+  of the Catholic Church}, 2nd ed. (Vatican City; Washington, D.C.:
+  Libreria Editrice Vaticana, 2019), p45.}
+
+But what does Tommy Quine-Quine have to say about the same
+subject?\footnote{Thomas Aquinas, \emph{Summa Theologica}, trans.
+  Fathers of the English Dominican Province, Second and Revised Edition
+  (New Advent, 1920), p48, \url{https://www.newadvent.org/summa/}.}
+
+CCC with a stirring rebuttal!\footnote{\emph{CCC}, 49.} (Notice that it
+just becomes ``CCC'' on subsequents.)
+
+That one was easy, because the
+\href{https://citationstyles.org/}{Citation Style Language} has ready
+support for short titles, and since the Catechism doesn't have an
+\emph{author} to list, it works out. What's trickier is the USCCB, which
+wants to get referenced by its full name the first time,\footnote{United
+  States Conference of Catholic Bishops, \emph{Program of Priestly
+  Formation}, 5th ed. (Washington, D.C: United States Conference of
+  Catholic Bishops, 2006).} but then afterwards gets ``institutionally
+abbreviated.''\footnote{USCCB, Ibid.} (Support for author short names is
+supposed to come in CSL 1.1, but there's no timetable on that, so gotta
+use
+\href{https://github.com/sjml/paper/tree/main/paper/resources/project_template/.paper_resources/filters}{my
+little Lua filters} to get it done.)
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-aquinasSumma}{}}%
+Aquinas, Thomas. \emph{Summa Theologica}. Translated by Fathers of the
+English Dominican Province. Second and Revised Edition. New Advent,
+1920. \url{https://www.newadvent.org/summa/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-CCC.2017}{}}%
+\emph{Catechism of the Catholic Church}. 2nd ed. Vatican City;
+Washington, D.C.: Libreria Editrice Vaticana, 2019.
+
+\leavevmode\vadjust pre{\hypertarget{ref-fischerBibliaSacraIuxta1994}{}}%
+Fischer, Bonifatius, and Robert Weber, eds. \emph{Biblia Sacra: Iuxta
+Vulgatam Versionem}. Ed. quartam emendatam. Stuttgart: Deutsche
+Bibelgesellschaft, 1994.
+
+\leavevmode\vadjust pre{\hypertarget{ref-usccb.PPF52006}{}}%
+United States Conference of Catholic Bishops. \emph{Program of Priestly
+Formation}. 5th ed. Washington, D.C: United States Conference of
+Catholic Bishops, 2006.
+
+\end{CSLReferences}
+
+\end{document}

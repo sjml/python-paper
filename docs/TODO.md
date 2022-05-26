@@ -4,10 +4,12 @@
     * LaTeX:
         - spacing on nested lists is borked
         - too much space after image caption
-        - needs to be more chill about letting paragraphs get split across pages; lotta blank spots right now
 * nitpick
     - vulgate citations have to be spaced from their quote end, but other bible citations don't? WEIRD
         - maybe because they have a real cite on them?
+    - document lua filters
+* bonus
+    - https://www.python-graph-gallery.com/stacked-area-plot/
 
 ### outside:
 * make encyclical collection
