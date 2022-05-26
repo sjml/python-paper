@@ -76,7 +76,7 @@ $endif$
 \let\oldsubsubsection=\subsubsection
 \renewcommand\subsubsection[1]{\oldsubsubsection{\raggedright\emph{#1}}}
 
-% standard bibliography environment taken from default pando template
+% standard bibliography environment taken from default pandoc template
 %   except where noted
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
@@ -133,6 +133,6 @@ $endif$
     \newpage
     \setcounter{page}{1}
 
-$body$
+$if(body)$$body$$else$\mbox{}$endif$
 
 \end{document}

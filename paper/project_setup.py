@@ -83,4 +83,4 @@ def dev():
     do_it = typer.confirm("Is that what you're up to?")
     if do_it:
         shutil.rmtree(dst_res_path)
-        os.symlink(src_res_path, dst_res_path)
+        os.symlink(os.path.relpath(src_res_path, "."), dst_res_path)
