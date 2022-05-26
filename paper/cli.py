@@ -41,7 +41,7 @@ def build(output_format: Format = "docx"):
 
 @_app.command()
 def wc():
-    from .save import wc
+    from .wc import wc
     wc()
 
 @_app.command()
