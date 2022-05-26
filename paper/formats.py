@@ -53,7 +53,8 @@ def prepare_command(cmd: list[str], f: Format) -> str:
             if v:
                 if k == "date":
                     v = get_date_string()
-                cmd.extend(["--variable", f"{k}={v}"])
+                vesc = v.replace("_", "\_")
+                cmd.extend(["--variable", f"{k}={{{vesc}}}"])
 
         if "latex" in meta and type(meta["latex"]) == dict and "ragged" in meta["latex"] and meta["latex"]["ragged"] == True:
             cmd.extend([
