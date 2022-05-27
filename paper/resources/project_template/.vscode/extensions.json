@@ -1,3 +1,6 @@
 {
-    "recommendations": ["mblode.zotero"]
+    "recommendations": [
+      "mblode.zotero",
+      "yzhang.markdown-all-in-one",
+    ]
 }
