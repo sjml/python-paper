@@ -84,12 +84,13 @@ def finish_file(filepath: str, f: Format):
         output_path = os.path.dirname(filepath)
         os.chdir(output_path)
         with tempfile.TemporaryDirectory(dir=".") as tmpdir:
+            tex_engine = "xelatex"
             cmd = [
-                "xelatex",
-                    "-halt-on-error",
-                    "-interaction", "nonstopmode",
-                    "-output-directory", tmpdir,
-                    "-jobname", meta["filename"],
+                tex_engine,
+                    "--halt-on-error",
+                    "--interaction", "nonstopmode",
+                    "--output-directory", tmpdir,
+                    "--jobname", meta["filename"],
                     os.path.basename(filepath),
             ]
             # LaTex needs to be run twice to do the pagination stuff
@@ -97,7 +98,7 @@ def finish_file(filepath: str, f: Format):
                 subprocess.check_output(cmd)
                 subprocess.check_output(cmd)
             except subprocess.CalledProcessError as e:
-                print(f"XELATEX ERROR: {e.returncode}")
+                print(f"{tex_engine.upper()} ERROR: {e.returncode}")
                 print(e.output)
             pdf_filename = f"{meta['filename']}.pdf"
             if os.path.exists(pdf_filename):

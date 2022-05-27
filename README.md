@@ -1,6 +1,6 @@
 # Paper
 
-A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers).
+A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). I have no illusions that anyone besides me will want to use it directly, but there may be something of interest **somewhere** in here for **someone**. 
 
 In general, it just does a simple pandoc assembly of whatever Markdown files are in the `content` directory, but it has some custom filters for my/STM needs.
 * citation keys like `@Bible-NABRE` do appropriate in-text biblical citations with the given translation (only referencing it on the first usage unless there are multiple translations used within a single paper)
@@ -12,16 +12,15 @@ In general, it just does a simple pandoc assembly of whatever Markdown files are
 * Works by Thomas Aquinas drop the author on subsequent citations
 
 ## Installation
-```shell
-pip install git+https://github.com/sjml/paper.git
-```
-or
+Assuming you have a working [Python](https://www.python.org) installation and know what `pip` means...
+
+Clone this repository, and then, while inside of it: 
 
 ```shell
-git clone git+https://github.com/sjml/paper.git
-cd paper
 pip install -e .
 ```
+
+(If I ever release this publicly it'll be a slightly simpler process.)
 
 ## Commands
 * `paper new`: generates a new scaffold directory
@@ -84,11 +83,12 @@ On top of doing the document generation, assuming you use `paper save` to commit
 <!-- end paper metadata -->
 
 ## Notes
-Assumes: 
+`paper` assumes: 
 * you have [pandoc](https://pandoc.org/) installed
 * you have git set up
 * you have [gh](https://cli.github.com/) installed and are logged in to a GitHub account
-    - only needed for initial push if you haven't set up a remote; if you don't like GitHub you can manually push and then everything will just work normally from there.
+    - only needed for initial push; if you don't like GitHub you can manually push and then everything will just work normally from there
+    - also used for the `web` command
 * If using the docx builder:
     * you have Microsoft Word installed
     * you are running on a Mac (uses AppleScript to turn docx to pdf)
