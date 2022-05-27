@@ -140,6 +140,27 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
         subprocess.call(["git", "add", "."], stdout=dev_null)
         subprocess.call(["git", "commit", "-m", message], stdout=dev_null)
 
+def web():
+    ensure_paper_dir()
+
+    remote = subprocess.check_output(["git", "remote", "-v"])
+
+    if len(remote) == 0:
+        typer.echo("No remote repository set up.")
+        raise typer.Exit(1)
+
+    try:
+        with open(os.devnull, 'wb') as dev_null:
+            subprocess.check_call(["gh", "repo", "view"], stdout=dev_null)
+    except subprocess.CalledProcessError:
+        # probably a better way to tell this, but this is reliable and and honestly
+        #    this is more error-handling than I already really need to do for my own
+        #    use cases.
+        typer.echo("This repository is not on GitHub.")
+        raise typer.Exit(1)
+
+    subprocess.call(["gh", "repo", "view", "--web"])
+
 def push():
     ensure_paper_dir()
 

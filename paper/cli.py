@@ -53,3 +53,8 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
 def push():
     from .save import push
     push()
+
+@_app.command()
+def web():
+    from .save import web
+    web()
