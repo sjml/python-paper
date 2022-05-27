@@ -9,7 +9,7 @@ Tables make everything more believable, don't you agree?
 : Word Counts
 
 | File                    | Word Count |
-| ----------------------- | ---------- |
+| :---------------------- | ---------: |
 | 00_intro.md             | 2838       |
 | 01_initial_problem.md   | 9782       |
 | 02_literature_review.md | 6465       |
