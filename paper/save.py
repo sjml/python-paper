@@ -147,8 +147,9 @@ def push():
 
     if len(remote) == 0:
         meta = get_metadata()
-        default_repo = f"{meta['data']['class_mnemonic']}_{get_assignment()}"
+        default_repo = f"{meta['data']['class_mnemonic'].replace(' ', '')} {get_assignment()}"
 
+        typer.echo("(Note that GitHub will do some mild renaming, so it won't be this exact string.)")
         repo_name = typer.prompt("What should be the repository name?", default_repo)
         is_private = typer.confirm("Private repository?", True)
 
