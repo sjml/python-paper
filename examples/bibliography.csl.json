@@ -1,5 +1,24 @@
 [
   {
+    "id": "aquinasEvil2003",
+    "author": [{ "family": "Aquinas", "given": "Thomas" }],
+    "call-number": "BJ1400 .T4813 2003",
+    "citation-key": "aquinasEvil2003",
+    "editor": [{ "family": "Davies", "given": "Brian" }],
+    "event-place": "New York",
+    "ISBN": "978-0-19-515853-3 978-0-19-509183-0",
+    "issued": { "date-parts": [[2003]] },
+    "keyword": "",
+    "language": "en",
+    "number-of-pages": "540",
+    "publisher": "Oxford University Press",
+    "publisher-place": "New York",
+    "source": "Library of Congress ISBN",
+    "title": "On evil",
+    "translator": [{ "family": "Regan", "given": "Richard J." }],
+    "type": "book"
+  },
+  {
     "id": "aquinasSumma",
     "author": [{ "family": "Aquinas", "given": "Thomas" }],
     "citation-key": "aquinasSumma",

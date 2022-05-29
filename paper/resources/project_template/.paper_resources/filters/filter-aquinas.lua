@@ -22,6 +22,10 @@ return {
         if not (ref_data.author[1].family == "Aquinas" and ref_data.author[1].given == "Thomas") then
           return nil
         end
+        local lower_title = string.lower(pandoc.utils.stringify(ref_data.title))
+        if not (lower_title == "summa theologica" or lower_title == "summa theologiae") then
+          return nil
+        end
         local is_subsequent = aquinas_keys[citation.id] == true
         aquinas_keys[citation.id] = true
 

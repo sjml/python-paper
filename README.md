@@ -1,6 +1,8 @@
 # Paper
 
-A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). I have no illusions that anyone besides me will want to use it directly, but there may be something of interest **somewhere** in here for **someone**. 
+A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). I have no illusions that anyone besides me will want to use it directly, but there may be **something** of interest **somewhere** in here for **someone**. 
+
+You can see styles of produced documents in the `output` directories of the various [`examples`](./examples/).
 
 In general, it just does a simple pandoc assembly of whatever Markdown files are in the `content` directory, but it has some custom filters for my/STM needs.
 * citation keys like `@Bible-NABRE` do appropriate in-text biblical citations with the given translation (only referencing it on the first usage unless there are multiple translations used within a single paper)
@@ -9,7 +11,7 @@ In general, it just does a simple pandoc assembly of whatever Markdown files are
     * (I'm told that [CSL](https://citationstyles.org/) 1.1 will have author short names, but that's been "coming very soon" since early 2020...)
 * Papal Encyclicals have strange citation standards, but in concert with a very carefully prepared citation library, this will ensure that the capitalization of the Latin names is consistent
 * section symbols (§) are used instead of "sec.", unless the the cited item is a newspaper article.
-* Works by Thomas Aquinas drop the author on subsequent citations
+* The _Summa Theologica_ drops the author on subsequent citations
 
 ## Installation
 Assuming you have a working [Python](https://www.python.org) installation and know what `pip` means...
