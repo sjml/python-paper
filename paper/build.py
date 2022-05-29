@@ -14,13 +14,28 @@ OUTPUT_DIRECTORY_NAME = "output"
 def build(output_format: Format):
     ensure_paper_dir()
 
+    meta = get_metadata()
+
+    if output_format == None:
+        if "default_format" in meta:
+            output_format = meta["default_format"]
+            all_formats = [f.value for f in Format]
+            if output_format not in all_formats:
+                allf_str = ", ".join([f"'{f}'" for f in all_formats])
+                # stealing this error message format from Click because
+                #   I can't figure out how to directly invoke the validation
+                #   or catch it. :-/
+                # https://github.com/pallets/click/blob/a8910b382d37cce14adeb44a73aca1d4e87c2413/src/click/types.py#L295
+                print(f"Error: Invalid value for 'default_format' in metadata: '{output_format}' is not one of {allf_str}.")
+                raise typer.Exit(2)
+        else:
+            output_format = Format.docx
+
     if PAPER_STATE["verbose"]:
         typer.echo(f"Building for format {output_format}")
 
     if not os.path.exists(os.path.join(".", OUTPUT_DIRECTORY_NAME)):
         os.mkdir(os.path.join(".", OUTPUT_DIRECTORY_NAME))
-
-    meta = get_metadata()
 
     if "filename" not in meta:
         author = meta["data"]["author"].split(",")[0].split(" ")[-1]
