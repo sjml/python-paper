@@ -5,8 +5,12 @@
     noraggedright$endif$
 ]{turabian-researchpaper}
 
-% Times Roman fonts
-\usepackage{newtxtext}
+% Tempora is a clone of Times Roman that
+%   includes Greek and Cyrillic; should do
+%   for most STM needs, but may need a Hebrew
+%   solution some day.
+\usepackage{fontspec}
+\setmainfont{Tempora}
 
 $if(title)$
 \title{$title$}

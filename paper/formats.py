@@ -97,16 +97,16 @@ def finish_file(filepath: str, f: Format):
             try:
                 subprocess.check_output(cmd)
                 subprocess.check_output(cmd)
+                pdf_filename = f"{meta['filename']}.pdf"
+                if os.path.exists(pdf_filename):
+                    os.unlink(pdf_filename)
+                shutil.move(
+                    os.path.join(tmpdir, pdf_filename),
+                    ".",
+                )
             except subprocess.CalledProcessError as e:
                 print(f"{tex_engine.upper()} ERROR: {e.returncode}")
                 print(e.output)
-            pdf_filename = f"{meta['filename']}.pdf"
-            if os.path.exists(pdf_filename):
-                os.unlink(pdf_filename)
-            shutil.move(
-                os.path.join(tmpdir, pdf_filename),
-                ".",
-            )
         os.chdir(current)
 
     elif f == Format.json:
