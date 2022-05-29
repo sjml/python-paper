@@ -36,7 +36,7 @@ $endif$
 
 % images
 \usepackage{graphicx}
-\graphicspath{{../content/}} % image paths relative to content directory
+\graphicspath{{../content}} % image paths relative to content directory
 % image aspect ratios stay correct, able to use [caption](./image.png){width=2in}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
@@ -61,6 +61,7 @@ $endif$
 \def\itemize{\olditemize \singlespacing}
 
 % tight lists
+\usepackage{ifthen}
 \makeatletter
 \providecommand{\tightlist}{%
     \ifthenelse{\equal{\the\@listdepth}{1}}
