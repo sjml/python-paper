@@ -74,6 +74,15 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
                 "--variable", f"ragged=true",
             ])
 
+        if "base_font_override" in meta and meta["base_font_override"] != None:
+            if PAPER_STATE["verbose"]:
+                typer.echo(f"Changing base font to {meta['base_font_override']}...")
+            cmd.extend(["--variable", f"base_font_override={meta['base_font_override']}"])
+        if "mono_font_override" in meta and meta["mono_font_override"] != None:
+            if PAPER_STATE["verbose"]:
+                typer.echo(f"Changing mono font to {meta['mono_font_override']}...")
+            cmd.extend(["--variable", f"mono_font_override={meta['mono_font_override']}"])
+
         return "tex", [], []
 
     elif f == Format.json:

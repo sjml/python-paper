@@ -70,11 +70,15 @@ def package(filename: str, meta: dict):
         p.paragraph_format.page_break_before = True
         break
 
-    # change font if we were asked to
-    if "docx" in meta and type(meta["docx"]) == dict and "font_override" in meta["docx"] and meta["docx"]["font_override"] != None:
+    # change fonts if we were asked to
+    if "base_font_override" in meta and meta["base_font_override"] != None:
         if PAPER_STATE["verbose"]:
-            typer.echo(f"Changing base font to {meta['font_override']}...")
-        doc.styles["Normal"].font.name = meta['font_override']
+            typer.echo(f"Changing base font to {meta['base_font_override']}...")
+        doc.styles["Normal"].font.name = meta['base_font_override']
+    if "mono_font_override" in meta and meta["mono_font_override"] != None:
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Changing mono font to {meta['mono_font_override']}...")
+        doc.styles["Verbatim Char"].font.name = meta['mono_font_override']
 
     # set metadata
     if PAPER_STATE["verbose"]:
@@ -92,7 +96,7 @@ def package(filename: str, meta: dict):
         tblLook = t._tblPr.first_child_found_in("w:tblLook")
         tblLook.set(qn("w:lastRow"), "1")
 
-    # add "Works Cited" label to bibliography
+    # add label to bibliography
     if PAPER_STATE["verbose"]:
         typer.echo("Adding bibliography label...")
     last_graph_idx = -1
@@ -103,7 +107,7 @@ def package(filename: str, meta: dict):
         last_graph_idx -= 1
     bib_start = doc.paragraphs[last_graph_idx+1]
     if "Bibliography" in bib_start.style.style_id:
-        bib_label = bib_start.insert_paragraph_before("Works Cited")
+        bib_label = bib_start.insert_paragraph_before("Bibliography")
         bib_label.paragraph_format.alignment = enum.text.WD_ALIGN_PARAGRAPH.CENTER
         bib_label.paragraph_format.space_after = Pt(24)
         bib_label.paragraph_format.page_break_before = True

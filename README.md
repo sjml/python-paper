@@ -53,11 +53,11 @@ The metadata file that assists in the generation. YAML format. `paper` will walk
 * `target_word_count`: if not null, will be graphed as a green line on the progress image
 * `sources`: An array of paths to BibTeX (`.bib`) or CSL JSON files that contain citation data exported from Zotero, for example. If present and non-empty, [`pandoc` will be given these files in an effort to process citations](https://pandoc.org/MANUAL.html#citations).
 * `vulgate_cite_key`: if citing a Bible with the translation listed as `"Vulgatam"`, you need to specify a citation key for the initial footnote. If you're not dealing with the Vulgate, you don't need to worry about this! 
+* `base_font_override`: change away from the default Times New Roman. Doesn't do any checking to make sure it's a valid font name, or that it doesn't destroy your layout, crash Word, erase your hard drive, etc. You're on your own if you go playing here...
+* `mono_font_override`: same as above, but for the monospace font (which is Consolas by default)
 
 ### output-specific variables
 These variables are only relevant to their given output formats. 
-* `docx`:
-    * `font_override`: change away from the default Times New Roman. Doesn't do any checking to make sure it's a valid font name, or that it doesn't destroy your layout, crash Word, erase your hard drive, etc. You're on your own if you go playing here...
 * `latex`:
     * `fragment`: if set to `true`, only produce the content file, if you have another template ready to use. 
     * `ragged`: if set to `true`, don't justify the text, but leave it with a ragged-right edge
