@@ -8,7 +8,7 @@ data:
   class_name: 'Lex Iniusta'
   professor: 'Imperator Caesar _Divi_ filius Augustus'
 target_word_count: null
-use_ibid: true
+use_ibid: false
 vulgate_cite_key: fischerBibliaSacraIuxta1994
 filename: DatumsAndThings
 sources:

@@ -40,6 +40,10 @@ return {
     return str:sub(1, #start) == start
   end,
 
+  ends_with = function(str, ending)
+    return ending == "" or str:sub(-#ending) == ending
+  end,
+
   strip = function(str)
     return (str:gsub("^%s*(.-)%s*$", "%1"))
   end,

@@ -136,40 +136,50 @@ Citing the Vulgate the first time produces a footnote, as in ``In
 principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum.''
 {(John. 1:1)\footnote{Bonifatius Fischer and Robert Weber, eds.,
   \emph{Biblia Sacra: Iuxta Vulgatam Versionem}, Ed. quartam emendatam
-  (Stuttgart: Deutsche Bibelgesellschaft, 1994).}}
-
-But a second citation becomes parenthetical with an italicized
-attribution as in ``Qui non diligit, non novit Deum: quoniam Deus
-caritas est.'' {(1 John. 4:8{ \emph{Vulgatam}})}
+  (Stuttgart: Deutsche Bibelgesellschaft, 1994).}} But a second citation
+becomes parenthetical with an italicized attribution as in ``Qui non
+diligit, non novit Deum: quoniam Deus caritas est.'' {(1 John. 4:8{
+\emph{Vulgatam}})}
 
 The first time the Catechism gets cited, it's the full deal.\footnote{\emph{Catechism
   of the Catholic Church}, 2nd ed. (Vatican City; Washington, D.C.:
-  Libreria Editrice Vaticana, 2019), p45.}
-
-But what does Tommy Quine-Quine have to say about the same
-subject?\footnote{Thomas Aquinas, \emph{Summa Theologica}, trans.
-  Fathers of the English Dominican Province, Second and Revised Edition
-  (New Advent, 1920), p48, \url{https://www.newadvent.org/summa/}.}
-
-CCC with a stirring rebuttal!\footnote{\emph{CCC}, 49.} (Notice that it
-just becomes ``CCC'' on subsequents.)
+  Libreria Editrice Vaticana, 2019), p45.} But what does Tommy
+Quine-Quine have to say about the same subject?\footnote{Thomas Aquinas,
+  \emph{Summa Theologica}, trans. Fathers of the English Dominican
+  Province, Second and Revised Edition (New Advent, 1920), p48,
+  \url{https://www.newadvent.org/summa/}.} CCC with a stirring
+rebuttal!\footnote{\emph{CCC}, 49.} (Notice that it just becomes ``CCC''
+on subsequents.)
 
 That one was easy, because the
-\href{https://citationstyles.org/}{Citation Style Language} has ready
-support for short titles, and since the Catechism doesn't have an
-\emph{author} to list, it works out. What's trickier is the USCCB, which
-wants to get referenced by its full name the first time,\footnote{United
-  States Conference of Catholic Bishops, \emph{Program of Priestly
-  Formation}, 5th ed. (Washington, D.C: United States Conference of
-  Catholic Bishops, 2006).} but then afterwards gets ``institutionally
-abbreviated.''\footnote{USCCB, Ibid.} (Support for author short names is
-supposed to come in CSL 1.1, but there's no timetable on that, so gotta
-use
+\href{https://citationstyles.org/}{Citation Style Language} (note URLs
+for links go in footnotes, but only in LaTeX) has ready support for
+short titles, and since the Catechism doesn't have an \emph{author} to
+list, it works out. What's trickier is the USCCB, which wants to get
+referenced by its full name the first time,\footnote{United States
+  Conference of Catholic Bishops, \emph{Program of Priestly Formation},
+  5th ed. (Washington, D.C: United States Conference of Catholic
+  Bishops, 2006).} but then afterwards gets ``institutionally
+abbreviated.''\footnote{USCCB, \emph{Program of Priestly Formation}.}
+(Support for author short names is supposed to come in CSL 1.1, but
+there's no timetable on that, so gotta use
 \href{https://github.com/sjml/paper/tree/main/paper/resources/project_template/.paper_resources/filters}{my
-little Lua filters} to get it done.)
+little Lua filters} to get it done.) It works with multiple citations,
+too.\footnote{\emph{CCC}, p45; USCCB, \emph{Program of Priestly
+  Formation}, §17.}
 
-Finally, give Tommy the final word,\footnote{\emph{ST} I-II, Q. 12.} and
-note the author drop from his subsequent citation.
+For Papal Encyclicals, we need to make sure the capitalization of the
+Latin name stays consistent, so this cite\footnote{Pope Francis,
+  {Encyclical on Fraternity and Social Friendship \emph{Fratelli
+  tutti},} October 3, 2020, §42, at The Holy See,
+  \url{https://www.vatican.va/content/francesco/en/encyclicals/documents/papa-francesco_20201003_enciclica-fratelli-tutti.html}.}
+should mention ``\emph{Fratelli tutti}'' but not in title case. Should
+also happen for its second mention\footnote{{\emph{Fratelli tutti},}
+  §56.} where it only goes by the Latin name. No quotes around any of it
+in the citation.
+
+In the end, we give Tommy the final word,\footnote{\emph{ST} I-II, Q.
+  12.} and note the author drop from his subsequent citation.
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
@@ -187,7 +197,12 @@ Fischer, Bonifatius, and Robert Weber, eds. \emph{Biblia Sacra: Iuxta
 Vulgatam Versionem}. Ed. quartam emendatam. Stuttgart: Deutsche
 Bibelgesellschaft, 1994.
 
-\leavevmode\vadjust pre{\hypertarget{ref-usccb.PPF52006}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-francisFratelliTutti2020}{}}%
+Pope Francis. {``Encyclical on Fraternity and Social Friendship
+\emph{Fratelli tutti},''} October 3, 2020. at The Holy See.
+\url{https://www.vatican.va/content/francesco/en/encyclicals/documents/papa-francesco_20201003_enciclica-fratelli-tutti.html}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-usccbPPF52006}{}}%
 United States Conference of Catholic Bishops. \emph{Program of Priestly
 Formation}. 5th ed. Washington, D.C: United States Conference of
 Catholic Bishops, 2006.

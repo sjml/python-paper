@@ -19,13 +19,14 @@ return {
     Cite = function (elem)
       for _, citation in pairs(elem.citations) do
         local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
-        if ref_data == nil or ref_data.author == nil then return nil end
-        local auth = pandoc.utils.stringify(ref_data.author)
-        if seen_authors[auth] == true and institutional_abbreviations[auth] ~= nil then
-          citation.mode = "SuppressAuthor"
-        end
+        if ref_data ~= nil and ref_data.author ~= nil and #ref_data.author > 0 and ref_data.author[1].literal ~= nil then
+          local auth = pandoc.utils.stringify(ref_data.author)
+          if seen_authors[auth] == true and institutional_abbreviations[auth] ~= nil then
+            citation.mode = "SuppressAuthor"
+          end
 
-        seen_authors[auth] = true
+          seen_authors[auth] = true
+        end
       end
       return elem
     end
