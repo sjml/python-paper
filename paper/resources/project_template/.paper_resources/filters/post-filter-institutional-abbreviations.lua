@@ -27,7 +27,7 @@ return {
                   local text = n.content[1].content
                   local divider_count = 0
                   for i,s in pairs(text) do
-                    if s.tag == "Str" and utils.ends_with(s.text, ";") and text[i+1].tag == "Space" then
+                    if s.tag == "Str" and utils.ends_with(s.text, ";") and i+1 < #text and text[i+1].tag == "Space" then
                       divider_count = divider_count + 1
                       if divider_count == citation_idx - 1 then
                         insertion_pt = i+2
