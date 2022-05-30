@@ -14,34 +14,44 @@ from . import LIB_NAME, LIB_VERSION
 from .shared import PAPER_STATE
 from .util import get_date_string
 
-def _add_chicago_title(doc: Document, meta: dict):
-    starting_graph = doc.paragraphs[0]
-    starting_graph.paragraph_format.page_break_before = True
-
+def generate_title_page_string(meta: dict):
     title_string = ""
-    if "title" in meta["data"]:
-        title_string += meta["data"]["title"]
-    if "subtitle" in meta["data"]:
-        title_string += f":\n{meta['data']['subtitle']}"
 
-    starting_graph.insert_paragraph_before(title_string, style="Title")
-    starting_graph.insert_paragraph_before("by", style="Author")
-    starting_graph.insert_paragraph_before(meta["data"]["author"], style="Author")
+    if "title" in meta["data"] or "subtitle" in meta["data"]:
+        title_string += "::: {custom-style=\"Title\"}\n"
+        if "title" in meta["data"]:
+            title_string += meta["data"]["title"]
+            if "subtitle" in meta["data"]:
+                title_string += ":\\\n"
+            else:
+                title_string += "\n"
+        if "subtitle" in meta["data"]:
+            title_string += meta["data"]["subtitle"]
+            title_string += "\n"
+        title_string += ":::\n"
+
+    title_string += "::: {custom-style=\"Author\"}\nby\n:::\n"
+    title_string += "::: {custom-style=\"Author\"}\n"
+    if "author" in meta["data"]:
+        title_string += meta["data"]["author"]
+        title_string += "\n"
+    title_string += ":::\n"
 
     info_string = ""
     if "professor" in meta["data"]:
-        info_string += f"{meta['data']['professor']}\n"
+        info_string += f"{meta['data']['professor']}\\\n"
     if "class_mnemonic" in meta["data"]:
         info_string += meta["data"]["class_mnemonic"]
     if "class_mnemonic" in meta["data"] and "class_name" in meta["data"]:
-        info_string += " — "
+        info_string += " --- "
     if "class_name" in meta["data"]:
         info_string += meta["data"]["class_name"]
 
-    info_string += f"\n{get_date_string()}"
+    info_string += f"\\\n{get_date_string()}"
 
-    starting_graph.insert_paragraph_before(info_string, style="Author")
+    title_string += f'::: {{custom-style="Author"}}\n{info_string}\n:::\n'
 
+    return title_string
 
 def package(filename: str, meta: dict):
     if PAPER_STATE["verbose"]:
@@ -50,8 +60,15 @@ def package(filename: str, meta: dict):
 
     if len(doc.paragraphs) == 0:
         if PAPER_STATE["verbose"]:
-            typer.echo("No first paragraph; adding blank...")
+            typer.echo("No paragraphs; adding blank...")
         doc.add_paragraph("", style="First Paragraph")
+
+    # make sure there's a page break after the title page
+    for p in doc.paragraphs:
+        if p.style.name in ["Title", "Author"]:
+            continue
+        p.paragraph_format.page_break_before = True
+        break
 
     # change font if we were asked to
     if "docx" in meta and type(meta["docx"]) == dict and "font_override" in meta["docx"] and meta["docx"]["font_override"] != None:
@@ -66,11 +83,6 @@ def package(filename: str, meta: dict):
     doc.core_properties.author = meta["data"]["author"]
     doc.core_properties.last_modified_by = meta["data"]["author"]
     doc.core_properties.revision = max(1, int(subprocess.check_output(["git", "rev-list", "--all", "--count"])) - 1)
-
-    # add title
-    if PAPER_STATE["verbose"]:
-        typer.echo("Adding title page...")
-    _add_chicago_title(doc, meta)
 
     # check "Total Row" box on tables
     if len(doc.tables) > 0:

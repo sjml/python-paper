@@ -19,18 +19,18 @@ def merge_dictionary(target, new_dict):
             target[k] = v
 
 def ensure_paper_dir():
-    def bail():
-        typer.echo("Not in a paper directory.")
+    def bail(reason: str):
+        typer.echo(f"Not in a paper directory: {reason}")
         raise typer.Exit(1)
     if not os.path.exists("./paper_meta.yml") or not os.path.isfile("./paper_meta.yml"):
-        bail
+        bail("missing metadata file")
     if not os.path.exists("./.paper_resources") or not os.path.isdir("./.paper_resources"):
-        bail()
+        bail("missing resources directory")
     if not os.path.exists("./content") or not os.path.isdir("./content"):
-        bail()
+        bail("missing content directory")
     file_list = os.listdir("./content")
     if len(file_list) == 0:
-        bail()
+        bail("no content files")
 
 _meta = None
 def get_metadata() -> dict:

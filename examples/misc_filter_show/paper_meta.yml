@@ -2,10 +2,11 @@
 data:
   date: '0033-04-03'
   author: 'Πόντιος Πιλᾶτος'
-  title: 'Iesus Nazarenus, Rex Iudaeorum'
+  title: '**Iesus Nazarenus**, Rex Iudaeorum'
+  subtitle: '_τι εστιν αληθεια?_'
   class_mnemonic: 'SPQR CI'
   class_name: 'Lex Iniusta'
-  professor: 'Imperator Caesar Divi filius Augustus'
+  professor: 'Imperator Caesar _Divi_ filius Augustus'
 target_word_count: null
 use_ibid: true
 vulgate_cite_key: fischerBibliaSacraIuxta1994

@@ -55,7 +55,7 @@ def build(output_format: Format):
         "--resource-path", "./content",
     ]
 
-    output_suffix = prepare_command(cmd, output_format)
+    output_suffix, tmp_prefix_files, tmp_suffix_files = prepare_command(cmd, output_format)
 
     output_filename = os.path.join(".", OUTPUT_DIRECTORY_NAME, f"{meta['filename']}.{output_suffix}")
     cmd.extend(["--output", output_filename])
@@ -86,7 +86,11 @@ def build(output_format: Format):
         if PAPER_STATE["verbose"]:
             typer.echo("No citation processing.")
 
-    cmd.extend(get_content_file_list())
+    input_file_list = []
+    input_file_list.extend(tmp_prefix_files)
+    input_file_list.extend(get_content_file_list())
+    input_file_list.extend(tmp_suffix_files)
+    cmd.extend(input_file_list)
 
     if PAPER_STATE["verbose"]:
         typer.echo("Invoking pandoc:")
@@ -94,3 +98,10 @@ def build(output_format: Format):
     subprocess.check_call(cmd)
 
     finish_file(output_filename, output_format)
+
+    if PAPER_STATE["verbose"]:
+        typer.echo("Cleaning up temp files...")
+    for f in tmp_prefix_files:
+        os.unlink(f)
+    for f in tmp_suffix_files:
+        os.unlink(f)

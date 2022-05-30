@@ -10,7 +10,7 @@ import jsbeautifier
 from . import LIB_NAME, LIB_VERSION
 from .shared import PAPER_STATE
 from .util import get_metadata, get_date_string
-from .doc_handling import make_pdf, package
+from .doc_handling import make_pdf, package, generate_title_page_string
 
 class Format(str, enum.Enum):
     docx = "docx"
@@ -20,7 +20,7 @@ class Format(str, enum.Enum):
     json = "json"
 
 
-def prepare_command(cmd: list[str], f: Format) -> str:
+def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str]]:
     meta = get_metadata()
 
     if f in [Format.docx, Format.docx_pdf]:
@@ -28,7 +28,14 @@ def prepare_command(cmd: list[str], f: Format) -> str:
             "--to=docx",
             "--reference-doc", "./.paper_resources/ChicagoStyle_Template.docx",
         ])
-        return "docx"
+
+        file_handle, file_name = tempfile.mkstemp(".md", dir="output", prefix="title_page_", text=True)
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Generating title page into {file_name}...")
+        with open(file_handle, "w") as title_page_file:
+            title_page_file.write(generate_title_page_string(meta))
+
+        return "docx", [file_name], []
 
     elif f in [Format.latex, Format.latex_pdf]:
         cmd.extend([
@@ -53,19 +60,25 @@ def prepare_command(cmd: list[str], f: Format) -> str:
             if v:
                 if k == "date":
                     v = get_date_string()
-                vesc = v.replace("_", "\_")
-                cmd.extend(["--variable", f"{k}={{{vesc}}}"])
+                # process any markdown inside the variables (italics in a title, for instance)
+                marked_up = subprocess.check_output(["pandoc",
+                    "--from", "markdown+bracketed_spans-auto_identifiers",
+                    "--to", "latex"
+                ], input=v.encode("utf-8"))
+                marked_up = marked_up.decode("utf-8").strip()
+
+                cmd.extend(["--variable", f"{k}={{{marked_up}}}"])
 
         if "latex" in meta and type(meta["latex"]) == dict and "ragged" in meta["latex"] and meta["latex"]["ragged"] == True:
             cmd.extend([
                 "--variable", f"ragged=true",
             ])
 
-        return "tex"
+        return "tex", [], []
 
     elif f == Format.json:
         cmd.extend(["--to", "json"])
-        return "json"
+        return "json", [], []
 
     else:
         raise RuntimeError(f"Unrecognized format: {f}")
