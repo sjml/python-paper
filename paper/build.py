@@ -7,7 +7,7 @@ import typer
 
 from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list
 from .formats import Format, prepare_command, finish_file
-from .shared import PAPER_STATE
+from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 
 OUTPUT_DIRECTORY_NAME = "output"
 
@@ -54,7 +54,7 @@ def build(output_format: Format):
 
     # fmt: off
     cmd = ["pandoc",
-        "--from=markdown+bracketed_spans-auto_identifiers",
+        "--from", PANDOC_INPUT_FORMAT,
         "--metadata-file", "./paper_meta.yml",
         "--resource-path", "./content",
     ]

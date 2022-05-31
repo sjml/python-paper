@@ -54,6 +54,13 @@ def build(output_format: Format = typer.Option(None)):
 
 
 @_app.command()
+def fmt(wrap: bool = True, columns: int = 80):
+    from .mdfmt import fmt
+
+    fmt(wrap, columns)
+
+
+@_app.command()
 def wc():
     from .wc import wc
 

@@ -4,7 +4,7 @@ A little tool for generating and managing academic papers. Focused on [Chicago M
 
 You can see styles of produced documents in the `output` directories of the various [`examples`](./examples/).
 
-In general, it just does a simple pandoc assembly of whatever Markdown files are in the `content` directory, but it has some custom filters for my/STM needs.
+In general, it just does a simple [pandoc](https://pandoc.org/) assembly of whatever Markdown files are in the `content` directory, but it has some custom filters for my/STM needs.
 * citation keys like `@Bible-NABRE` do appropriate in-text biblical citations with the given translation (only referencing it on the first usage unless there are multiple translations used within a single paper)
     * exception being the Vulgate, which gets a normal footnote citation on first usage and then mentioned on each subsequent
 * if the author is listed as the USCCB, abbreviation is used on subsequent references
@@ -37,6 +37,9 @@ pip install -e .
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
     - can pass a message directly with `--message`, just like with a regular git commit
+* `paper fmt`: runs an automated formatter over all the Markdown files in the `content` directory (under the hood, just uses pandoc "translating" from Markdown to Markdown)
+    - `--wrap`/`--no-wrap`: whether to wrap the file to a certain width (default: `--wrap`)
+    - `--columns`: giving an integer value here, how many characters to allow in a line before wrapping (default: `80`)
 * `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
 * `paper web`: assuming you've pushed to a GitHub repo at least once, this will open the web page for said repo
 
@@ -71,16 +74,16 @@ On top of doing the document generation, assuming you use `paper save` to commit
 
 <!-- begin paper metadata -->
 ### Example progress metrics
-| File                    | Word Count |
-| ----------------------- | ---------- |
-| 00_intro.md             | 2838       |
-| 01_initial_problem.md   | 9782       |
-| 02_literature_review.md | 6465       |
-| 03_experiment_design.md | 18254      |
-| 04_analysis.md          | 10075      |
-| 05_next_steps.md        | 2483       |
-| 06_conclusion.md        | 2162       |
-| **TOTAL**               | 52059      |
+| File                      | Word Count |
+| ------------------------- | ----------:|
+| `00_intro.md`             |       2838 |
+| `01_initial_problem.md`   |       9782 |
+| `02_literature_review.md` |       6465 |
+| `03_experiment_design.md` |      18254 |
+| `04_analysis.md`          |      10075 |
+| `05_next_steps.md`        |       2483 |
+| `06_conclusion.md`        |       2162 |
+| **TOTAL**                 |      52059 |
 
 ![WordCountProgress](./docs/fake_progress.svg)
 <!-- end paper metadata -->

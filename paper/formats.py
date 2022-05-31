@@ -8,7 +8,7 @@ import typer
 import jsbeautifier
 
 from . import LIB_NAME, LIB_VERSION
-from .shared import PAPER_STATE
+from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 from .util import get_metadata, get_date_string
 from .doc_handling import make_pdf, package, generate_title_page_string
 
@@ -77,7 +77,7 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
                 # process any markdown inside the variables (italics in a title, for instance)
                 # fmt: off
                 marked_up = subprocess.check_output(["pandoc",
-                    "--from", "markdown+bracketed_spans-auto_identifiers",
+                    "--from", PANDOC_INPUT_FORMAT,
                     "--to", "latex"
                 ], input=v.encode("utf-8"))
                 # fmt: on
