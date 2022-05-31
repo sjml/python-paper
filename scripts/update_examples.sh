@@ -3,6 +3,8 @@
 cd "$(dirname "$0")"
 cd ../examples
 
+set -e
+
 for d in *; do
   if [ -d $d ]; then
     pushd $d

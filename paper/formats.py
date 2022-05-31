@@ -1,4 +1,5 @@
 import os
+import sys
 import enum
 import tempfile
 import subprocess
@@ -141,13 +142,15 @@ def finish_file(filepath: str, f: Format):
             ]
             # fmt: on
 
-            # LaTex needs to be run twice to do the pagination stuff
             try:
                 if PAPER_STATE["verbose"]:
                     typer.echo("Running LaTeX build command:")
                     typer.echo(f"\t{' '.join(cmd)}")
-                subprocess.check_output(cmd)
-                subprocess.check_output(cmd)
+                # LaTex needs to be run twice to do the pagination stuff
+                for _ in range(2):
+                    output = subprocess.check_output(cmd)
+                    if PAPER_STATE["verbose"]:
+                        typer.echo(output)
                 pdf_filename = f"{meta['filename']}.pdf"
                 if os.path.exists(pdf_filename):
                     os.unlink(pdf_filename)
@@ -156,8 +159,9 @@ def finish_file(filepath: str, f: Format):
                     ".",
                 )
             except subprocess.CalledProcessError as e:
-                print(f"{tex_engine.upper()} ERROR: {e.returncode}")
-                print(e.output.decode("utf-8").replace("\\n", "\n"))
+                typer.echo(f"{tex_engine.upper()} ERROR: {e.returncode}")
+                typer.echo(e.output.decode("utf-8").replace("\\n", "\n"))
+                sys.exit(e.returncode)
         os.chdir(current)
 
     elif f == Format.json:

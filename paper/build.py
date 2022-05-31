@@ -27,7 +27,7 @@ def build(output_format: Format):
                 #   I can't figure out how to directly invoke the validation
                 #   or catch it. :-/
                 # https://github.com/pallets/click/blob/a8910b382d37cce14adeb44a73aca1d4e87c2413/src/click/types.py#L295
-                print(
+                typer.echo(
                     f"Error: Invalid value for 'default_format' in metadata: '{output_format}' is not one of {allf_str}."
                 )
                 raise typer.Exit(2)

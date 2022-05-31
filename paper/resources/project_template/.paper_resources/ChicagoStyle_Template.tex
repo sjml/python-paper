@@ -112,11 +112,11 @@ $endif$
 
 % section headers are left-aligned and slightly larger font
 \let\oldsection=\section
-\renewcommand\section[1]{\oldsection{\large\raggedright{#1}}}
+\renewcommand\section[1]{\oldsection{\texorpdfstring{\large\raggedright{#1}}{#1}}}
 \let\oldsubsection=\subsection
-\renewcommand\subsection[1]{\oldsubsection{\large\raggedright\emph{#1}}}
+\renewcommand\subsection[1]{\oldsubsection{\texorpdfstring{\large\raggedright\emph{#1}}{#1}}}
 \let\oldsubsubsection=\subsubsection
-\renewcommand\subsubsection[1]{\oldsubsubsection{\raggedright\emph{#1}}}
+\renewcommand\subsubsection[1]{\oldsubsubsection{\texorpdfstring{\raggedright\emph{#1}}{#1}}}
 
 % standard bibliography environment taken from default pandoc template
 %   except where noted
