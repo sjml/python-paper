@@ -69,7 +69,13 @@ def get_date_string() -> str:
         target_date = datetime.now()
     else:
         target_date = raw_date
-    return target_date.strftime("%B %-d, %Y")
+    # because one of my example documents has a due date of 33 AD, and what's
+    #  the point of making your own system if you can't have a little Easter egg?
+    #  :D
+    year_str = target_date.strftime("%Y").lstrip("0")
+    if year_str == "33":
+        year_str = "786 A.U.C."
+    return f"{target_date.strftime('%B %-d')}, {year_str}"
 
 
 def get_content_file_list() -> list[str]:

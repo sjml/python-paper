@@ -6,7 +6,7 @@ data:
   subtitle: '_τι εστιν αληθεια?_'
   class_mnemonic: 'SPQR CI'
   class_name: 'Lex Iniusta'
-  professor: 'Imperator Caesar _Divi_ filius Augustus'
+  professor: 'Imperator Caesar _Divi filius_ Augustus'
 target_word_count: null
 use_ibid: false
 vulgate_cite_key: fischerBibliaSacraIuxta1994

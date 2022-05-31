@@ -10,7 +10,7 @@ def fmt(wrap: bool, columns: int):
         cmd = ["pandoc",
             "--from", PANDOC_INPUT_FORMAT,
             "--to", PANDOC_INPUT_FORMAT,
-            "-o", cf,
+            "--output", cf,
         ]
         if wrap:
             cmd.extend([
