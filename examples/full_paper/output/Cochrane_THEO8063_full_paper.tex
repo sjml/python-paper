@@ -52,7 +52,7 @@
 
 % default tables are opulently tall
 \let\oldlongtable\longtable
-\def\longtable{\onehalfspacing\vspace{\baselineskip} \oldlongtable}
+\def\longtable{\onehalfspacing \oldlongtable}
 
 % images
 \usepackage{graphicx}
@@ -65,16 +65,21 @@
 % image aspect ratios stay correct, able to use [caption](./image.png){width=2in}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
 % captions should be centered and italicized
-%% TODO: figure out how to work **with** the turabian-formatting
-%%       package's caption stuf instead of fighting it.
-\usepackage{caption}
-\captionsetup{justification=centering,aboveskip={.5\baselineskip},belowskip={-0.5\baselineskip},font={it}}
-
+\makeatletter
+% figure captions
+\setlength\abovecaptionskip{\z@}
+\setlength\belowcaptionskip{-.5\baselineskip}
+\long\def\@makecaption#1#2{%
+	\vskip\abovecaptionskip
+	\center\small\emph{#1. #2}\par
+	\vskip\belowcaptionskip
+}
+% table captions (why can't these be the same?!)
+\patchcmd{\LT@makecaption}%
+   {#1{#2: }#3}
+   {#1\small\emph{#2. #3}}{}{}
+\makeatother
 % lists should be single-spaced
 \let\oldenumerate\enumerate
 \def\enumerate{\oldenumerate \singlespacing}
