@@ -1,2 +1,2 @@
 LIB_NAME = "SJML Paper"
-LIB_VERSION = "0.1.3"
+LIB_VERSION = "0.2.0"
