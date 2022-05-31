@@ -78,9 +78,9 @@ $endif$
 % image aspect ratios stay correct, able to use [caption](./image.png){width=2in}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
-% captions should be centered and italicized
+% captions
 \makeatletter
-% figure captions
+%% figure captions (centered and italicized)
 \setlength\abovecaptionskip{\z@}
 \setlength\belowcaptionskip{-.5\baselineskip}
 \long\def\@makecaption#1#2{%
@@ -88,18 +88,19 @@ $endif$
 	\center\small\emph{#1. #2}\par
 	\vskip\belowcaptionskip
 }
-% table captions (why can't these be the same?!)
+%% table captions (why can't these be the same?!)
 \patchcmd{\LT@makecaption}%
    {#1{#2: }#3}
    {#1\small\emph{#2. #3}}{}{}
 \makeatother
+
 % lists should be single-spaced
 \let\oldenumerate\enumerate
 \def\enumerate{\oldenumerate \singlespacing}
 \let\olditemize\itemize
 \def\itemize{\olditemize \singlespacing}
 
-% tight lists
+% tight list command required by pandoc output
 \makeatletter
 \providecommand{\tightlist}{%
     \ifthenelse{\equal{\the\@listdepth}{1}}
