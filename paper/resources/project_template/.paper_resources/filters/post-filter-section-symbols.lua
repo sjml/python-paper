@@ -1,6 +1,8 @@
 -- Not only are section symbols (§) more visually appealing than "sec.", they're arguably
 --   more correct for a variety of Church documents. So I pro-actively swap them out, unless
---   it's a newspaper article being cited.
+--   it's a newspaper article being cited. (This could arguably be done with a CSL modification,
+--   but since it's the only change I'd be making there and I've already got all these filters,
+--   might as well stick in Lua for now.)
 
 local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 

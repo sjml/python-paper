@@ -1,5 +1,4 @@
--- On a second citation of Thomas Aquinas, drop the author name so it just becomes "ST" for
---    the Summa Theologica, for instance.
+-- On a second citation of the Summa Theologica, drop the author name so it just becomes "ST"
 
 local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 
