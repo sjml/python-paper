@@ -14,11 +14,12 @@ from . import LIB_NAME, LIB_VERSION
 from .shared import PAPER_STATE
 from .util import get_date_string
 
+
 def generate_title_page_string(meta: dict):
     title_string = ""
 
     if "title" in meta["data"] or "subtitle" in meta["data"]:
-        title_string += "::: {custom-style=\"Title\"}\n"
+        title_string += '::: {custom-style="Title"}\n'
         if "title" in meta["data"]:
             title_string += meta["data"]["title"]
             if "subtitle" in meta["data"]:
@@ -30,8 +31,8 @@ def generate_title_page_string(meta: dict):
             title_string += "\n"
         title_string += ":::\n"
 
-    title_string += "::: {custom-style=\"Author\"}\nby\n:::\n"
-    title_string += "::: {custom-style=\"Author\"}\n"
+    title_string += '::: {custom-style="Author"}\nby\n:::\n'
+    title_string += '::: {custom-style="Author"}\n'
     if "author" in meta["data"]:
         title_string += meta["data"]["author"]
         title_string += "\n"
@@ -52,6 +53,7 @@ def generate_title_page_string(meta: dict):
     title_string += f'::: {{custom-style="Author"}}\n{info_string}\n:::\n'
 
     return title_string
+
 
 def package(filename: str, meta: dict):
     if PAPER_STATE["verbose"]:
@@ -74,11 +76,11 @@ def package(filename: str, meta: dict):
     if "base_font_override" in meta and meta["base_font_override"] != None:
         if PAPER_STATE["verbose"]:
             typer.echo(f"Changing base font to {meta['base_font_override']}...")
-        doc.styles["Normal"].font.name = meta['base_font_override']
+        doc.styles["Normal"].font.name = meta["base_font_override"]
     if "mono_font_override" in meta and meta["mono_font_override"] != None:
         if PAPER_STATE["verbose"]:
             typer.echo(f"Changing mono font to {meta['mono_font_override']}...")
-        doc.styles["Verbatim Char"].font.name = meta['mono_font_override']
+        doc.styles["Verbatim Char"].font.name = meta["mono_font_override"]
 
     # set metadata
     if PAPER_STATE["verbose"]:
@@ -105,7 +107,7 @@ def package(filename: str, meta: dict):
         if "Bibliography" not in last_graph.style.style_id:
             break
         last_graph_idx -= 1
-    bib_start = doc.paragraphs[last_graph_idx+1]
+    bib_start = doc.paragraphs[last_graph_idx + 1]
     if "Bibliography" in bib_start.style.style_id:
         bib_label = bib_start.insert_paragraph_before("Bibliography")
         bib_label.paragraph_format.alignment = enum.text.WD_ALIGN_PARAGRAPH.CENTER
@@ -117,6 +119,7 @@ def package(filename: str, meta: dict):
         typer.echo(f"Writing final docx to {filename}...")
     doc.save(filename)
 
+
 def make_pdf(filename: str, meta: dict):
     if PAPER_STATE["verbose"]:
         typer.echo("Generating PDF...")
@@ -126,7 +129,9 @@ def make_pdf(filename: str, meta: dict):
     if os.path.exists(pdf_filepath):
         os.unlink(pdf_filepath)
 
-    outpath = os.path.expanduser(f"~/Library/Containers/com.microsoft.Word/Data/Documents/{os.path.basename(pdf_filepath)}")
+    outpath = os.path.expanduser(
+        f"~/Library/Containers/com.microsoft.Word/Data/Documents/{os.path.basename(pdf_filepath)}"
+    )
 
     applescript = f"""
     tell application "System Events" to set wordIsRunning to exists (processes where name is "Microsoft Word")
@@ -156,12 +161,14 @@ def make_pdf(filename: str, meta: dict):
     writer = PdfFileWriter()
     writer.appendPagesFromReader(reader)
     pdf_date = datetime.utcnow().strftime("%Y%m%d%H%MZ00'00'")
-    writer.addMetadata({
-        "/Author": meta["data"]["author"],
-        "/Title": meta["data"]["title"],
-        "/Producer": f"{LIB_NAME} {LIB_VERSION}",
-        "/CreationDate": f"D:{pdf_date}",
-    })
+    writer.addMetadata(
+        {
+            "/Author": meta["data"]["author"],
+            "/Title": meta["data"]["title"],
+            "/Producer": f"{LIB_NAME} {LIB_VERSION}",
+            "/CreationDate": f"D:{pdf_date}",
+        }
+    )
 
     if PAPER_STATE["verbose"]:
         typer.echo(f"Writing final PDF to {pdf_filepath}...")

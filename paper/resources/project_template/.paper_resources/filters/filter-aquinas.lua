@@ -1,20 +1,19 @@
 -- On a second citation of Thomas Aquinas, drop the author name so it just becomes "ST" for
 --    the Summa Theologica, for instance.
 
-local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 
 local aquinas_keys = {}
 local refs = {}
 
-
 return {
   {
-    Pandoc = function (doc)
+    Pandoc = function(doc)
       refs = pandoc.utils.references(doc)
-    end
+    end,
   },
   {
-    Cite = function (elem)
+    Cite = function(elem)
       for _, citation in pairs(elem.citations) do
         local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if ref_data ~= nil and ref_data.author ~= nil and #ref_data.author > 0 then
@@ -31,6 +30,6 @@ return {
         end
       end
       return elem
-    end
-  }
+    end,
+  },
 }

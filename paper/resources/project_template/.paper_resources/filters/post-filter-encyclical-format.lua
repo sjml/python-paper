@@ -4,16 +4,16 @@
 --   those spans with the proper short name to ensure that capitalization is preserved
 --   and hasn't been affected by CiteProc.
 
-local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 
 local refs = {}
 
 local function lower_walk(elem)
-  return elem:walk {
+  return elem:walk({
     Str = function(s)
       return pandoc.Str(s.text:lower())
-    end
-  }
+    end,
+  })
 end
 
 local function fix_case(target, search_elem)
@@ -28,7 +28,7 @@ local function fix_case(target, search_elem)
 end
 
 local function fix_encyclical_capitalization(elem, proper)
-  return elem:walk {
+  return elem:walk({
     Block = function(e)
       return fix_case(proper, e)
     end,
@@ -42,18 +42,18 @@ local function fix_encyclical_capitalization(elem, proper)
         return s
       end
     end,
-  }
+  })
 end
 
 return {
   {
-    Pandoc = function (doc)
+    Pandoc = function(doc)
       refs = pandoc.utils.references(doc)
-    end
+    end,
   },
 
   {
-    Cite = function (elem)
+    Cite = function(elem)
       for _, citation in pairs(elem.citations) do
         local ref_data = utils.find_item_in_list_by_attribute(refs, "id", citation.id)
         if utils.has_keyword(ref_data, "Papal Encyclical") then
@@ -63,13 +63,15 @@ return {
       end
     end,
 
-    Div = function (elem)
+    Div = function(elem)
       if utils.starts_with(elem.attr.identifier, "ref-") then
-        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", elem.attr.identifier:sub(#"ref-"+1))
-        if not utils.has_keyword(ref_data, "Papal Encyclical") then return nil end
+        local ref_data = utils.find_item_in_list_by_attribute(refs, "id", elem.attr.identifier:sub(#"ref-" + 1))
+        if not utils.has_keyword(ref_data, "Papal Encyclical") then
+          return nil
+        end
         local proper = ref_data["title-short"][1]
         return fix_encyclical_capitalization(elem, proper)
       end
-    end
-  }
+    end,
+  },
 }

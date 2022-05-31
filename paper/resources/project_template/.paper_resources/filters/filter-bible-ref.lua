@@ -6,12 +6,13 @@
 -- This filter will also normalize biblical book names to the preferred SBL abbreviation.
 --
 
-local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 
 local meta = {}
 
 -- first two in each table are "canonical" names,
 --   with the third being the standard SBL abbreviation
+-- stylua: ignore
 local bible_books = {
   {"Genesis", "Book of Genesis", "Gen", nil, "Gn", "Ge"},
   {"Exodus", "Book of Exodus", "Ex", nil, "Ex", "Exo", "Exod"},
@@ -105,18 +106,18 @@ function normalize_book_name(book, idx)
         if list[1] ~= list[2] then
           suff = "."
         end
-        return list[idx]..suff
+        return list[idx] .. suff
       end
     end
   end
 
-  print("[LUA FILTER WARNING] Could not normalize book name: \""..book.."\"")
+  print('[LUA FILTER WARNING] Could not normalize book name: "' .. book .. '"')
   return nil
 end
 
 function process_bible_citation(suffix)
   local suffix = utils.strip(suffix)
-  if suffix:sub(1,1) == "," then
+  if suffix:sub(1, 1) == "," then
     suffix = suffix:sub(2)
     suffix = utils.strip(suffix)
   end
@@ -127,12 +128,12 @@ function process_bible_citation(suffix)
     if #book == 0 then
       book = tok
     elseif #range > 0 then
-      range = range.." "..tok
+      range = range .. " " .. tok
     else
-      if tonumber(tok:sub(1,1)) ~= nil then
+      if tonumber(tok:sub(1, 1)) ~= nil then
         range = tok
       else
-        book = book.." "..tok
+        book = book .. " " .. tok
       end
     end
   end
@@ -147,7 +148,7 @@ function process_bible_citation(suffix)
   end
   range = utils.strip(range)
 
-  return book.." "..range
+  return book .. " " .. range
 end
 
 local bible_translations = {}
@@ -159,7 +160,7 @@ function filter_cite_element_for_biblical_refs(elem)
   local note_num = nil
   for _, citation in pairs(elem.citations) do
     if utils.starts_with(citation.id, "Bible-") then
-      local translation = citation.id:sub(#"Bible-"+1)
+      local translation = citation.id:sub(#"Bible-" + 1)
       translations[translation] = 1
       local bcite = process_bible_citation(pandoc.utils.stringify(citation.suffix))
       table.insert(bible_cites, bcite)
@@ -169,9 +170,15 @@ function filter_cite_element_for_biblical_refs(elem)
     end
   end
   local translation_list = {}
-  for t, _ in pairs(translations) do table.insert(translation_list, t) end
+  for t, _ in pairs(translations) do
+    table.insert(translation_list, t)
+  end
   if #translation_list > 1 then
-    print("[LUA FILTER WARNING] Cannot mix translations in a single citation. ("..table.concat(translation_list, " + ")..")")
+    print(
+      "[LUA FILTER WARNING] Cannot mix translations in a single citation. ("
+        .. table.concat(translation_list, " + ")
+        .. ")"
+    )
     return nil
   end
 
@@ -187,14 +194,17 @@ function filter_cite_element_for_biblical_refs(elem)
   local translation = translation_list[1]
   local pseudo_cite = {}
   table.insert(pseudo_cite, pandoc.Str("("))
-  for i,c in pairs(bible_cites) do
+  for i, c in pairs(bible_cites) do
     table.insert(pseudo_cite, pandoc.Str(c))
     if i < #bible_cites then
       table.insert(pseudo_cite, pandoc.Str(";"))
       table.insert(pseudo_cite, pandoc.Space())
     end
   end
-  table.insert(pseudo_cite, pandoc.Span({pandoc.Space(), pandoc.Emph(pandoc.Str(translation))}, {class="bible-translation-cite"}))
+  table.insert(
+    pseudo_cite,
+    pandoc.Span({ pandoc.Space(), pandoc.Emph(pandoc.Str(translation)) }, { class = "bible-translation-cite" })
+  )
   table.insert(pseudo_cite, pandoc.Str(")"))
 
   if translation == "Vulgatam" and bible_translations[translation] ~= true then
@@ -204,13 +214,13 @@ function filter_cite_element_for_biblical_refs(elem)
     end
     local vcitation = pandoc.Citation(meta.vulgate_cite_key, "NormalCitation")
     vcitation.note_num = note_num
-    local vcite = pandoc.Cite({}, {vcitation})
+    local vcite = pandoc.Cite({}, { vcitation })
     table.insert(pseudo_cite, vcite)
   end
 
   bible_translations[translation] = true
 
-  local citespan = pandoc.Span(pseudo_cite, {class="bible-cite"})
+  local citespan = pandoc.Span(pseudo_cite, { class = "bible-cite" })
   return citespan
 end
 
@@ -241,10 +251,10 @@ function filter_span_elements_for_translation_reference(elem)
 end
 
 function add_spaces_before_cites(elem)
-  for i = 1, #elem-1 do
-    if elem[i+1].tag == "Span" and utils.is_string_in_list("bible-cite", elem[i+1].classes) then
+  for i = 1, #elem - 1 do
+    if elem[i + 1].tag == "Span" and utils.is_string_in_list("bible-cite", elem[i + 1].classes) then
       if elem[i].tag ~= "Space" then
-        table.insert(elem, i+1, pandoc.Space())
+        table.insert(elem, i + 1, pandoc.Space())
         return elem
       end
     end
@@ -258,12 +268,12 @@ end
 --   - add a space if needed
 return {
   {
-    Meta = function (m)
+    Meta = function(m)
       utils.fix_table_strings(m)
       meta = m
-    end
+    end,
   },
   { Cite = filter_cite_element_for_biblical_refs },
   { Span = filter_span_elements_for_translation_reference },
-  { Inlines = add_spaces_before_cites }
+  { Inlines = add_spaces_before_cites },
 }

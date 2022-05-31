@@ -1,21 +1,23 @@
 -- miscellaneous utility functions that get used by other filters.
 
-
-
 -- recursive functions can't be anonymous; have to live outside the returned table
 local function dump(t, prefix)
   if t == nil then
     print("nil")
     return
   end
-  if prefix == nil then prefix = "" end
-  if type(t) ~= "table" then print(prefix..t) end
-  for k,v in pairs(t) do
+  if prefix == nil then
+    prefix = ""
+  end
+  if type(t) ~= "table" then
+    print(prefix .. t)
+  end
+  for k, v in pairs(t) do
     if type(v) == "table" then
-      print(prefix..k)
-      dump(v, prefix.."    ")
+      print(prefix .. k)
+      dump(v, prefix .. "    ")
     end
-    print(prefix..k,v)
+    print(prefix .. k, v)
   end
 end
 
@@ -66,7 +68,7 @@ return {
   end,
 
   is_string_in_list = function(str, list)
-    for _,s in pairs(list) do
+    for _, s in pairs(list) do
       if s == str then
         return true
       end
@@ -83,8 +85,12 @@ return {
   end,
 
   find_item_in_list_by_attribute = function(list, attr, value)
-    if #list == 0 then return nil end
-    if attr == nil or value == nil then return nil end
+    if #list == 0 then
+      return nil
+    end
+    if attr == nil or value == nil then
+      return nil
+    end
 
     for _, item in pairs(list) do
       if item[attr] == value then

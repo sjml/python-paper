@@ -11,6 +11,7 @@ from .shared import PAPER_STATE
 
 OUTPUT_DIRECTORY_NAME = "output"
 
+
 def build(output_format: Format):
     ensure_paper_dir()
 
@@ -26,7 +27,9 @@ def build(output_format: Format):
                 #   I can't figure out how to directly invoke the validation
                 #   or catch it. :-/
                 # https://github.com/pallets/click/blob/a8910b382d37cce14adeb44a73aca1d4e87c2413/src/click/types.py#L295
-                print(f"Error: Invalid value for 'default_format' in metadata: '{output_format}' is not one of {allf_str}.")
+                print(
+                    f"Error: Invalid value for 'default_format' in metadata: '{output_format}' is not one of {allf_str}."
+                )
                 raise typer.Exit(2)
         else:
             output_format = Format.docx
@@ -49,11 +52,13 @@ def build(output_format: Format):
         if PAPER_STATE["verbose"]:
             typer.echo(f"No filename given; using generated \"{meta['filename']}\"")
 
+    # fmt: off
     cmd = ["pandoc",
         "--from=markdown+bracketed_spans-auto_identifiers",
         "--metadata-file", "./paper_meta.yml",
         "--resource-path", "./content",
     ]
+    # fmt: on
 
     output_suffix, tmp_prefix_files, tmp_suffix_files = prepare_command(cmd, output_format)
 
@@ -62,7 +67,9 @@ def build(output_format: Format):
 
     filter_dir = os.path.join(".", ".paper_resources", "filters")
     filters = [f for f in os.listdir(filter_dir) if f.startswith("filter-")]
-    filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in filters for toggle in range(2)]
+    filter_cmds = [
+        "--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in filters for toggle in range(2)
+    ]
     cmd.extend(filter_cmds)
 
     bib_path_strings = meta.get("sources", [])
@@ -80,7 +87,9 @@ def build(output_format: Format):
         cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
 
         post_filters = [f for f in os.listdir(filter_dir) if f.startswith("post-filter-")]
-        post_filter_cmds = ["--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in post_filters for toggle in range(2)]
+        post_filter_cmds = [
+            "--lua-filter" if not toggle else os.path.join(filter_dir, f) for f in post_filters for toggle in range(2)
+        ]
         cmd.extend(post_filter_cmds)
     else:
         if PAPER_STATE["verbose"]:

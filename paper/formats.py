@@ -12,6 +12,7 @@ from .shared import PAPER_STATE
 from .util import get_metadata, get_date_string
 from .doc_handling import make_pdf, package, generate_title_page_string
 
+
 class Format(str, enum.Enum):
     docx = "docx"
     docx_pdf = "docx+pdf"
@@ -24,10 +25,12 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
     meta = get_metadata()
 
     if f in [Format.docx, Format.docx_pdf]:
+        # fmt: off
         cmd.extend([
             "--to=docx",
             "--reference-doc", "./.paper_resources/ChicagoStyle_Template.docx",
         ])
+        # fmt: on
 
         file_handle, file_name = tempfile.mkstemp(".md", dir="output", prefix="title_page_", text=True)
         if PAPER_STATE["verbose"]:
@@ -38,55 +41,75 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
         return "docx", [file_name], []
 
     elif f in [Format.latex, Format.latex_pdf]:
+        # fmt: off
         cmd.extend([
             "--to=latex",
             "--shift-heading-level-by", "-1",
         ])
-        if "latex" in meta and type(meta["latex"]) == dict and "fragment" in meta["latex"] and meta["latex"]["fragment"] == True:
+        # fmt: on
+        if (
+            "latex" in meta
+            and type(meta["latex"]) == dict
+            and "fragment" in meta["latex"]
+            and meta["latex"]["fragment"] == True
+        ):
             if PAPER_STATE["verbose"]:
                 typer.echo(f"Generating LaTeX fragment...")
         else:
             if PAPER_STATE["verbose"]:
                 typer.echo(f"Generating full LaTeX file...")
+            # fmt: off
             cmd.extend([
                 "--template", "./.paper_resources/ChicagoStyle_Template.tex",
             ])
+            # fmt: on
 
+        # fmt: off
         cmd.extend([
             "--variable", f"library_name={LIB_NAME}",
             "--variable", f"library_version={LIB_VERSION}",
         ])
-        for k,v in meta["data"].items():
+        # fmt: on
+        for k, v in meta["data"].items():
             if v:
                 if k == "date":
                     v = get_date_string()
                 # process any markdown inside the variables (italics in a title, for instance)
+                # fmt: off
                 marked_up = subprocess.check_output(["pandoc",
                     "--from", "markdown+bracketed_spans-auto_identifiers",
                     "--to", "latex"
                 ], input=v.encode("utf-8"))
+                # fmt: on
                 marked_up = marked_up.decode("utf-8").strip()
 
                 cmd.extend(["--variable", f"{k}={{{marked_up}}}"])
 
-        if "latex" in meta and type(meta["latex"]) == dict and "ragged" in meta["latex"] and meta["latex"]["ragged"] == True:
+        if (
+            "latex" in meta
+            and type(meta["latex"]) == dict
+            and "ragged" in meta["latex"]
+            and meta["latex"]["ragged"] == True
+        ):
+            # fmt: off
             cmd.extend([
                 "--variable", f"ragged=true",
             ])
+            # fmt: on
 
         if "base_font_override" in meta and meta["base_font_override"] != None:
             if PAPER_STATE["verbose"]:
                 typer.echo(f"Changing base font to {meta['base_font_override']}...")
-            cmd.extend(["--variable", f"base_font_override={meta['base_font_override']}"])
+            cmd.extend(["--variable", f"base_font_override={meta['base_font_override']}"])  # fmt: skip
         if "mono_font_override" in meta and meta["mono_font_override"] != None:
             if PAPER_STATE["verbose"]:
                 typer.echo(f"Changing mono font to {meta['mono_font_override']}...")
-            cmd.extend(["--variable", f"mono_font_override={meta['mono_font_override']}"])
+            cmd.extend(["--variable", f"mono_font_override={meta['mono_font_override']}"])  # fmt: skip
 
         return "tex", [], []
 
     elif f == Format.json:
-        cmd.extend(["--to", "json"])
+        cmd.extend(["--to", "json"])  # fmt: skip
         return "json", [], []
 
     else:
@@ -107,6 +130,7 @@ def finish_file(filepath: str, f: Format):
         os.chdir(output_path)
         with tempfile.TemporaryDirectory(dir=".") as tmpdir:
             tex_engine = "xelatex"
+            # fmt: off
             cmd = [
                 tex_engine,
                     "--halt-on-error",
@@ -115,6 +139,8 @@ def finish_file(filepath: str, f: Format):
                     "--jobname", meta["filename"],
                     os.path.basename(filepath),
             ]
+            # fmt: on
+
             # LaTex needs to be run twice to do the pagination stuff
             try:
                 if PAPER_STATE["verbose"]:

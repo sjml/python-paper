@@ -4,13 +4,14 @@ from datetime import datetime
 import typer
 import yaml
 
+
 def merge_dictionary(target, new_dict):
     for k, v in new_dict.items():
         if isinstance(target.get(k, None), dict) and isinstance(v, dict):
             merge_dictionary(target[k], v)
         elif isinstance(v, list):
             if isinstance(target.get(k, None), list):
-                 target[k].extend(v)
+                target[k].extend(v)
             else:
                 target[k] = v
         else:
@@ -18,10 +19,12 @@ def merge_dictionary(target, new_dict):
                 continue
             target[k] = v
 
+
 def ensure_paper_dir():
     def bail(reason: str):
         typer.echo(f"Not in a paper directory: {reason}")
         raise typer.Exit(1)
+
     if not os.path.exists("./paper_meta.yml") or not os.path.isfile("./paper_meta.yml"):
         bail("missing metadata file")
     if not os.path.exists("./.paper_resources") or not os.path.isdir("./.paper_resources"):
@@ -32,7 +35,10 @@ def ensure_paper_dir():
     if len(file_list) == 0:
         bail("no content files")
 
+
 _meta = None
+
+
 def get_metadata() -> dict:
     global _meta
     if _meta == None:
@@ -47,6 +53,7 @@ def get_metadata() -> dict:
         _meta = data
     return _meta
 
+
 def get_assignment() -> str:
     meta = get_metadata()
     if "assignment" in meta:
@@ -54,14 +61,16 @@ def get_assignment() -> str:
     else:
         return os.path.basename(os.getcwd())
 
+
 def get_date_string() -> str:
     meta = get_metadata()
-    raw_date = meta['data']['date']
+    raw_date = meta["data"]["date"]
     if raw_date == None:
         target_date = datetime.now()
     else:
         target_date = raw_date
     return target_date.strftime("%B %-d, %Y")
+
 
 def get_content_file_list() -> list[str]:
     content_files = []

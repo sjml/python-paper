@@ -23,6 +23,7 @@ def new(project_name: str):
     os.chdir(dirname)
     init()
 
+
 def init():
     if len(os.listdir(".")) > 0:
         typer.echo(f"Directory needs to be empty to initialize project.")
@@ -60,10 +61,11 @@ def init():
 
     os.mkdir("research")
 
-    with open(os.devnull, 'wb') as dev_null:
+    with open(os.devnull, "wb") as dev_null:
         subprocess.call(["git", "init"], stdout=dev_null)
         subprocess.call(["git", "add", "."], stdout=dev_null)
         subprocess.call(["git", "commit", "-m", f"Initial project creation"], stdout=dev_null)
+
 
 def dev():
     ensure_paper_dir()

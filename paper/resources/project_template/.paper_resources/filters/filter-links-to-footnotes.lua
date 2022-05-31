@@ -3,9 +3,9 @@
 --      runs *before* citeproc has actually inserted them into the document.
 --   Only operates on docx writer since the LaTeX template handles this on its own.
 
-local utils = dofile(pandoc.path.join{pandoc.path.directory(PANDOC_SCRIPT_FILE), 'util.lua'})
+local utils = dofile(pandoc.path.join({ pandoc.path.directory(PANDOC_SCRIPT_FILE), "util.lua" }))
 
-if FORMAT:match 'docx' then
+if FORMAT:match("docx") then
   function Link(elem)
     local footnote = pandoc.Note(pandoc.Para(pandoc.Link(elem.target, elem.target)))
     table.insert(elem.content, footnote)
