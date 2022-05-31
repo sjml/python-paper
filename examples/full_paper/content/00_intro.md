@@ -23,7 +23,7 @@ This paragraph is indented after the table because it's moving on to a new point
 
 But if you really want to make a point, it's hard to beat a picture. They say it could be worth a thousand words, or a kiloword, if you will. That reminds me of another story, but I'll tell it some other time. For now, enjoy this photograph of the Church of the Holy Sepulchre in Jerusalem. It is formatted to be two and three quarters inches in height.
 
-![Photo by [Robert Bye](https://unsplash.com/@robertbye?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/jerusalem?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](./images/robert-bye-W4V4vtq36NU-unsplash.jpg){height=2.75in}
+![Photo by [Robert Bye](https://unsplash.com/@robertbye) on [Unsplash](https://unsplash.com/s/photos/jerusalem)](./images/robert-bye-W4V4vtq36NU-unsplash.jpg){height=2.75in}
 
 \noindent And this paragraph just continues on after the picture, with discussion proceeding apace because it's just illustrative rather than becoming the center of the conversation. Ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim just.
 

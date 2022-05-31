@@ -1,6 +1,6 @@
 # Paper
 
-A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). I have no illusions that anyone besides me will want to use it directly, but there may be **something** of interest **somewhere** in here for **someone**. 
+A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). It also handles metadata, tracking progress towards due-date/word-count targets, and a reasonable default filename based on metadata (`{LastName}_{ClassMnemonic}_{Assignment}.{extension}`).  I have no illusions that anyone besides me will want to use it directly, but there may be **something** of interest **somewhere** in here for **someone**. 
 
 You can see styles of produced documents in the `output` directories of the various [`examples`](./examples/).
 
@@ -36,6 +36,7 @@ pip install -e .
         - `json`: really just for debugging Lua filters, but hey, go for it
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
+    - can pass a message directly with `--message`, just like with a regular git commit
 * `paper push`: if you've already set up an upstream repository, pushes to it. if not, will make a GitHub repo, prompting for a name (recommended template based on metadata), private v public, etc. 
 * `paper web`: assuming you've pushed to a GitHub repo at least once, this will open the web page for said repo
 
