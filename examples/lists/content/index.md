@@ -20,7 +20,7 @@ And once more, for fun, a smaller list, also in the middle of a paragraph. Venia
 2. Item 2
 3. Item 3
 
-\noindent And what comes after. Enim adipisicing velit cupidatat aliquip incididunt voluptate.
+\noindent{} And what comes after. Enim adipisicing velit cupidatat aliquip incididunt voluptate.
 
 Finally, some lists with longer items. 
 
