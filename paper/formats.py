@@ -117,7 +117,8 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
         raise RuntimeError(f"Unrecognized format: {f}")
 
 
-def finish_file(filepath: str, f: Format):
+def finish_file(filepath: str, f: Format) -> list[str]:
+    log_lines = []
     meta = get_metadata()
 
     if f in [Format.docx, Format.docx_pdf]:
@@ -148,7 +149,7 @@ def finish_file(filepath: str, f: Format):
                     typer.echo(f"\t{' '.join(cmd)}")
                 # LaTex needs to be run twice to do the pagination stuff
                 for _ in range(2):
-                    output = subprocess.check_output(cmd)
+                    output = subprocess.check_output(cmd).decode("utf-8")
                     if PAPER_STATE["verbose"]:
                         typer.echo(output)
                 pdf_filename = f"{meta['filename']}.pdf"
@@ -158,6 +159,14 @@ def finish_file(filepath: str, f: Format):
                     os.path.join(tmpdir, pdf_filename),
                     ".",
                 )
+
+                engine_data = subprocess.check_output([tex_engine, "--version"]).decode("utf-8").strip()
+                log_lines.extend(engine_data.splitlines())
+                log_lines.append("-----")
+                log_data = open(os.path.join(tmpdir, f"{meta['filename']}.log")).read()
+                package_data = [l[len("Package: ") :] for l in log_data.splitlines() if l.startswith("Package: ")]
+                log_lines.extend(package_data)
+
             except subprocess.CalledProcessError as e:
                 typer.echo(f"{tex_engine.upper()} ERROR: {e.returncode}")
                 typer.echo(e.output.decode("utf-8").replace("\\n", "\n"))
@@ -176,3 +185,5 @@ def finish_file(filepath: str, f: Format):
             typer.echo(f"Writing final JSON to {filepath}...")
         with open(filepath, "w") as jsonout:
             jsonout.write(pretty_json)
+
+    return log_lines

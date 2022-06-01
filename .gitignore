@@ -1,6 +1,5 @@
 /env
 /playground
-/paper/resources/project_template/.paper_resources/last_paper_version.txt
 
 __pycache__
 *.egg-info

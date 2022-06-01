@@ -1,6 +1,7 @@
 import os
 import subprocess
 from datetime import datetime
+from pathlib import Path
 
 import typer
 import yaml
@@ -97,7 +98,9 @@ def get_paper_version_stamp() -> str:
 
 def stamp_local_dir():
     vers = get_paper_version_stamp()
-    with open(os.path.join(".paper_resources", "last_paper_version.txt"), "w") as stamp:
+    if not os.path.exists(".paper_data"):
+        os.mkdir(".paper_data")
+    with open(os.path.join(".paper_data", "last_paper_version.txt"), "w") as stamp:
         stamp.write(f"{vers}\n")
 
 
@@ -107,3 +110,13 @@ def get_content_file_list() -> list[str]:
         content_files.extend([os.path.join(dirpath, f) for f in files if f.endswith(".md")])
     content_files.sort()
     return content_files
+
+
+def get_bibliography_source_list() -> list[str]:
+    meta = get_metadata()
+
+    bib_path_strings = meta.get("sources", [])
+    bib_paths: list[Path] = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
+    bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
+
+    return bib_paths

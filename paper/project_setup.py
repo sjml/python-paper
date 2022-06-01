@@ -60,9 +60,6 @@ def init():
         output.write("---\n")
 
     os.mkdir("research")
-    stamp_file_path = os.path.join(".paper_resources", "last_paper_version.txt")
-    if os.path.exists(stamp_file_path):
-        os.unlink(stamp_file_path)
 
     with open(os.devnull, "wb") as dev_null:
         subprocess.call(["git", "init"], stdout=dev_null)

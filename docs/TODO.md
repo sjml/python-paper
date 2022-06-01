@@ -1,1 +1,2 @@
-- think about somehow pulling in the used CSL subset? 
+- set SOURCE_DATE_EPOCH to get reproducible builds on examples
+    - https://pandoc.org/MANUAL.html#reproducible-builds

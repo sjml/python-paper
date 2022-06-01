@@ -1,11 +1,20 @@
 import os
-from pathlib import Path
+import sys
 import subprocess
 import re
+import json
 
 import typer
 
-from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list, stamp_local_dir
+from .util import (
+    ensure_paper_dir,
+    get_metadata,
+    get_assignment,
+    get_content_file_list,
+    stamp_local_dir,
+    get_bibliography_source_list,
+    get_paper_version_stamp,
+)
 from .formats import Format, prepare_command, finish_file
 from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 
@@ -72,9 +81,7 @@ def build(output_format: Format):
     ]
     cmd.extend(filter_cmds)
 
-    bib_path_strings = meta.get("sources", [])
-    bib_paths: list[Path] = [Path(bps).expanduser().resolve() for bps in bib_path_strings]
-    bib_paths = [p.as_posix() for p in bib_paths if p.exists()]
+    bib_paths = get_bibliography_source_list()
 
     if len(bib_paths) > 0:
         if PAPER_STATE["verbose"]:
@@ -106,7 +113,7 @@ def build(output_format: Format):
         typer.echo(f"\t{' '.join(cmd)}")
     subprocess.check_call(cmd)
 
-    finish_file(output_filename, output_format)
+    log_lines = finish_file(output_filename, output_format)
 
     if PAPER_STATE["verbose"]:
         typer.echo("Cleaning up temp files...")
@@ -115,4 +122,67 @@ def build(output_format: Format):
     for f in tmp_suffix_files:
         os.unlink(f)
 
+    _record_build_data(log_lines)
+
+
+def _record_build_data(log_lines: list[str]):
+    # paper version record
     stamp_local_dir()
+
+    # record data on cited references
+    bib_paths = get_bibliography_source_list()
+    if len(bib_paths) == 0:
+        return
+
+    cited_reference_keys = []
+    refs = []
+    with open(os.devnull, "wb") as dev_null:
+        # fmt: off
+        cmd = ["pandoc",
+            "--to", os.path.join(os.path.dirname(__file__), "resources", "writers", "ref_list.lua"),
+            "--metadata-file", "./paper_meta.yml",
+            "--citeproc"
+        ]
+        # fmt: on
+        cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
+        cmd.extend(get_content_file_list())
+        ref_str = subprocess.check_output(cmd, stderr=dev_null).decode("utf-8").strip()
+        cited_reference_keys.extend(ref_str.splitlines())
+
+        # gotta do one-by-one because a .json file will get assumed as a dumped AST;
+        #   others will get autodetected
+        for ref_list in bib_paths:
+            # fmt: off
+            cmd = ["pandoc",
+                "--to", "csljson",
+            ]
+            # fmt: on
+            if ref_list.endswith(".json"):
+                cmd.extend(["--from", "csljson"])
+            cmd.append(ref_list)
+            source_data_text = subprocess.check_output(cmd, stderr=dev_null)
+            source_data = json.loads(source_data_text)
+            for entry in source_data:
+                if entry["id"] in cited_reference_keys:
+                    refs.append(entry)
+
+    with open(os.path.join(".paper_data", "cited_references.json"), "w") as refs_out:
+        json.dump(refs, refs_out, indent="  ")
+
+    with open(os.path.join(".paper_data", "build_environment.txt"), "w") as build_out:
+        separator = f"{'#' * 60}"
+
+        # paper version
+        build_out.write(get_paper_version_stamp())
+        build_out.write(f"\n{separator}\n")
+
+        # python libraries
+        python_reqs = (
+            subprocess.check_output([sys.executable, "-m", "pip", "freeze", "--local"]).decode("utf-8").splitlines()
+        )
+        python_reqs = [r for r in python_reqs if not r.startswith("-e ")]
+        build_out.write("\n".join(python_reqs))
+        build_out.write(f"\n{separator}\n")
+
+        # format-specific stuff, if needed
+        build_out.write("\n".join(log_lines))
