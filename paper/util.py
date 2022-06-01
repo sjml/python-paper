@@ -1,8 +1,11 @@
 import os
+import subprocess
 from datetime import datetime
 
 import typer
 import yaml
+
+from . import LIB_NAME, LIB_VERSION_STR
 
 
 def merge_dictionary(target, new_dict):
@@ -76,6 +79,26 @@ def get_date_string() -> str:
     if year_str == "33":
         year_str = "786 A.U.C."
     return f"{target_date.strftime('%B %-d')}, {year_str}"
+
+
+def get_paper_version_stamp() -> str:
+    version = f"{LIB_NAME} v{LIB_VERSION_STR}"
+
+    is_git = 0 == subprocess.call(["git", "rev-parse"], cwd=os.path.dirname(__file__))
+    if is_git:
+        git_rev = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode("utf-8").strip()
+        version = f"{version}\n{git_rev}"
+        diffs = subprocess.check_output(["git", "diff", "--stat"]).decode("utf-8").strip()
+        if len(diffs) != 0:
+            version = f"{version}+dev"
+
+    return version
+
+
+def stamp_local_dir():
+    vers = get_paper_version_stamp()
+    with open(os.path.join(".paper_resources", "last_paper_version.txt"), "w") as stamp:
+        stamp.write(f"{vers}\n")
 
 
 def get_content_file_list() -> list[str]:

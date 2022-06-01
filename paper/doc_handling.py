@@ -10,7 +10,7 @@ from docx.shared import Pt
 from docx.oxml.ns import qn
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
-from . import LIB_NAME, LIB_VERSION
+from . import LIB_NAME, LIB_VERSION_STR
 from .shared import PAPER_STATE
 from .util import get_date_string
 
@@ -165,7 +165,7 @@ def make_pdf(filename: str, meta: dict):
         {
             "/Author": meta["data"]["author"],
             "/Title": meta["data"]["title"],
-            "/Producer": f"{LIB_NAME} {LIB_VERSION}",
+            "/Producer": f"{LIB_NAME} {LIB_VERSION_STR}",
             "/CreationDate": f"D:{pdf_date}",
         }
     )

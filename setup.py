@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-from paper import LIB_VERSION, LIB_NAME
+from paper import LIB_VERSION_STR, LIB_NAME
 
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding="utf-8", mode="r") as f:
     LONGDESC = f.read()
@@ -9,7 +9,7 @@ with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'),
 
 setup(
     name=LIB_NAME.lower(),
-    version=LIB_VERSION,
+    version=LIB_VERSION_STR,
     description=SHORTDESC,
     long_description=LONGDESC,
     long_description_content_type='text/markdown',

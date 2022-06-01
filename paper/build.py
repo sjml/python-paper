@@ -5,7 +5,7 @@ import re
 
 import typer
 
-from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list
+from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list, stamp_local_dir
 from .formats import Format, prepare_command, finish_file
 from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 
@@ -114,3 +114,5 @@ def build(output_format: Format):
         os.unlink(f)
     for f in tmp_suffix_files:
         os.unlink(f)
+
+    stamp_local_dir()

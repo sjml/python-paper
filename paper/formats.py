@@ -8,7 +8,7 @@ import shutil
 import typer
 import jsbeautifier
 
-from . import LIB_NAME, LIB_VERSION
+from . import LIB_NAME, LIB_VERSION_STR
 from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 from .util import get_metadata, get_date_string
 from .doc_handling import make_pdf, package, generate_title_page_string
@@ -68,7 +68,7 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
         # fmt: off
         cmd.extend([
             "--variable", f"library_name={LIB_NAME}",
-            "--variable", f"library_version={LIB_VERSION}",
+            "--variable", f"library_version={LIB_VERSION_STR}",
         ])
         # fmt: on
         for k, v in meta["data"].items():

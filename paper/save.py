@@ -8,7 +8,7 @@ import typer
 import matplotlib.dates as md
 import matplotlib.pyplot as plt
 
-from .util import ensure_paper_dir, get_metadata, get_assignment, get_content_file_list
+from .util import ensure_paper_dir, get_metadata, get_assignment, stamp_local_dir
 from .wc import _wc_data, _wc_json, _wc_string
 
 METADATA_START_SENTINEL = "<!-- begin paper metadata -->"
@@ -145,6 +145,8 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
     readme_text = f"{readme_before}{_wc_string()}\n\n![WordCountProgress](./progress.svg){readme_after}"
     with open("./README.md", "w") as readme:
         readme.write(readme_text)
+
+    stamp_local_dir()
 
     message += f"\n\nPAPER_DATA\n{_wc_json()}"
     with open(os.devnull, "wb") as dev_null:

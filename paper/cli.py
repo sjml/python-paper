@@ -1,7 +1,10 @@
+from typing import Optional
+
 import typer
 
 from .formats import Format
 from .shared import PAPER_STATE
+from .util import get_paper_version_stamp
 
 _app = typer.Typer(
     add_completion=False,
@@ -13,13 +16,28 @@ def main():
     _app()
 
 
-@_app.callback()
-def paper(verbose: bool = False):
+@_app.callback(invoke_without_command=True)
+def paper(
+    ctx: typer.Context,
+    version: Optional[bool] = typer.Option(
+        None, "--version", is_eager=True, help="Print version information for paper and exit."
+    ),
+    verbose: Optional[bool] = typer.Option(None, "-v", "--verbose", help="Spam the output log."),
+):
     """\b
     Shane’s little paper-{writing|managing|building} utility
         <https://github.com/sjml/paper>
     """
-    PAPER_STATE["verbose"] = verbose
+    if version:
+        typer.echo(get_paper_version_stamp())
+        raise typer.Exit(0)
+    if verbose == True:
+        PAPER_STATE["verbose"] = True
+        if ctx.invoked_subcommand == None:
+            typer.echo(ctx.get_help())
+            raise typer.Exit(0)
+    else:
+        PAPER_STATE["verbose"] = False
 
 
 @_app.command()
