@@ -1,0 +1,22 @@
+SJML Paper v0.2.0
+dbb8f16fb4c1dca63e4c3b266e28c6e9c8c2e202+dev
+############################################################
+click==8.1.3
+cycler==0.11.0
+EditorConfig==0.12.3
+fonttools==4.33.3
+jsbeautifier==1.14.3
+kiwisolver==1.4.2
+lxml==4.9.0
+matplotlib==3.5.2
+numpy==1.22.4
+packaging==21.3
+Pillow==9.1.1
+pyparsing==3.0.9
+PyPDF2==2.0.0
+python-dateutil==2.8.2
+python-docx==0.8.11
+PyYAML==6.0
+six==1.16.0
+typer==0.4.1
+############################################################

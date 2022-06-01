@@ -18,5 +18,3 @@ for d in *; do
     popd
   fi
 done
-
-rm ../paper/resources/project_template/.paper_resources/last_paper_version.txt
