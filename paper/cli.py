@@ -74,11 +74,15 @@ def dev():
 
 
 @_app.command()
-def build(output_format: Format = typer.Option(None)):
+def build(output_format: Format = typer.Option(None), docx_revision: int = -1):
     """
     Generate versions of the paper ready for submission.
     """
     from .build import build
+
+    if "docx" in output_format:
+        PAPER_STATE["docx"] = {}
+        PAPER_STATE["docx"]["revision"] = docx_revision
 
     build(output_format)
 

@@ -1,7 +1,9 @@
 import subprocess
 
+import typer
+
 from .util import get_content_file_list
-from .shared import PANDOC_INPUT_FORMAT
+from .shared import PANDOC_INPUT_FORMAT, PAPER_STATE
 
 
 def fmt(wrap: bool, columns: int):
@@ -10,7 +12,6 @@ def fmt(wrap: bool, columns: int):
         cmd = ["pandoc",
             "--from", PANDOC_INPUT_FORMAT,
             "--to", PANDOC_INPUT_FORMAT,
-            "--output", cf,
         ]
         if wrap:
             cmd.extend([
@@ -25,4 +26,10 @@ def fmt(wrap: bool, columns: int):
 
         cmd.append(cf)
 
-        subprocess.check_call(cmd)
+        md_out = subprocess.check_output(cmd).decode("utf-8")
+        md_curr = open(cf, "r").read()
+        if md_out.strip() != md_curr.strip():
+            if PAPER_STATE["verbose"]:
+                typer.echo(f"Reformatting {cf}...")
+            with open(cf, "w") as out:
+                out.write(md_out)

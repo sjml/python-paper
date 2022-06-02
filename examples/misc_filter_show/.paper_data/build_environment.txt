@@ -1,5 +1,5 @@
 SJML Paper v0.2.0
-dbb8f16fb4c1dca63e4c3b266e28c6e9c8c2e202+dev
+d5445f4ddd7fe8730e20f80017e098c214abb7de+dev
 ############################################################
 click==8.1.3
 cycler==0.11.0
@@ -20,3 +20,73 @@ PyYAML==6.0
 six==1.16.0
 typer==0.4.1
 ############################################################
+XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022)
+kpathsea version 6.3.4
+Copyright 2022 SIL International, Jonathan Kew and Khaled Hosny.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the XeTeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the XeTeX source.
+Primary author of XeTeX: Jonathan Kew.
+Compiled with ICU version 70.1; using 70.1
+Compiled with zlib version 1.2.11; using 1.2.11
+Compiled with FreeType2 version 2.11.1; using 2.11.1
+Compiled with Graphite2 version 1.3.14; using 1.3.14
+Compiled with HarfBuzz version 3.4.0; using 3.4.0
+Compiled with libpng version 1.6.37; using 1.6.37
+Compiled with pplib version v2.05 less toxic i hope
+Using Mac OS X Core Text and Cocoa frameworks
+-----
+turabian-formatting 2021/03/20 Turabian Formatting
+etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+setspace 2011/12/19 v6.7a set line spacing
+footmisc 2022/03/08 v6.0d a miscellany of footnote facilities
+ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+expl3 2022-02-24 L3 programming layer (loader) 
+xparse 2022-01-12 L3 Experimental document command parser
+fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
+fontspec-xetex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTe
+fontenc 2021/04/29 v2.0v Standard LaTeX package
+upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+textcomp 2020/02/02 v2.0n Standard LaTeX package
+microtype 2022/02/22 v3.0c Micro-typographical refinements (RS)
+keyval 2014/10/28 v1.15 key=value parser (DPC)
+hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
+ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+iftex 2022/02/03 v1.0f TeX engine tests
+pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+xurl 2022/01/09 v 0.10 modify URL breaks
+href-ul 2021/06/13 0.1.0 Underscored Hyperlinks
+ulem 2019/11/18
+longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+booktabs 2020/01/12 v1.61803398 Publication quality tables
+array 2021/10/04 v2.5f Tabular extension package (FMi)
+graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+trig 2021/08/11 v1.11 sin cos tan (DPC)
+footnote 1997/01/28 1.13 Save footnotes around boxes
+calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+nowidow 2011/09/20 1.0 Easily prevent widows and orphans
+nowidow 
+nameref 2021-04-02 v2.47 Cross-referencing by name of section
+refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)

@@ -1,2 +1,1 @@
-- set SOURCE_DATE_EPOCH to get reproducible builds on examples
-    - https://pandoc.org/MANUAL.html#reproducible-builds
+- remove jsbeautify or find something better

@@ -112,6 +112,13 @@ def get_content_file_list() -> list[str]:
     return content_files
 
 
+def get_content_timestamp() -> float:
+    mod_times = []
+    for dirpath, _, files in os.walk("./content"):
+        [mod_times.append(os.path.getmtime(os.path.join(dirpath, f))) for f in files if not f.startswith(".")]
+    return max(mod_times)
+
+
 def get_bibliography_source_list() -> list[str]:
     meta = get_metadata()
 

@@ -130,47 +130,56 @@ def finish_file(filepath: str, f: Format) -> list[str]:
         current = os.getcwd()
         output_path = os.path.dirname(filepath)
         os.chdir(output_path)
-        with tempfile.TemporaryDirectory(dir=".") as tmpdir:
-            tex_engine = "xelatex"
-            # fmt: off
-            cmd = [
-                tex_engine,
-                    "--halt-on-error",
-                    "--interaction", "nonstopmode",
-                    "--output-directory", tmpdir,
-                    "--jobname", meta["filename"],
-                    os.path.basename(filepath),
-            ]
-            # fmt: on
 
-            try:
+        tmpdir = "pdf_out"
+        if os.path.exists(tmpdir):
+            shutil.rmtree(tmpdir)
+        os.mkdir(tmpdir)
+
+        tex_engine = "xelatex"
+        # fmt: off
+        cmd = [
+            tex_engine,
+                "--halt-on-error",
+                "--interaction", "nonstopmode",
+                "--output-directory", tmpdir,
+                "--jobname", meta["filename"],
+                os.path.basename(filepath),
+        ]
+        # fmt: on
+
+        try:
+            if PAPER_STATE["verbose"]:
+                typer.echo("Running LaTeX build command:")
+                typer.echo(f"\t{' '.join(cmd)}")
+            # LaTex needs to be run twice to do the pagination stuff
+            for _ in range(2):
+                output = subprocess.check_output(cmd).decode("utf-8")
                 if PAPER_STATE["verbose"]:
-                    typer.echo("Running LaTeX build command:")
-                    typer.echo(f"\t{' '.join(cmd)}")
-                # LaTex needs to be run twice to do the pagination stuff
-                for _ in range(2):
-                    output = subprocess.check_output(cmd).decode("utf-8")
-                    if PAPER_STATE["verbose"]:
-                        typer.echo(output)
-                pdf_filename = f"{meta['filename']}.pdf"
-                if os.path.exists(pdf_filename):
-                    os.unlink(pdf_filename)
-                shutil.move(
-                    os.path.join(tmpdir, pdf_filename),
-                    ".",
-                )
+                    typer.echo(output)
+            pdf_filename = f"{meta['filename']}.pdf"
+            if os.path.exists(pdf_filename):
+                os.unlink(pdf_filename)
+            shutil.move(
+                os.path.join(tmpdir, pdf_filename),
+                ".",
+            )
 
-                engine_data = subprocess.check_output([tex_engine, "--version"]).decode("utf-8").strip()
-                log_lines.extend(engine_data.splitlines())
-                log_lines.append("-----")
-                log_data = open(os.path.join(tmpdir, f"{meta['filename']}.log")).read()
-                package_data = [l[len("Package: ") :] for l in log_data.splitlines() if l.startswith("Package: ")]
-                log_lines.extend(package_data)
+            engine_data = subprocess.check_output([tex_engine, "--version"]).decode("utf-8").strip()
+            log_lines.extend(engine_data.splitlines())
+            log_lines.append("-----")
+            log_data = open(os.path.join(tmpdir, f"{meta['filename']}.log")).read()
+            package_data = [l[len("Package: ") :] for l in log_data.splitlines() if l.startswith("Package: ")]
+            log_lines.extend(package_data)
 
-            except subprocess.CalledProcessError as e:
-                typer.echo(f"{tex_engine.upper()} ERROR: {e.returncode}")
-                typer.echo(e.output.decode("utf-8").replace("\\n", "\n"))
-                sys.exit(e.returncode)
+        except subprocess.CalledProcessError as e:
+            typer.echo(f"{tex_engine.upper()} ERROR: {e.returncode}")
+            typer.echo(e.output.decode("utf-8").replace("\\n", "\n"))
+            sys.exit(e.returncode)
+
+        finally:
+            shutil.rmtree(tmpdir)
+
         os.chdir(current)
 
     elif f == Format.json:

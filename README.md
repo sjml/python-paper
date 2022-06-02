@@ -34,6 +34,7 @@ pip install -e .
         - `latex`: a LaTeX file
         - `latex+pdf`: a LaTeX file and a PDF generated from it
         - `json`: really just for debugging Lua filters, but hey, go for it
+    - there is also a `--docx-revision` option that you can pass an integer to set the revision number in the metadata visible in Word (with a normally produced file, this is the number of times you saved it); if not set or <= 0, will use the number of git commits
 * `paper wc`: outputs word count information, broken down by file
 * `paper save`: modifies the metrics in the readme (word count, progress towards goal) and makes a git commit, prompting for a message and appending some extra data to it
     - can pass a message directly with `--message`, just like with a regular git commit

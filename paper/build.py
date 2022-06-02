@@ -14,6 +14,7 @@ from .util import (
     stamp_local_dir,
     get_bibliography_source_list,
     get_paper_version_stamp,
+    get_content_timestamp,
 )
 from .formats import Format, prepare_command, finish_file
 from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
@@ -45,6 +46,11 @@ def build(output_format: Format):
 
     if PAPER_STATE["verbose"]:
         typer.echo(f"Building for format {output_format}")
+
+    content_timestamp = int(get_content_timestamp())
+    if PAPER_STATE["verbose"]:
+        typer.echo(f"Setting source epoch to {content_timestamp}")
+    os.environ["SOURCE_DATE_EPOCH"] = str(content_timestamp)
 
     if not os.path.exists(os.path.join(".", OUTPUT_DIRECTORY_NAME)):
         os.mkdir(os.path.join(".", OUTPUT_DIRECTORY_NAME))
@@ -131,43 +137,41 @@ def _record_build_data(log_lines: list[str]):
 
     # record data on cited references
     bib_paths = get_bibliography_source_list()
-    if len(bib_paths) == 0:
-        return
-
-    cited_reference_keys = []
-    refs = []
-    with open(os.devnull, "wb") as dev_null:
-        # fmt: off
-        cmd = ["pandoc",
-            "--to", os.path.join(os.path.dirname(__file__), "resources", "writers", "ref_list.lua"),
-            "--metadata-file", "./paper_meta.yml",
-            "--citeproc"
-        ]
-        # fmt: on
-        cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
-        cmd.extend(get_content_file_list())
-        ref_str = subprocess.check_output(cmd, stderr=dev_null).decode("utf-8").strip()
-        cited_reference_keys.extend(ref_str.splitlines())
-
-        # gotta do one-by-one because a .json file will get assumed as a dumped AST;
-        #   others will get autodetected
-        for ref_list in bib_paths:
+    if len(bib_paths) > 0:
+        cited_reference_keys = []
+        refs = []
+        with open(os.devnull, "wb") as dev_null:
             # fmt: off
             cmd = ["pandoc",
-                "--to", "csljson",
+                "--to", os.path.join(os.path.dirname(__file__), "resources", "writers", "ref_list.lua"),
+                "--metadata-file", "./paper_meta.yml",
+                "--citeproc"
             ]
             # fmt: on
-            if ref_list.endswith(".json"):
-                cmd.extend(["--from", "csljson"])
-            cmd.append(ref_list)
-            source_data_text = subprocess.check_output(cmd, stderr=dev_null)
-            source_data = json.loads(source_data_text)
-            for entry in source_data:
-                if entry["id"] in cited_reference_keys:
-                    refs.append(entry)
+            cmd.extend(["--bibliography" if not toggle else bp for bp in bib_paths for toggle in range(2)])
+            cmd.extend(get_content_file_list())
+            ref_str = subprocess.check_output(cmd, stderr=dev_null).decode("utf-8").strip()
+            cited_reference_keys.extend(ref_str.splitlines())
 
-    with open(os.path.join(".paper_data", "cited_references.json"), "w") as refs_out:
-        json.dump(refs, refs_out, indent="  ")
+            # gotta do one-by-one because a .json file will get assumed as a dumped AST;
+            #   others will get autodetected
+            for ref_list in bib_paths:
+                # fmt: off
+                cmd = ["pandoc",
+                    "--to", "csljson",
+                ]
+                # fmt: on
+                if ref_list.endswith(".json"):
+                    cmd.extend(["--from", "csljson"])
+                cmd.append(ref_list)
+                source_data_text = subprocess.check_output(cmd, stderr=dev_null)
+                source_data = json.loads(source_data_text)
+                for entry in source_data:
+                    if entry["id"] in cited_reference_keys:
+                        refs.append(entry)
+
+        with open(os.path.join(".paper_data", "cited_references.json"), "w") as refs_out:
+            json.dump(refs, refs_out, indent="  ")
 
     with open(os.path.join(".paper_data", "build_environment.txt"), "w") as build_out:
         separator = f"{'#' * 60}"

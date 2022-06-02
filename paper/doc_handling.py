@@ -2,6 +2,8 @@ import os
 import shutil
 import subprocess
 from datetime import datetime
+import zipfile
+import tempfile
 
 import typer
 from docx import Document
@@ -88,7 +90,10 @@ def package(filename: str, meta: dict):
     doc.core_properties.title = meta["data"]["title"]
     doc.core_properties.author = meta["data"]["author"]
     doc.core_properties.last_modified_by = meta["data"]["author"]
-    doc.core_properties.revision = max(1, int(subprocess.check_output(["git", "rev-list", "--all", "--count"])) - 1)
+    if PAPER_STATE["docx"]["revision"] <= 0:
+        doc.core_properties.revision = max(1, int(subprocess.check_output(["git", "rev-list", "--all", "--count"])) - 1)
+    else:
+        doc.core_properties.revision = int(PAPER_STATE["docx"]["revision"])
 
     # check "Total Row" box on tables
     if len(doc.tables) > 0:
@@ -118,6 +123,24 @@ def package(filename: str, meta: dict):
     if PAPER_STATE["verbose"]:
         typer.echo(f"Writing final docx to {filename}...")
     doc.save(filename)
+
+    if "SOURCE_DATE_EPOCH" in os.environ:
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Correcting interior timestamps on {filename}...")
+
+        epoch = float(os.environ["SOURCE_DATE_EPOCH"])
+        with tempfile.TemporaryDirectory() as tmpdir:
+            zf = zipfile.ZipFile(filename)
+            zf.extractall(tmpdir)
+            zf.close()
+            os.unlink(filename)
+            nzf = zipfile.ZipFile(filename, "w", compression=zipfile.ZIP_DEFLATED)
+            for dirpath, _, files in os.walk(tmpdir):
+                for f in files:
+                    fpath = os.path.join(dirpath, f)
+                    os.utime(fpath, (epoch, epoch))
+                    nzf.write(fpath, fpath[len(tmpdir) :])
+            nzf.close()
 
 
 def make_pdf(filename: str, meta: dict):
