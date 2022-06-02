@@ -7,6 +7,7 @@ import typer
 import yaml
 
 from . import LIB_NAME, LIB_VERSION_STR
+from .shared import PAPER_STATE
 
 
 def merge_dictionary(target, new_dict):
@@ -26,7 +27,10 @@ def merge_dictionary(target, new_dict):
 
 def ensure_paper_dir():
     def bail(reason: str):
-        typer.echo(f"Not in a paper directory: {reason}")
+        if PAPER_STATE["verbose"]:
+            typer.echo(f"Not in a paper directory: {reason}")
+        else:
+            typer.echo(f"Not in a paper directory.")
         raise typer.Exit(1)
 
     if not os.path.exists("./paper_meta.yml") or not os.path.isfile("./paper_meta.yml"):

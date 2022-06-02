@@ -170,8 +170,9 @@ def _record_build_data(log_lines: list[str]):
                     if entry["id"] in cited_reference_keys:
                         refs.append(entry)
 
-        with open(os.path.join(".paper_data", "cited_references.json"), "w") as refs_out:
-            json.dump(refs, refs_out, indent="  ")
+        if len(refs) > 0:
+            with open(os.path.join(".paper_data", "cited_references.json"), "w") as refs_out:
+                json.dump(refs, refs_out, indent="  ")
 
     with open(os.path.join(".paper_data", "build_environment.txt"), "w") as build_out:
         separator = f"{'#' * 60}"

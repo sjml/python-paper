@@ -127,6 +127,8 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
 
     meta = get_metadata()
 
+    stamp_local_dir()
+
     if not os.path.exists("./README.md"):
         with open("./README.md", "w") as readme:
             readme.write(f"# {meta['data']['class_mnemonic']}: {get_assignment()}\n\n")
@@ -139,14 +141,12 @@ def save(message: str = typer.Option(..., prompt="Commit message?")):
     readme_after = readme_text[readme_text.index(METADATA_END_SENTINEL) + len(METADATA_END_SENTINEL) :]
     readme_after = f"\n{METADATA_END_SENTINEL}{readme_after}"
 
-    with open("./progress.svg", "w") as progress:
+    with open(os.path.join(".paper_data", "progress.svg"), "w") as progress:
         progress.write(_get_progress_image_str())
 
-    readme_text = f"{readme_before}{_wc_string()}\n\n![WordCountProgress](./progress.svg){readme_after}"
+    readme_text = f"{readme_before}{_wc_string()}\n\n![WordCountProgress](./.paper_data/progress.svg){readme_after}"
     with open("./README.md", "w") as readme:
         readme.write(readme_text)
-
-    stamp_local_dir()
 
     message += f"\n\nPAPER_DATA\n{_wc_json()}"
     with open(os.devnull, "wb") as dev_null:
