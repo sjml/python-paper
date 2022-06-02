@@ -85,11 +85,12 @@ def get_date_string() -> str:
 def get_paper_version_stamp() -> str:
     version = f"{LIB_NAME} v{LIB_VERSION_STR}"
 
-    is_git = 0 == subprocess.call(["git", "rev-parse"], cwd=os.path.dirname(__file__))
+    wd = os.path.dirname(__file__)
+    is_git = 0 == subprocess.call(["git", "rev-parse"], cwd=wd)
     if is_git:
-        git_rev = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode("utf-8").strip()
+        git_rev = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=wd).decode("utf-8").strip()
         version = f"{version}\n{git_rev}"
-        diffs = subprocess.check_output(["git", "diff", "--stat"]).decode("utf-8").strip()
+        diffs = subprocess.check_output(["git", "diff", "--stat"], cwd=wd).decode("utf-8").strip()
         if len(diffs) != 0:
             version = f"{version}+dev"
 
