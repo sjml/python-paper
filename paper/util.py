@@ -82,7 +82,7 @@ def get_date_string() -> str:
     #  :D
     year_str = target_date.strftime("%Y").lstrip("0")
     if year_str == "33":
-        year_str = "786 A.U.C."
+        year_str = "A.U.C. 786"
     return f"{target_date.strftime('%B %-d')}, {year_str}"
 
 
