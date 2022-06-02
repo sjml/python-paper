@@ -4,9 +4,9 @@ import enum
 import tempfile
 import subprocess
 import shutil
+import json
 
 import typer
-import jsbeautifier
 
 from . import LIB_NAME, LIB_VERSION_STR
 from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
@@ -185,14 +185,9 @@ def finish_file(filepath: str, f: Format) -> list[str]:
     elif f == Format.json:
         if PAPER_STATE["verbose"]:
             typer.echo("Prettifying JSON output...")
-        opts = jsbeautifier.default_options()
-        opts.indent_size = 2
-        with open(filepath, "r") as jsonin:
-            output_json = jsonin.read()
-        pretty_json = jsbeautifier.beautify(output_json, opts)
-        if PAPER_STATE["verbose"]:
-            typer.echo(f"Writing final JSON to {filepath}...")
-        with open(filepath, "w") as jsonout:
-            jsonout.write(pretty_json)
+
+        json_in = json.load(open(filepath, "r"))
+        with open(filepath, "w") as outfile:
+            json.dump(json_in, outfile, indent="  ")
 
     return log_lines

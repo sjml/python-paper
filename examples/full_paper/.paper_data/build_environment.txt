@@ -1,11 +1,9 @@
 SJML Paper v0.2.0
-d5445f4ddd7fe8730e20f80017e098c214abb7de+dev
+223fc781a7c29f5aa47b6042de910314abb97fe5+dev
 ############################################################
 click==8.1.3
 cycler==0.11.0
-EditorConfig==0.12.3
 fonttools==4.33.3
-jsbeautifier==1.14.3
 kiwisolver==1.4.2
 lxml==4.9.0
 matplotlib==3.5.2

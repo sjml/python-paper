@@ -35,12 +35,11 @@ setup(
         include=['paper'],
     ),
     install_requires=[
+        'typer',
         'pyyaml',
         'python-docx',
-        'typer',
         'PyPDF2',
         'matplotlib',
-        'jsbeautifier',
     ],
     entry_points={
         'console_scripts': [
