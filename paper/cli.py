@@ -1,14 +1,22 @@
-from typing import Optional
+from typing import Optional, Iterable
 
 import typer
+import click
 
 from .formats import Format
 from .shared import PAPER_STATE
 from .util import get_paper_version_stamp
 
+# https://github.com/tiangolo/typer/issues/246#issuecomment-793292918
+class OrderedCommands(click.Group):
+    def list_commands(self, _: click.Context) -> Iterable[str]:
+        return self.commands.keys()
+
+
 _app = typer.Typer(
     add_completion=False,
     no_args_is_help=True,
+    cls=OrderedCommands,
 )
 
 
@@ -80,6 +88,8 @@ def build(output_format: Format = typer.Option(None), docx_revision: int = -1):
     """
     from .build import build
 
+    if output_format == None:
+        output_format = "docx"
     if "docx" in output_format:
         PAPER_STATE["docx"] = {}
         PAPER_STATE["docx"]["revision"] = docx_revision

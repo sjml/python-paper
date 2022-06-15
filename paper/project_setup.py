@@ -6,7 +6,7 @@ import subprocess
 import typer
 import yaml
 
-from .util import merge_dictionary, ensure_paper_dir
+from .util import merge_dictionary, ensure_paper_dir, get_paper_version_stamp
 
 
 def new(project_name: str):
@@ -64,7 +64,7 @@ def init():
     with open(os.devnull, "wb") as dev_null:
         subprocess.call(["git", "init"], stdout=dev_null)
         subprocess.call(["git", "add", "."], stdout=dev_null)
-        subprocess.call(["git", "commit", "-m", f"Initial project creation"], stdout=dev_null)
+        subprocess.call(["git", "commit", "-m", f"Initial project creation\n---\n{get_paper_version_stamp()}"], stdout=dev_null)
 
 
 def dev():

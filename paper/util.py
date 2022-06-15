@@ -118,6 +118,12 @@ def get_content_file_list() -> list[str]:
 
 
 def get_content_timestamp() -> float:
+    # if there are no changes in the content directory, return the last commit time
+    content_status = subprocess.check_output(["git", "status", "./content", "--porcelain"]).decode("utf-8").strip()
+    if len(content_status) == 0:
+        git_commit_time_str = subprocess.check_output(["git", "log", "-1", "--format=%ct"]).decode("utf-8").strip()
+        return float(git_commit_time_str)
+    # otherwise return the most recent mod time in the directory
     mod_times = []
     for dirpath, _, files in os.walk("./content"):
         [mod_times.append(os.path.getmtime(os.path.join(dirpath, f))) for f in files if not f.startswith(".")]
