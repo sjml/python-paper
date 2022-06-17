@@ -22,7 +22,7 @@ from .shared import PAPER_STATE, PANDOC_INPUT_FORMAT
 OUTPUT_DIRECTORY_NAME = "output"
 
 
-def build(output_format: Format):
+def build(output_format: Format, docx_revision: int):
     ensure_paper_dir()
 
     meta = get_metadata()
@@ -43,6 +43,11 @@ def build(output_format: Format):
                 raise typer.Exit(2)
         else:
             output_format = Format.docx
+
+    if "docx" in output_format:
+        if "docx" not in PAPER_STATE:
+            PAPER_STATE["docx"] = {}
+        PAPER_STATE["docx"]["revision"] = docx_revision
 
     if PAPER_STATE["verbose"]:
         typer.echo(f"Building for format {output_format}")

@@ -88,13 +88,7 @@ def build(output_format: Format = typer.Option(None), docx_revision: int = -1):
     """
     from .build import build
 
-    if output_format == None:
-        output_format = "docx"
-    if "docx" in output_format:
-        PAPER_STATE["docx"] = {}
-        PAPER_STATE["docx"]["revision"] = docx_revision
-
-    build(output_format)
+    build(output_format, docx_revision)
 
 
 @_app.command()

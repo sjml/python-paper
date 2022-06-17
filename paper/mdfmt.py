@@ -2,11 +2,13 @@ import subprocess
 
 import typer
 
-from .util import get_content_file_list
+from .util import ensure_paper_dir, get_content_file_list
 from .shared import PANDOC_INPUT_FORMAT, PAPER_STATE
 
 
 def fmt(wrap: bool, columns: int):
+    ensure_paper_dir()
+
     for cf in get_content_file_list():
         # fmt: off
         cmd = ["pandoc",
