@@ -30,7 +30,7 @@ setup(
         'Topic :: Utilities',
     ],
     include_package_data=True,
-    package_data={'paper': ['resources/*']},
+    package_data={'paper': ['resources/**']},
     packages=find_packages(
         include=['paper'],
     ),
