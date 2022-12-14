@@ -103,7 +103,7 @@ function normalize_book_name(book, idx)
     for _, bk in pairs(list) do
       if bk == book then
         local suff = ""
-        if list[1] ~= list[2] then
+        if list[1] ~= list[3] then
           suff = "."
         end
         return list[idx] .. suff
