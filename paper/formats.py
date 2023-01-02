@@ -33,13 +33,16 @@ def prepare_command(cmd: list[str], f: Format) -> tuple[str, list[str], list[str
         ])
         # fmt: on
 
-        file_handle, file_name = tempfile.mkstemp(".md", dir="output", prefix="title_page_", text=True)
-        if PAPER_STATE["verbose"]:
-            typer.echo(f"Generating title page into {file_name}...")
-        with open(file_handle, "w") as title_page_file:
-            title_page_file.write(generate_title_page_string(meta))
+        prefix_files = []
+        if "no_title_page" not in meta or meta["no_title_page"] == False:
+            file_handle, file_name = tempfile.mkstemp(".md", dir="output", prefix="title_page_", text=True)
+            prefix_files.append(file_name)
+            if PAPER_STATE["verbose"]:
+                typer.echo(f"Generating title page into {file_name}...")
+            with open(file_handle, "w") as title_page_file:
+                title_page_file.write(generate_title_page_string(meta))
 
-        return "docx", [file_name], []
+        return "docx", prefix_files, []
 
     elif f in [Format.latex, Format.latex_pdf]:
         # fmt: off

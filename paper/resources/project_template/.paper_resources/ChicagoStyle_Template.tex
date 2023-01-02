@@ -153,33 +153,35 @@ $endif$
 
 % where the magic happens
 \begin{document}
-    \begin{center}
+    $if(no_title_page)$$else$
+        \begin{center}
 
-    \thispagestyle{empty}
-    \vspace*{1in}
-    \begin{singlespace}
-    $if(title)$
-    $title$$if(subtitle)$:\\
-    $subtitle$$endif$
+        \thispagestyle{empty}
+        \vspace*{1in}
+        \begin{singlespace}
+        $if(title)$
+        $title$$if(subtitle)$:\\
+        $subtitle$$endif$
+        $endif$
+        \end{singlespace}
+        \vspace{2in - \baselineskip}
+
+        by
+        \vspace{2in - \baselineskip}
+
+        $author$
+
+        \vspace{2in - \baselineskip}
+
+        \singlespace{
+            $if(professor)$$professor$ \\$endif$
+            $if(class_mnemonic)$$class_mnemonic$$endif$$if(class_mnemonic)$$if(class_name)$ --- $endif$$endif$$if(class_name)$$class_name$$endif$ \\
+            $if(date)$$date$$endif$
+        }
+        \end{center}
+        \newpage
+        \setcounter{page}{1}
     $endif$
-    \end{singlespace}
-    \vspace{2in - \baselineskip}
-
-    by
-    \vspace{2in - \baselineskip}
-
-    $author$
-
-    \vspace{2in - \baselineskip}
-
-    \singlespace{
-        $if(professor)$$professor$ \\$endif$
-        $if(class_mnemonic)$$class_mnemonic$$endif$$if(class_mnemonic)$$if(class_name)$ --- $endif$$endif$$if(class_name)$$class_name$$endif$ \\
-        $if(date)$$date$$endif$
-    }
-    \end{center}
-    \newpage
-    \setcounter{page}{1}
 
 $if(body)$$body$$else$\mbox{}$endif$
 
