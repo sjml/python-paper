@@ -18,7 +18,7 @@ from .util import get_date_string
 
 
 def generate_title_page_string(meta: dict):
-    title_string = ""
+    title_string = "::: title-page\n\n"
 
     if "title" in meta["data"] or "subtitle" in meta["data"]:
         title_string += '::: {custom-style="Title"}\n'
@@ -52,8 +52,9 @@ def generate_title_page_string(meta: dict):
 
     info_string += f"\\\n{get_date_string()}"
 
-    title_string += f'::: {{custom-style="Author"}}\n{info_string}\n:::\n'
+    title_string += f'::: {{custom-style="Author"}}\n{info_string}\n:::\n\n'
 
+    title_string += ":::\n"
     return title_string
 
 
@@ -61,18 +62,6 @@ def package(filename: str, meta: dict):
     if PAPER_STATE["verbose"]:
         typer.echo("Packaging docx...")
     doc = Document(filename)
-
-    if len(doc.paragraphs) == 0:
-        if PAPER_STATE["verbose"]:
-            typer.echo("No paragraphs; adding blank...")
-        doc.add_paragraph("", style="First Paragraph")
-
-    # make sure there's a page break after the title page
-    for p in doc.paragraphs:
-        if p.style.name in ["Title", "Author"]:
-            continue
-        p.paragraph_format.page_break_before = True
-        break
 
     # change fonts if we were asked to
     if "base_font_override" in meta and meta["base_font_override"] != None:
@@ -102,23 +91,6 @@ def package(filename: str, meta: dict):
     for t in doc.tables:
         tblLook = t._tblPr.first_child_found_in("w:tblLook")
         tblLook.set(qn("w:lastRow"), "1")
-
-    # add label to bibliography
-    if PAPER_STATE["verbose"]:
-        typer.echo("Adding bibliography label...")
-    last_graph_idx = -1
-    while True:
-        last_graph = doc.paragraphs[last_graph_idx]
-        if "Bibliography" not in last_graph.style.style_id:
-            break
-        last_graph_idx -= 1
-    bib_start = doc.paragraphs[last_graph_idx + 1]
-    if "Bibliography" in bib_start.style.style_id:
-        bib_label = bib_start.insert_paragraph_before("Bibliography")
-        bib_label.paragraph_format.alignment = enum.text.WD_ALIGN_PARAGRAPH.CENTER
-        bib_label.paragraph_format.space_after = Pt(24)
-        bib_label.paragraph_format.page_break_before = True
-        bib_label.runs[0].underline = True
 
     if PAPER_STATE["verbose"]:
         typer.echo(f"Writing final docx to {filename}...")
