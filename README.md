@@ -1,3 +1,5 @@
+Superceded by [a Rust version](https://github.com/sjml/paper).
+
 # Paper
 
 A little tool for generating and managing academic papers. Focused on [Chicago Manual of Style citations](https://www.chicagomanualofstyle.org/tools_citationguide.html) and the [paper submission standards of the BC STM](https://libguides.bc.edu/academicpapers_stm/formatting_papers). It also handles metadata, tracking progress towards due-date/word-count targets, and a reasonable default filename based on metadata (`{LastName}_{ClassMnemonic}_{Assignment}.{extension}`). I have no illusions that anyone besides me will want to use it directly, but there may be **something** of interest **somewhere** in here for **someone**. 
