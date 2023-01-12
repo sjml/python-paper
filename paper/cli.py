@@ -21,7 +21,18 @@ _app = typer.Typer(
 
 
 def main():
-    _app()
+    try:
+        _app()
+    except AssertionError as e:
+        import traceback
+        import sys
+        _, _, tb = sys.exc_info()
+        traceback.print_tb(tb) # Fixed format
+        tb_info = traceback.extract_tb(tb)
+        filename, line, func, text = tb_info[-1]
+
+        print('An error occurred on line {} in statement {}'.format(line, text))
+        exit(1)
 
 
 @_app.callback(invoke_without_command=True)

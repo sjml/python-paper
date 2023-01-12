@@ -83,8 +83,8 @@ def dev():
             raise typer.Exit(1)
 
     typer.echo("This symlinks the package resource directory to this local one, deleting the local version.")
-    typer.echo("It's meant for development on paper itself.")
-    do_it = typer.confirm("Is that what you're up to?")
+    typer.echo("It’s meant for development on paper itself.")
+    do_it = typer.confirm("Is that what you’re up to?")
     if do_it:
         shutil.rmtree(dst_res_path)
         os.symlink(os.path.relpath(src_res_path, "."), dst_res_path)
